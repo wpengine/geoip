@@ -16,6 +16,9 @@ add_filter( 'the_content', 'geoip_append_content' );
 
 namespace WPEngine;
 
+// Exit if this file is directly accessed
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 class GeoIp {
 
 	// The single instance of this object.  No need to have more than one.
