@@ -25,7 +25,7 @@ class GeoIp {
 	public $geos;
 
 	public static function init() {
-		add_action('plugins_loaded', array(self::instance(), 'setup'));
+		add_action('init', array(self::instance(), 'setup'));
 	}
 
 	public static function instance() {
