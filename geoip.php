@@ -8,7 +8,8 @@
 
 function geoip_append_content( $content ) {
 	$geo = WPEngine\GeoIp::instance();
-?> How's the weather in <?=$geo->city()?>, <?=$geo->region()?> <?=$geo->country()?>?</br></br> <?php
+	$content .= "How's the weather in {$geo->city()}, {$geo->region()} {$geo->country()}?<br /><br />";
+	return $content;
 }
 add_filter( 'the_content', 'geoip_append_content' );
 
