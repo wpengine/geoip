@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: WP Engine Geo
- * Version: 0.2
+ * Version: 0.4
  * Author: WP Engine Labs
  *
  * Examples use of how to add geoip information to post content:
