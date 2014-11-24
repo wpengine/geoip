@@ -1,14 +1,15 @@
 <?php
 /*
  * Plugin Name: WP Engine Geo
- * Version: 0.2
+ * Version: 0.4
  * Author: WP Engine Labs
  *
  * Examples use of how to add geoip information to post content:
 
 function geoip_append_content( $content ) {
-	$geo = Geoip::instance();
-?> How's the weather in <?=$geo->city()?>, <?=$geo->region()?> <?=$geo->country()?>?</br></br> <?php
+	$geo = WPEngine\GeoIp::instance();
+	$content .= "How's the weather in {$geo->city()}, {$geo->region()} {$geo->country()}?<br /><br />";
+	return $content;
 }
 add_filter( 'the_content', 'geoip_append_content' );
 
