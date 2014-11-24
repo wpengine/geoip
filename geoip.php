@@ -7,7 +7,7 @@
  * Examples use of how to add geoip information to post content:
 
 function geoip_append_content( $content ) {
-	$geo = Geoip::instance();
+	$geo = WPEngine\GeoIp::instance();
 ?> How's the weather in <?=$geo->city()?>, <?=$geo->region()?> <?=$geo->country()?>?</br></br> <?php
 }
 add_filter( 'the_content', 'geoip_append_content' );
