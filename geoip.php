@@ -40,9 +40,10 @@ class GeoIp {
 	private $admin_notices         = array();
 
 	/* Shortcode */
-	const SHORTCODE_COUNTRY = 'geoip-country';
-	const SHORTCODE_REGION  = 'geoip-region';
-	const SHORTCODE_CITY    = 'geoip-city';
+	const SHORTCODE_COUNTRY  = 'geoip-country';
+	const SHORTCODE_REGION   = 'geoip-region';
+	const SHORTCODE_CITY     = 'geoip-city';
+	const SHORTCODE_LOCATION = 'geoip-location';
 
 	const TEXT_DOMAIN       = 'wpe-geo-ip';
 
@@ -52,12 +53,13 @@ class GeoIp {
 	 */
 	public static function init() {
 
-		// Check for dependencies
-		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
-
 		// Initialize
 		add_action( 'init', array( self::instance(), 'setup' ) );
 		add_action( 'init', array( self::instance(), 'action_init_register_shortcodes' ) );
+
+		// Check for dependencies
+		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
+
 	}
 
 	/**
@@ -148,6 +150,11 @@ class GeoIp {
 			add_shortcode( self::SHORTCODE_CITY, array( $this, 'do_shortcode_city' ) );
 		}
 
+		// Smart Location Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LOCATION ) ) {
+			add_shortcode( self::SHORTCODE_LOCATION, array( $this, 'do_shortcode_location' ) );
+		}
+
 	}
 
 	/**
@@ -157,7 +164,7 @@ class GeoIp {
 	 * @return string $html
 	 */
 	function do_shortcode_country( $atts ) {
-		if( isset( $this->geos[ 'country' ] ) ) {
+		if( isset( $this->geos[ 'countrycode' ] ) ) {
 			return $this->country();
 		}
 		return '[' . self::SHORTCODE_COUNTRY . ']';
@@ -189,6 +196,21 @@ class GeoIp {
 		return '[' . self::SHORTCODE_CITY . ']';
 	}
 
+	/**
+	 * Output the current human readable location, in a smart way.
+	 *
+	 * @since  1.0.0
+	 * @return string $html
+	 */
+	function do_shortcode_location( $atts ) {
+
+		$city = $this->city();
+		if( isset( $city ) && ! empty( $city ) ) {
+			return trim( $this->city() . ', ' . $this->city() . ' ' . $this->city() );
+		}
+		//Fallback
+		return trim( $this->city() . ' ' . $this->city() );
+	}
 
 	/**
 	 * [action_admin_init_check_plugin_dependencies description]
