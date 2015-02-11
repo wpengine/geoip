@@ -196,7 +196,7 @@ class GeoIp {
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
 		// Check to see if the environment variables are present
-		if( ! empty( ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) ) ) {
+		if( empty( ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) ) ) {
 			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
 		}
 
