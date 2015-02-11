@@ -39,17 +39,19 @@ class GeoIp {
 	private $depenencies_present   = false;
 	private $admin_notices         = array();
 
-	/* Shortcode */
+	// Shortcodes
 	const SHORTCODE_COUNTRY  = 'geoip-country';
 	const SHORTCODE_REGION   = 'geoip-region';
 	const SHORTCODE_CITY     = 'geoip-city';
 	const SHORTCODE_LOCATION = 'geoip-location';
 
+	// Text Domain
 	const TEXT_DOMAIN       = 'wpe-geo-ip';
 
 	/**
-	 * [init description]
-	 * @return [type] [description]
+	 * Initialize hooks and setup environment variables
+	 *
+	 * @since 0.1.0
 	 */
 	public static function init() {
 
@@ -63,8 +65,9 @@ class GeoIp {
 	}
 
 	/**
-	 * [instance description]
-	 * @return [type] [description]
+	 * Register singleton
+	 *
+	 * @since 0.1.0
 	 */
 	public static function instance() {
 		// create a new object if it doesn't exist.
@@ -73,8 +76,9 @@ class GeoIp {
 	}
 
 	/**
-	 * [setup description]
-	 * @return [type] [description]
+	 * Setup environment variables
+	 *
+	 * @since 0.1.0
 	 */
 	public function setup() {
 		$this->geos = $this->get_actuals();
@@ -83,7 +87,8 @@ class GeoIp {
 	/**
 	 * Here we extract the data from headers set by nginx -- lets only send them if they are part of the cache key
 	 *
-	 * @return [type] [description]
+	 * @since 0.1.0
+	 * @return array All of the GeoIP related environment variables available on the current server instance
 	 */
 	public function get_actuals() {
 		return array(
@@ -100,25 +105,25 @@ class GeoIp {
 	}
 
 	/**
-	 * Examples of easy to use utility functions that we should have for each geo that is part of the cache key
+	 * Get Country
 	 *
-	 * @return mixed Description
+	 * @return string Two-letter country code, e.g.) US for the United States of America
 	 */
 	public function country() {
 		return $this->geos[ 'countrycode' ];
 	}
 
 	/**
-	 * Region
+	 * Get Region
 	 *
-	 * @return mixed Description
+	 * @return string Two-letter region code. e.g.) CA for California
 	 */
 	public function region() {
 		return $this->geos[ 'region' ];
 	}
 
 	/**
-	 *
+	 * Get City
 	 *
 	 * @return mixed Description
 	 */
@@ -129,7 +134,7 @@ class GeoIp {
 	/**
 	 * Register the shortcode(s)
 	 *
-	 * @since  1.0.0
+	 * @since  0.5.0
 	 * @uses add_shortcode()
 	 * @return null
 	 */
@@ -160,8 +165,8 @@ class GeoIp {
 	/**
 	 * Output the current country
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.0
+	 * @return string Two-letter country code
 	 */
 	function do_shortcode_country( $atts ) {
 		if( isset( $this->geos[ 'countrycode' ] ) ) {
@@ -173,8 +178,8 @@ class GeoIp {
 	/**
 	 * Output the current region
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.0
+	 * @return string Two-letter region code
 	 */
 	function do_shortcode_region( $atts ) {
 		if( isset( $this->geos[ 'region' ] ) ) {
@@ -186,8 +191,8 @@ class GeoIp {
 	/**
 	 * Output the current city
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.0
+	 * @return string City name
 	 */
 	function do_shortcode_city( $atts ) {
 		if( isset( $this->geos[ 'city' ] ) ) {
@@ -199,7 +204,7 @@ class GeoIp {
 	/**
 	 * Output the current human readable location, in a smart way.
 	 *
-	 * @since  1.0.0
+	 * @since  0.5.0
 	 * @return string $html
 	 */
 	function do_shortcode_location( $atts ) {
@@ -213,8 +218,9 @@ class GeoIp {
 	}
 
 	/**
-	 * [action_admin_init_check_plugin_dependencies description]
-	 * @return [type] [description]
+	 * Checks if environment variable depencies are available on the server
+	 *
+	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
 		// Check to see if the environment variables are present
@@ -232,8 +238,9 @@ class GeoIp {
 	}
 
 	/**
-	 * [action_admin_notices description]
-	 * @return [type] [description]
+	 * Displays notice in the admin area if the dependent environment variables are not present
+	 *
+	 * @since  0.5.0
 	 */
 	public function action_admin_notices() {
 		if( 0 < count( $this->admin_notices ) ) {
@@ -254,5 +261,5 @@ class GeoIp {
 
 }
 
-// Register to do the stuff
+// Register the GeoIP instance
 GeoIp::init();
