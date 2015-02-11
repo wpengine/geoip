@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword
 Tags: geo, geolocation, geoip,localization, wordpressengine, wpe, wpengine, wpenginegeoip
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 0.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,11 @@ This is a required Section
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.5 =
+- Adds shortcodes for city, region, and country.
+- Displays admin notice when GEOIP environment variables are absent.
+- Formatting updates to readme and file headers.
 
 = 0.4 =
 - Code cleanup for WordPress coding standards and white space.
