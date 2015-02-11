@@ -206,10 +206,10 @@ class GeoIp {
 
 		$city = $this->city();
 		if( isset( $city ) && ! empty( $city ) ) {
-			return trim( $this->city() . ', ' . $this->city() . ' ' . $this->city() );
+			return trim( $this->city() . ', ' . $this->region() . ' ' . $this->country() );
 		}
 		//Fallback
-		return trim( $this->city() . ' ' . $this->city() );
+		return trim( $this->region() . ' ' . $this->country() );
 	}
 
 	/**
