@@ -160,7 +160,7 @@ class GeoIp {
 		if( isset( $this->geos[ 'country' ] ) ) {
 			return $this->country();
 		}
-		return '[' . self::SHORTCODE_COUNTRY . ']';
+		return '[a' . self::SHORTCODE_COUNTRY . ']';
 	}
 
 	/**
