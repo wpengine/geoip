@@ -5,8 +5,8 @@ Version: 0.5.0
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
-Plugin URI: https://wordpress.org/plugins/wpe-geo-ip/
-Text Domain: wpe-geo-ip
+Plugin URI: https://wordpress.org/plugins/wpengine-geoip/
+Text Domain: wpengine-geoip
 Domain Path: /languages
 */
 
@@ -34,19 +34,20 @@ class GeoIp {
 	// The geographical data loaded from the environment
 	public $geos;
 
-	// Dependency management
-	private $plugin_dependencies   = array();
-	private $depenencies_present   = false;
-	private $admin_notices         = array();
+	// WP-Admin errors notices
+	private $admin_notices = array();
 
 	// Shortcodes
-	const SHORTCODE_COUNTRY  = 'geoip-country';
-	const SHORTCODE_REGION   = 'geoip-region';
-	const SHORTCODE_CITY     = 'geoip-city';
-	const SHORTCODE_LOCATION = 'geoip-location';
+	const SHORTCODE_COUNTRY     = 'geoip-country';
+	const SHORTCODE_REGION      = 'geoip-region';
+	const SHORTCODE_CITY        = 'geoip-city';
+	const SHORTCODE_POSTAL_CODE = 'geoip-postalcode';
+	const SHORTCODE_LATITUDE    = 'geoip-latitude';
+	const SHORTCODE_LONGITUDE   = 'geoip-longitude';
+	const SHORTCODE_LOCATION    = 'geoip-location';
 
 	// Text Domain
-	const TEXT_DOMAIN       = 'wpe-geo-ip';
+	const TEXT_DOMAIN           = 'wpengine-geoip';
 
 	/**
 	 * Initialize hooks and setup environment variables
@@ -61,6 +62,7 @@ class GeoIp {
 
 		// Check for dependencies
 		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
+		add_action( 'admin_notices', array( self::instance(), 'action_admin_notices' ) );
 
 	}
 
@@ -132,6 +134,33 @@ class GeoIp {
 	}
 
 	/**
+	 * Get Postal Code
+	 *
+	 * @return mixed Description
+	 */
+	public function postal_code() {
+		return $this->geos[ 'postalcode' ];
+	}
+
+	/**
+	 * Get Latitude
+	 *
+	 * @return mixed Description
+	 */
+	public function latitude() {
+		return $this->geos[ 'latitude' ];
+	}
+
+	/**
+	 * Get Longitude
+	 *
+	 * @return mixed Description
+	 */
+	public function longitude() {
+		return $this->geos[ 'longitude' ];
+	}
+
+	/**
 	 * Register the shortcode(s)
 	 *
 	 * @since  0.5.0
@@ -153,6 +182,21 @@ class GeoIp {
 		// City Shortcode
 		if ( ! shortcode_exists( self::SHORTCODE_CITY ) ) {
 			add_shortcode( self::SHORTCODE_CITY, array( $this, 'do_shortcode_city' ) );
+		}
+
+		// Postal Code Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_POSTAL_CODE ) ) {
+			add_shortcode( self::SHORTCODE_POSTAL_CODE, array( $this, 'do_shortcode_postal_code' ) );
+		}
+
+		// Latitude Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LATITUDE ) ) {
+			add_shortcode( self::SHORTCODE_LATITUDE, array( $this, 'do_shortcode_latitude' ) );
+		}
+
+		// Longitude Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LONGITUDE ) ) {
+			add_shortcode( self::SHORTCODE_LONGITUDE, array( $this, 'do_shortcode_longitude' ) );
 		}
 
 		// Smart Location Shortcode
@@ -202,6 +246,45 @@ class GeoIp {
 	}
 
 	/**
+	 * Output the current postal code
+	 *
+	 * @since  0.5.0
+	 * @return string postal code
+	 */
+	function do_shortcode_postal_code( $atts ) {
+		if( isset( $this->geos[ 'postalcode' ] ) ) {
+			return $this->postal_code();
+		}
+		return '[' . self::SHORTCODE_POSTAL_CODE . ']';
+	}
+
+	/**
+	 * Output the current latitude
+	 *
+	 * @since  0.5.0
+	 * @return string latitude
+	 */
+	function do_shortcode_latitude( $atts ) {
+		if( isset( $this->geos[ 'latitude' ] ) ) {
+			return $this->latitude();
+		}
+		return '[' . self::SHORTCODE_LATITUDE . ']';
+	}
+
+	/**
+	 * Output the current longitude
+	 *
+	 * @since  0.5.0
+	 * @return string longitude
+	 */
+	function do_shortcode_longitude( $atts ) {
+		if( isset( $this->geos[ 'longitude' ] ) ) {
+			return $this->longitude();
+		}
+		return '[' . self::SHORTCODE_longitude . ']';
+	}
+
+	/**
 	 * Output the current human readable location, in a smart way.
 	 *
 	 * @since  0.5.0
@@ -227,12 +310,6 @@ class GeoIp {
 		$is_wpe = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
 		if( ! isset( $is_wpe ) || empty( $is_wpe ) ) {
 			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
-		}
-
-		// If required plugins are not present, throw an error notice and bail
-		if( ! $this->depenencies_present ) {
-			add_action( 'admin_notices', array( self::instance(), 'action_admin_notices' ) );
-			return;
 		}
 		unset( $is_wpe );
 	}
