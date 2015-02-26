@@ -2,8 +2,8 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.1
-Stable tag: 0.7.0
+Tested up to: 4.1.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,25 +84,28 @@ This is a required Section
 
 == Changelog ==
 
-= 0.7 =
+= 1.0.0 =
+- Initial release
+
+= 0.7.0 =
 - Removes plugin dependency management artifacts
 
-= 0.6 =
+= 0.6.0 =
 - Add shortcodes for postal code, latitude and longitude.
 
-= 0.5 =
+= 0.5.0 =
 - Adds shortcodes for city, region, and country.
 - Displays admin notice when GEOIP environment variables are absent.
 - Formatting updates to readme and file headers.
 
-= 0.4 =
+= 0.4.0 =
 - Code cleanup for WordPress coding standards and white space.
 
-= 0.3 =
+= 0.3.0 =
 - Change action to react at 'init'.
 
-= 0.2 =
+= 0.2.0 =
 - Add static function and singleton construction.
 
-= 0.1 =
+= 0.1.0 =
 - Initial version
