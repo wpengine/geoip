@@ -33,7 +33,7 @@ WP Engine GeoIP integrates with the variables on your WP Engine site to display 
 
 = ** Please Note =
 
-This plugin will only function on your [WP Engine](http://wpengine.com/plans/?utm_source=wpe-geo-ip) Business, Premium or Enterprise level account. This will not function outside of the WP Engine environment.
+This plugin will only function on your [WP Engine](http://wpengine.com/plans/?utm_source=wpengine-geoip) Business, Premium or Enterprise level account. This will not function outside of the WP Engine environment.
 
 == Installation ==
 
@@ -72,7 +72,7 @@ Country, state, city, zip, latitude, longitude.
 
 4) How do I sign up for a WP Engine Account?:
 
-That’s easy! [Click here](http://wpengine.com/plans/?utm_source=wpe-geo-ip).
+That’s easy! [Click here](http://wpengine.com/plans/?utm_source=wpengine-geoip).
 
 5) I installed the plugin and code and it isn’t working.
 
