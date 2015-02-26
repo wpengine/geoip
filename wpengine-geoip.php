@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 0.7.0
+Version: 1.0.0
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
