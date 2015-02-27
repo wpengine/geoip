@@ -40,7 +40,7 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 1. Upload `geoip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
-== How To Use The Shortcode ==
+== Shortcodes ==
 
 1) Country: [geoip-country]
 
@@ -56,7 +56,7 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 7) Location: [geoip-location]
 
-== Frequently Asked Questions ==
+== FAQ ==
 
 1) Will this work outside of a WP Engine account?
 
