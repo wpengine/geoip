@@ -80,7 +80,8 @@ Please contact the [Support Team](https://my.wpengine.com/support#general-issue)
 
 == Screenshots ==
 
-This is a required Section
+1. Authoring a new post with GeoIP shortcodes
+2. An example post using GeoIP shortcodes
 
 == Changelog ==
 
