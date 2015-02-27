@@ -1,5 +1,5 @@
 === WP Engine GeoIP ===
-Contributors: wpengine, markkelnar, stevenkword, stephenlin
+Contributors: wpengine, markkelnar, stevenkword, stephen-lin
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.1.1
