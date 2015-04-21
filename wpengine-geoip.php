@@ -281,7 +281,7 @@ class GeoIp {
 		if( isset( $this->geos[ 'longitude' ] ) ) {
 			return $this->longitude();
 		}
-		return '[' . self::SHORTCODE_longitude . ']';
+		return '[' . self::SHORTCODE_LONGITUDE . ']';
 	}
 
 	/**
