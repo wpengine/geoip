@@ -2,8 +2,8 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.1.1
-Stable tag: 1.0.1
+Tested up to: 4.2
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,11 @@ Please contact the [Support Team](https://my.wpengine.com/support#general-issue)
 
 == Changelog ==
 
-= 1.0.1 = 
+= 1.0.2 =
+- Renames longitude environment variable
+- Bumps version number for WP 4.2 compatibility
+
+= 1.0.1 =
 - Changes to readme.txt
 
 = 1.0.0 =
