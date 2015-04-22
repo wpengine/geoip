@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,7 +64,9 @@ No, this will only work within a WP Engine environment.
 
 2) Are there any other restrictions to using this plugin?
 
-Yes, the GeoIP variables on the server are available to Business, Premium and Enterprise customers. Personal and Professional customers, please contact the [Support Team](https://my.wpengine.com/support#general-issue) if you are interested in GeoIP.
+Yes. Even though the GeoIP variables on the server are available to Business, Premium and Enterprise customers, you will still need to reach out to the [Support Team](https://my.wpengine.com/support#general-issue) to fully enable GeoIP for your site.
+
+For Personal and Professional customers who are interested in GeoIP, please contact the [Support Team](https://my.wpengine.com/support#general-issue) as well.
 
 3) What variables do I have access to?
 
@@ -85,9 +87,12 @@ Please contact the [Support Team](https://my.wpengine.com/support#general-issue)
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.0.2 =
 - Renames longitude environment variable
 - Bumps version number for WP 4.2 compatibility
+
+= 1.0.1 =
+- Changes to readme.txt
 
 = 1.0.0 =
 - Initial release
