@@ -31,13 +31,20 @@ class GeoIp {
 	// The single instance of this object.  No need to have more than one.
 	private static $instance = null;
 
+	// The path to the plugin. Let's just make that function call once.
+	private $geoip_path;
+
 	// The geographical data loaded from the environment
 	public $geos;
+
+	// A list of countries and their continents
+	public $countries;
 
 	// WP-Admin errors notices
 	private $admin_notices = array();
 
 	// Shortcodes
+	const SHORTCODE_CONTINENT	= 'geoip-continent';
 	const SHORTCODE_COUNTRY     = 'geoip-country';
 	const SHORTCODE_REGION      = 'geoip-region';
 	const SHORTCODE_CITY        = 'geoip-city';
@@ -45,6 +52,7 @@ class GeoIp {
 	const SHORTCODE_LATITUDE    = 'geoip-latitude';
 	const SHORTCODE_LONGITUDE   = 'geoip-longitude';
 	const SHORTCODE_LOCATION    = 'geoip-location';
+	const SHORTCODE_CONTENT 	= 'geoip-content';
 
 	// Text Domain
 	const TEXT_DOMAIN           = 'wpengine-geoip';
@@ -83,7 +91,19 @@ class GeoIp {
 	 * @since 0.1.0
 	 */
 	public function setup() {
+
+		$this->geoip_path = plugin_dir_path( __FILE__ );
+
 		$this->geos = $this->get_actuals();
+
+		$this->geos = $this->get_test_parameters( $this->geos );
+
+		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
+
+		// Get our array of countries and continents
+		require_once( $this->geoip_path . '/inc/country-list.php' );
+		
+		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
 	}
 
 	/**
@@ -93,7 +113,8 @@ class GeoIp {
 	 * @return array All of the GeoIP related environment variables available on the current server instance
 	 */
 	public function get_actuals() {
-		return array(
+
+		$geos = array(
 			'countrycode'  => getenv( 'HTTP_GEOIP_COUNTRY_CODE' ),
 			'countrycode3' => getenv( 'HTTP_GEOIP_COUNTRY_CODE3' ),
 			'countryname'  => getenv( 'HTTP_GEOIP_COUNTRY_NAME' ),
@@ -104,6 +125,53 @@ class GeoIp {
 			'city'         => getenv( 'HTTP_GEOIP_CITY' ),
 			'postalcode'   => getenv( 'HTTP_GEOIP_POSTAL_CODE' ),
 		);
+
+		$geos['continent'] = $this->continent( $geos['countrycode'] );
+
+		return $geos;
+	}
+
+	/**
+	 * We want people to be able to test the plugin, so we'll include some url parameters that will spoof a location
+	 *
+	 * @return modified version of the GeoIP location array based on url parameters
+	 */
+	public function get_test_parameters( $geos ) {
+
+		$params = $_GET;
+
+		if( !isset( $params['geoip'] ) )
+			return $geos;
+
+		foreach( $params as $key => $value ) {
+
+			$key = $this->match_label_synonyms( $key );
+
+			if( isset( $geos[ $key ] ) ) {
+				$geos[ $key ] = $value;
+			}
+		}
+
+		return $geos;
+	}
+
+	/**
+	 * Get Continent
+	 *
+	 * @return string Two-letter continent code, e.g. EU for Europe
+	 */
+	public function continent( $country = '' ) {
+
+		$continent = '';
+
+		if( empty( $country ) )
+			$country = $this->geos[ 'countrycode' ];
+
+		if( isset( $this->countries[ $country ] ) ) {
+			$continent = $this->countries[ $country ]['continent'];
+		}
+
+		return $continent;
 	}
 
 	/**
@@ -169,6 +237,11 @@ class GeoIp {
 	 */
 	public function action_init_register_shortcodes() {
 
+		// Continent Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_CONTINENT ) ) {
+			add_shortcode( self::SHORTCODE_CONTINENT, array( $this, 'do_shortcode_continent' ) );
+		}
+
 		// Country Shortcode
 		if ( ! shortcode_exists( self::SHORTCODE_COUNTRY ) ) {
 			add_shortcode( self::SHORTCODE_COUNTRY, array( $this, 'do_shortcode_country' ) );
@@ -204,6 +277,27 @@ class GeoIp {
 			add_shortcode( self::SHORTCODE_LOCATION, array( $this, 'do_shortcode_location' ) );
 		}
 
+		// Smart Location Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_CONTENT ) ) {
+			add_shortcode( self::SHORTCODE_CONTENT, array( $this, 'do_shortcode_content' ) );
+		}
+	}
+
+	/**
+	 * Output the current continent
+	 *
+	 * @since  0.5.0
+	 * @return string Two-letter continent code
+	 */
+	function do_shortcode_continent( $atts ) {
+		$continent = '[' . self::SHORTCODE_CONTINENT . ']';
+
+		$country = $this->geos[ 'countrycode' ];
+
+		if( isset( $this->countries[ $country ] ) ) {
+			$continent = $this->countries[ $country ]['continent'];
+		}
+		return $continent;
 	}
 
 	/**
@@ -301,6 +395,69 @@ class GeoIp {
 	}
 
 	/**
+	 * Output the content filtered by region
+	 *
+	 * @since  0.5.0
+	 * @return string $html
+	 */
+	function do_shortcode_content( $atts, $content = null ) {
+
+		$keep = FALSE;
+
+		foreach( $atts as $geos_label => $value ) {
+
+			// Intialize our negation parameters
+			$negate = 0;
+			$inline_negate = 0;
+
+			// Check to see if the attribute has "not" in it
+			$negate = preg_match( '/not?[-_]?(.*)/', $geos_label, $matches );
+
+			// WordPress doesn't like a dash in shortcode parameter labels
+			// Just in case, check to see if the value has "not-" in it
+			if( ! $negate )
+				$inline_negate = $negate = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
+
+			// Label after the negation match
+			$geos_label = $negate ? $matches[1] : $geos_label;
+
+			// Value after the negation match 
+			$value = $inline_negate ? $matches[2] : $value;
+
+			// Replace common synonyms with our values
+			$geos_label = $this->match_label_synonyms( $geos_label );
+
+			// Abort if the geos_label doesn't match
+			if( !isset( $this->geos[ $geos_label ] ) )
+				continue;
+
+			// sanitize the match value
+			$match_value = strtolower( $this->geos[ $geos_label ] );
+
+			// find out if the value is comma delimited
+			$test_values = (array) explode( ',',  $value );
+
+			// Let's run through the test values and see if we get a match
+			foreach( $test_values as $test_value ) {
+
+				// sanitize the test value
+				$test_value = strtolower( trim( $test_value, " \t\"." ) );
+
+				if( ! $negate && $match_value == $test_value )
+					$keep = TRUE;
+
+				if( $negate && $match_value != $test_value )
+					$keep = TRUE;
+			}
+		}
+
+		if( ! $keep )
+			return '';
+
+		return apply_filters( 'geoip_content', $content, $atts );
+	}
+
+	/**
 	 * Checks if environment variable depencies are available on the server
 	 *
 	 * @since  0.5.0
@@ -336,6 +493,24 @@ class GeoIp {
 		}
 	}
 
+	/**
+	 * As a favor to users, let's match some common synonyms
+	 * 
+	 * @return string
+	 */
+	private function match_label_synonyms( $label ) {
+
+		if( 'country' == $label )
+			$label = 'countrycode';
+
+		if( 'state' == $label )
+			$label = 'region';
+
+		if( 'zipcode' == $label || 'zip' == $label )
+			$label = 'postalcode';
+
+		return $label;
+	}
 }
 
 // Register the GeoIP instance

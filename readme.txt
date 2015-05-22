@@ -1,9 +1,9 @@
 === WP Engine GeoIP ===
-Contributors: wpengine, markkelnar, stevenkword, stephenlin
+Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.2
-Stable tag: 1.0.2
+Tested up to: 4.2.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,19 +42,23 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 == Shortcodes ==
 
-1) Country: [geoip-country]
+1) Continent: [geoip-continent]
 
-2) Region (State): [geoip-region]
+2) Country: [geoip-country]
 
-3) City: [geoip-city]
+3) Region (State): [geoip-region]
 
-4) Postal Code: [geoip-postalcode]
+4) City: [geoip-city]
 
-5) Latitude: [geoip-latitude]
+5) Postal Code: [geoip-postalcode]
 
-6) Longitutde: [geoip-longitude]
+6) Latitude: [geoip-latitude]
 
-7) Location: [geoip-location]
+7) Longitutde: [geoip-longitude]
+
+8) Location: [geoip-location]
+
+9) Content: [geoip-content country="US"]Your content goes here[/geoip-content]
 
 == FAQ ==
 
@@ -70,7 +74,7 @@ For Personal and Professional customers who are interested in GeoIP, please cont
 
 3) What variables do I have access to?
 
-Country, state, city, zip, latitude, longitude.
+Continent, country, state, city, zip, latitude, longitude.
 
 4) How do I sign up for a WP Engine Account?:
 
@@ -86,6 +90,11 @@ Please contact the [Support Team](https://my.wpengine.com/support#general-issue)
 2. An example post using GeoIP shortcodes
 
 == Changelog ==
+
+= 1.1.0 =
+- Adds continent shortcode
+- Adds content shortcode
+- Bumps version number for WP 4.2.2 compatibility
 
 = 1.0.2 =
 - Renames longitude environment variable
