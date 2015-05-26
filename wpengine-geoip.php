@@ -181,6 +181,7 @@ class GeoIp {
 	/**
 	 * Get Country
 	 *
+	 * @since 0.5.0
 	 * @return string Two-letter country code, e.g.) US for the United States of America
 	 */
 	public function country() {
@@ -190,6 +191,7 @@ class GeoIp {
 	/**
 	 * Get Region
 	 *
+	 * @since 0.5.0
 	 * @return string Two-letter region code. e.g.) CA for California
 	 */
 	public function region() {
@@ -199,6 +201,7 @@ class GeoIp {
 	/**
 	 * Get City
 	 *
+	 * @since 0.5.0
 	 * @return mixed Description
 	 */
 	public function city() {
@@ -208,6 +211,7 @@ class GeoIp {
 	/**
 	 * Get Postal Code
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function postal_code() {
@@ -217,6 +221,7 @@ class GeoIp {
 	/**
 	 * Get Latitude
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function latitude() {
@@ -226,6 +231,7 @@ class GeoIp {
 	/**
 	 * Get Longitude
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function longitude() {
@@ -346,7 +352,7 @@ class GeoIp {
 	/**
 	 * Output the current postal code
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string postal code
 	 */
 	function do_shortcode_postal_code( $atts ) {
@@ -359,7 +365,7 @@ class GeoIp {
 	/**
 	 * Output the current latitude
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string latitude
 	 */
 	function do_shortcode_latitude( $atts ) {
@@ -372,7 +378,7 @@ class GeoIp {
 	/**
 	 * Output the current longitude
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string longitude
 	 */
 	function do_shortcode_longitude( $atts ) {
