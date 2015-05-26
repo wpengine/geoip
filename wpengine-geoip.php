@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.0.2
+Version: 1.1.0
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -134,14 +134,16 @@ class GeoIp {
 	/**
 	 * We want people to be able to test the plugin, so we'll include some url parameters that will spoof a location
 	 *
-	 * @return modified version of the GeoIP location array based on url parameters
+	 * @since 1.1.0
+	 * @return array modified version of the GeoIP location array based on url parameters
 	 */
 	public function get_test_parameters( $geos ) {
 
 		$params = $_GET;
 
-		if( !isset( $params['geoip'] ) )
+		if( !isset( $params['geoip'] ) ) {
 			return $geos;
+		}
 
 		foreach( $params as $key => $value ) {
 
@@ -158,14 +160,16 @@ class GeoIp {
 	/**
 	 * Get Continent
 	 *
+	 * @since 1.1.0
 	 * @return string Two-letter continent code, e.g. EU for Europe
 	 */
 	public function continent( $country = '' ) {
 
 		$continent = '';
 
-		if( empty( $country ) )
+		if( empty( $country ) ) {
 			$country = $this->geos[ 'countrycode' ];
+		}
 
 		if( isset( $this->countries[ $country ] ) ) {
 			$continent = $this->countries[ $country ]['continent'];
@@ -286,7 +290,7 @@ class GeoIp {
 	/**
 	 * Output the current continent
 	 *
-	 * @since  0.5.0
+	 * @since 1.1.0
 	 * @return string Two-letter continent code
 	 */
 	function do_shortcode_continent( $atts ) {
@@ -397,8 +401,8 @@ class GeoIp {
 	/**
 	 * Output the content filtered by region
 	 *
-	 * @since  0.5.0
-	 * @return string $html
+	 * @since 1.1.0
+	 * @return string HTML
 	 */
 	function do_shortcode_content( $atts, $content = null ) {
 
@@ -415,8 +419,9 @@ class GeoIp {
 
 			// WordPress doesn't like a dash in shortcode parameter labels
 			// Just in case, check to see if the value has "not-" in it
-			if( ! $negate )
+			if( ! $negate ) {
 				$inline_negate = $negate = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
+			}
 
 			// Label after the negation match
 			$geos_label = $negate ? $matches[1] : $geos_label;
@@ -428,8 +433,9 @@ class GeoIp {
 			$geos_label = $this->match_label_synonyms( $geos_label );
 
 			// Abort if the geos_label doesn't match
-			if( !isset( $this->geos[ $geos_label ] ) )
+			if( !isset( $this->geos[ $geos_label ] ) ) {
 				continue;
+			}
 
 			// sanitize the match value
 			$match_value = strtolower( $this->geos[ $geos_label ] );
@@ -443,11 +449,13 @@ class GeoIp {
 				// sanitize the test value
 				$test_value = strtolower( trim( $test_value, " \t\"." ) );
 
-				if( ! $negate && $match_value == $test_value )
+				if( ! $negate && $match_value == $test_value ) {
 					$keep = TRUE;
+				}
 
-				if( $negate && $match_value != $test_value )
+				if( $negate && $match_value != $test_value ) {
 					$keep = TRUE;
+				}
 			}
 		}
 
@@ -496,18 +504,22 @@ class GeoIp {
 	/**
 	 * As a favor to users, let's match some common synonyms
 	 * 
-	 * @return string
+	 * @since 1.1.0
+	 * @return string label
 	 */
 	private function match_label_synonyms( $label ) {
 
-		if( 'country' == $label )
+		if( 'country' == $label ) {
 			$label = 'countrycode';
+		}
 
-		if( 'state' == $label )
+		if( 'state' == $label ) {
 			$label = 'region';
+		}
 
-		if( 'zipcode' == $label || 'zip' == $label )
+		if( 'zipcode' == $label || 'zip' == $label ) {
 			$label = 'postalcode';
+		}
 
 		return $label;
 	}
