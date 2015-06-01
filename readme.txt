@@ -196,8 +196,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 = 0.1.0 =
 - Initial version
 
-
 == Upgrade Notice ==
 
-= 1.1.0 =
-This version adds the following features: a 'continent' shortcode, a 'content' shortcode for localized geographic content, adds testing parameters to spoof visitor location and bumps version number for WP 4.2.2 compatibility. This update is recommended for all GeoIP users.
+= 1.1.1 =
+This version adds the following features: fixed a small issue with the content shortcode filters, allows the plugin to run on development sites. This update is recommended for all GeoIP users.
