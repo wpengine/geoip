@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.1.0
+Version: 1.1.1
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -94,16 +94,16 @@ class GeoIp {
 
 		$this->geoip_path = plugin_dir_path( __FILE__ );
 
+		// Get our array of countries and continents
+		require_once( $this->geoip_path . '/inc/country-list.php' );
+		
+		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
+
 		$this->geos = $this->get_actuals();
 
 		$this->geos = $this->get_test_parameters( $this->geos );
 
 		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
-
-		// Get our array of countries and continents
-		require_once( $this->geoip_path . '/inc/country-list.php' );
-		
-		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
 	}
 
 	/**
@@ -449,6 +449,11 @@ class GeoIp {
 			// find out if the value is comma delimited
 			$test_values = (array) explode( ',',  $value );
 
+			// If we're checking for a negative, we need to start with TRUE
+			if( $negate ) {
+				$keep = TRUE;
+			}
+
 			// Let's run through the test values and see if we get a match
 			foreach( $test_values as $test_value ) {
 
@@ -459,8 +464,8 @@ class GeoIp {
 					$keep = TRUE;
 				}
 
-				if( $negate && $match_value != $test_value ) {
-					$keep = TRUE;
+				if( $negate && $match_value == $test_value ) {
+					$keep = FALSE;
 				}
 			}
 		}
@@ -477,9 +482,11 @@ class GeoIp {
 	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-		// Check to see if the environment variables are present
+		// Check to see if we're in a development environment or the environment variables are present
 		$is_wpe = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
-		if( ! isset( $is_wpe ) || empty( $is_wpe ) ) {
+		$is_dev = preg_match( '/^(.*)(\.dev)$|^(.*)(staging.wpengine.com)$/', get_site_url() );
+
+		if( 1 != $is_dev && ( ! isset( $is_wpe ) || empty( $is_wpe ) ) ) {
 			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
 		}
 		unset( $is_wpe );

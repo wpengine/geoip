@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,10 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 2. An example post using GeoIP shortcodes
 
 == Changelog ==
+
+= 1.1.1 =
+- Fixes logic for negated parameters in content shortcake
+- Allows the plugin to run on development sites
 
 = 1.1.0 =
 - Adds continent shortcode
