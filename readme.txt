@@ -132,3 +132,8 @@ Please contact the [Support Team](https://my.wpengine.com/support#general-issue)
 
 = 0.1.0 =
 - Initial version
+
+== Upgrade Notice ==
+
+= 1.1.1 =
+This version adds the following features: fixed a small issue with the content shortcode filters, allows the plugin to run on development sites. This update is recommended for all GeoIP users.
