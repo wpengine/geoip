@@ -94,16 +94,16 @@ class GeoIp {
 
 		$this->geoip_path = plugin_dir_path( __FILE__ );
 
+		// Get our array of countries and continents
+		require_once( $this->geoip_path . '/inc/country-list.php' );
+		
+		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
+
 		$this->geos = $this->get_actuals();
 
 		$this->geos = $this->get_test_parameters( $this->geos );
 
 		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
-
-		// Get our array of countries and continents
-		require_once( $this->geoip_path . '/inc/country-list.php' );
-		
-		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
 	}
 
 	/**
@@ -181,6 +181,7 @@ class GeoIp {
 	/**
 	 * Get Country
 	 *
+	 * @since 0.5.0
 	 * @return string Two-letter country code, e.g.) US for the United States of America
 	 */
 	public function country() {
@@ -190,6 +191,7 @@ class GeoIp {
 	/**
 	 * Get Region
 	 *
+	 * @since 0.5.0
 	 * @return string Two-letter region code. e.g.) CA for California
 	 */
 	public function region() {
@@ -199,6 +201,7 @@ class GeoIp {
 	/**
 	 * Get City
 	 *
+	 * @since 0.5.0
 	 * @return mixed Description
 	 */
 	public function city() {
@@ -208,6 +211,7 @@ class GeoIp {
 	/**
 	 * Get Postal Code
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function postal_code() {
@@ -217,6 +221,7 @@ class GeoIp {
 	/**
 	 * Get Latitude
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function latitude() {
@@ -226,6 +231,7 @@ class GeoIp {
 	/**
 	 * Get Longitude
 	 *
+	 * @since 0.6.0
 	 * @return mixed Description
 	 */
 	public function longitude() {
@@ -346,7 +352,7 @@ class GeoIp {
 	/**
 	 * Output the current postal code
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string postal code
 	 */
 	function do_shortcode_postal_code( $atts ) {
@@ -359,7 +365,7 @@ class GeoIp {
 	/**
 	 * Output the current latitude
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string latitude
 	 */
 	function do_shortcode_latitude( $atts ) {
@@ -372,7 +378,7 @@ class GeoIp {
 	/**
 	 * Output the current longitude
 	 *
-	 * @since  0.5.0
+	 * @since  0.6.0
 	 * @return string longitude
 	 */
 	function do_shortcode_longitude( $atts ) {
@@ -443,6 +449,11 @@ class GeoIp {
 			// find out if the value is comma delimited
 			$test_values = (array) explode( ',',  $value );
 
+			// If we're checking for a negative, we need to start with TRUE
+			if( $negate ) {
+				$keep = TRUE;
+			}
+
 			// Let's run through the test values and see if we get a match
 			foreach( $test_values as $test_value ) {
 
@@ -453,8 +464,8 @@ class GeoIp {
 					$keep = TRUE;
 				}
 
-				if( $negate && $match_value != $test_value ) {
-					$keep = TRUE;
+				if( $negate && $match_value == $test_value ) {
+					$keep = FALSE;
 				}
 			}
 		}
@@ -471,9 +482,11 @@ class GeoIp {
 	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-		// Check to see if the environment variables are present
+		// Check to see if we're in a development environment or the environment variables are present
 		$is_wpe = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
-		if( ! isset( $is_wpe ) || empty( $is_wpe ) ) {
+		$is_dev = preg_match( '/^(.*)(\.dev)$|^(.*)(staging.wpengine.com)$/', get_site_url() );
+
+		if( 1 != $is_dev && ( ! isset( $is_wpe ) || empty( $is_wpe ) ) ) {
 			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
 		}
 		unset( $is_wpe );
