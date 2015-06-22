@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.1.1
+Version: 1.1.2
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -125,6 +125,8 @@ class GeoIp {
 			'city'         => getenv( 'HTTP_GEOIP_CITY' ),
 			'postalcode'   => getenv( 'HTTP_GEOIP_POSTAL_CODE' ),
 		);
+
+		$geos['active'] = ( isset( $geos['countrycode'] ) && false !== $geos['countrycode'] )  ? true : false;
 
 		$geos['continent'] = $this->continent( $geos['countrycode'] );
 
@@ -479,15 +481,13 @@ class GeoIp {
 	/**
 	 * Checks if environment variable depencies are available on the server
 	 *
+	 * @todo Include link to query documentation when available on the Plugin Directory
 	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-		// Check to see if we're in a development environment or the environment variables are present
-		$is_wpe = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
-		$is_dev = preg_match( '/^(.*)(\.dev)$|^(.*)(staging.wpengine.com)$/', get_site_url() );
-
-		if( 1 != $is_dev && ( ! isset( $is_wpe ) || empty( $is_wpe ) ) ) {
-			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
+		
+		if( ! $this->geos['active'] ) {
+			$this->admin_notices[] = __( 'WP Engine GeoIP requires a <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a> for full functionality. Only testing queries will work on this site.', self::TEXT_DOMAIN );
 		}
 		unset( $is_wpe );
 	}
@@ -499,18 +499,15 @@ class GeoIp {
 	 */
 	public function action_admin_notices() {
 		if( 0 < count( $this->admin_notices ) ) {
-			// Hide the activation message
-			echo '<style>.wrap .updated{display:none;}</style>';
 
-			// Display the errors
-			echo '<div class="error">';
+			// Display the notices
+			echo '<div class="error notice is-dismissible">';
+
 			foreach( $this->admin_notices as $notice ) {
 				echo "<p>$notice</p>";
 			}
+			
 			echo '</div>';
-
-			// Disable this plugin
-			deactivate_plugins( plugin_basename( __FILE__ ) );
 		}
 	}
 
