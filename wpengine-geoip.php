@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.1.2
+Version: 1.1.1
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -96,7 +96,7 @@ class GeoIp {
 
 		// Get our array of countries and continents
 		require_once( $this->geoip_path . '/inc/country-list.php' );
-		
+
 		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
 
 		$this->geos = $this->get_actuals();
@@ -414,16 +414,19 @@ class GeoIp {
 	 */
 	function do_shortcode_content( $atts, $content = null ) {
 
-		$keep = FALSE;
+		$keep = true;
 
-		foreach( $atts as $geos_label => $value ) {
+		$test_parameters = array();
+
+		// Process and organzie the test parameters
+		foreach( $atts as $label => $value ) {
 
 			// Intialize our negation parameters
 			$negate = 0;
 			$inline_negate = 0;
 
 			// Check to see if the attribute has "not" in it
-			$negate = preg_match( '/not?[-_]?(.*)/', $geos_label, $matches );
+			$negate = preg_match( '/not?[-_]?(.*)/', $label, $matches );
 
 			// WordPress doesn't like a dash in shortcode parameter labels
 			// Just in case, check to see if the value has "not-" in it
@@ -432,44 +435,58 @@ class GeoIp {
 			}
 
 			// Label after the negation match
-			$geos_label = $negate ? $matches[1] : $geos_label;
+			$label = $negate ? $matches[1] : $label;
 
-			// Value after the negation match 
+			// Value after the negation match
 			$value = $inline_negate ? $matches[2] : $value;
 
 			// Replace common synonyms with our values
-			$geos_label = $this->match_label_synonyms( $geos_label );
+			$label = $this->match_label_synonyms( $label );
 
-			// Abort if the geos_label doesn't match
-			if( !isset( $this->geos[ $geos_label ] ) ) {
+			// Abort if the label doesn't match
+			if( !isset( $this->geos[ $label ] ) ) {
 				continue;
 			}
 
-			// sanitize the match value
-			$match_value = strtolower( $this->geos[ $geos_label ] );
-
-			// find out if the value is comma delimited
+			// Find out if the value is comma delimited
 			$test_values = (array) explode( ',',  $value );
 
-			// If we're checking for a negative, we need to start with TRUE
-			if( $negate ) {
-				$keep = TRUE;
-			}
+			// Add the value to the test parameters
+			$test_parameters[ $label ] = array(
+				'test_values' => $test_values,
+				'negate' => $negate,
+				);
+		}
 
-			// Let's run through the test values and see if we get a match
-			foreach( $test_values as $test_value ) {
+		// Sort the test parameters by region type – largest to smallest
+		uksort( $test_parameters, array( $this, 'compare_location_type' ) );
 
-				// sanitize the test value
+		$test_parameters = apply_filters( 'geoip_test_parameters', $test_parameters, $atts );
+
+		// Process through parameters, testing to see if we have a match
+		foreach( $test_parameters as $label => $parameter ) {
+
+			$test_values = $parameter['test_values'];
+
+			$negate = $parameter['negate'];
+
+			// Sanitize the match value
+			$match_value = strtolower( $this->geos[ $label ] );
+
+			// Sanitize the test values
+			foreach( $test_values as &$test_value ) {
 				$test_value = strtolower( trim( $test_value, " \t\"." ) );
-
-				if( ! $negate && $match_value == $test_value ) {
-					$keep = TRUE;
-				}
-
-				if( $negate && $match_value == $test_value ) {
-					$keep = FALSE;
-				}
 			}
+
+			$is_match = in_array( $match_value, $test_values );
+
+			$is_match = ! $negate ? $is_match : ! $is_match;
+
+			if( ! $is_match ) {
+				$keep = false;
+			}
+
+			echo "<h1>RSH DUMP</h1><pre>"; var_dump( $label ); var_dump( $test_values ); var_dump($negate); var_dump( $match_value); var_dump($is_match); var_dump($keep ); echo "</pre>";
 		}
 
 		if( ! $keep )
@@ -479,13 +496,39 @@ class GeoIp {
 	}
 
 	/**
+	 * Compare the location types
+	 *
+	 * Used for sorting location types from largest area to smallest area
+	 *
+	 * @since 1.1.2
+	 */
+	public function compare_location_type( $a, $b ) {
+		$location_types = array(
+			'continent'    => 1,
+			'countrycode'  => 2,
+			'countrycode3' => 2,
+			'countryname'  => 2,
+			'region'       => 3,
+			'areacode'     => 4,
+			'city'         => 5,
+			'postalcode'   => 6,
+			);
+
+		if( isset( $location_types[ $a ] ) && isset( $location_types[ $b ] ) ) {
+			return $location_types[ $a ] - $location_types[ $b ];
+		} else {
+			return 0;
+		}
+	}
+
+	/**
 	 * Checks if environment variable depencies are available on the server
 	 *
 	 * @todo Include link to query documentation when available on the Plugin Directory
 	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-		
+
 		if( ! $this->geos['active'] ) {
 			$this->admin_notices[] = __( 'WP Engine GeoIP requires a <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a> for full functionality. Only testing queries will work on this site.', self::TEXT_DOMAIN );
 		}
@@ -506,14 +549,14 @@ class GeoIp {
 			foreach( $this->admin_notices as $notice ) {
 				echo "<p>$notice</p>";
 			}
-			
+
 			echo '</div>';
 		}
 	}
 
 	/**
 	 * As a favor to users, let's match some common synonyms
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @return string label
 	 */

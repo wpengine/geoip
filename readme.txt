@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,10 +153,6 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 
 == Changelog ==
 
-= 1.1.1 =
-- Fixes logic for negated parameters in content shortcake
-- Allows the plugin to run on development sites
-
 = 1.1.0 =
 - Adds continent shortcode
 - Adds content shortcode for localized geographic content
@@ -196,7 +192,8 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 = 0.1.0 =
 - Initial version
 
+
 == Upgrade Notice ==
 
-= 1.1.1 =
-This version adds the following features: fixed a small issue with the content shortcode filters, allows the plugin to run on development sites. This update is recommended for all GeoIP users.
+= 1.1.0 =
+This version adds the following features: a 'continent' shortcode, a 'content' shortcode for localized geographic content, adds testing parameters to spoof visitor location and bumps version number for WP 4.2.2 compatibility. This update is recommended for all GeoIP users.
