@@ -103,8 +103,70 @@ This will display “Content just for everyone in Texas and California” strict
 You can mix and match geography and negative geography options to create verbose logic in a single shortcode:
 `[geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]`
 
+= Limitations =
 
-== Testing Parameters == 
+There is a single limitation in the logic that lets you filter content for multiple geographic areas.
+
+You can progressively limit the area that content is shown in. But once your content is hidden from an area, a subset of that area can't be added back in.
+
+For example,
+If I limit my image to Europe, then hide my image from Great Britain, I can't go back and show it to London.
+
+== Creative Work Arounds and Hacks ==
+
+=== Limit content to some regions of a country (or some cities of a state) ===
+
+You want to show an offer for free shipping to every state in the US *but* Alaska and Hawaii. You may be inclined to write something like
+
+**BAD**
+
+```
+[geoip_content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip_content]
+```
+
+Instead, show it to all other 48 states
+
+**GOOD**
+
+```
+[geoip_content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip_content]
+```
+
+=== Duplicate location names ===
+
+You want to show discount airfare on a flight to Paris, France. The content should show to all of the US and France, but not Paris itself. 
+
+**BAD**
+
+```
+[geoip_content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content]
+```
+
+The problem here is that Paris, Texas will be hidden. The solution? Just have two geoip_content shortcodes.
+
+**GOOD**
+
+```
+[geoip_content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content][geoip_content country="US"]Fly to Paris for only $199![/geoip_content]
+```
+=== Adding an area into an ommited region ===
+
+You want to show an ad written in Spanish to all of South America except for Brazil. Brasilia, however, has enough Spanish speakers that you want to include Brasilia.
+
+**BAD**
+
+```
+[geoip_content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip_content]
+```
+
+**GOOD**
+
+```
+[geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]
+[geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]
+```
+
+== Testing Parameters ==
 You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoIP shortcodes or API calls:
 
 Spoof visitor from the state of Texas:
@@ -153,8 +215,11 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 
 == Changelog ==
 
+= 1.1.2 =
+- Fixes logic for nested parameter selectors in content shortcode
+
 = 1.1.1 =
-- Fixes logic for negated parameters in content shortcake
+- Fixes logic for negated parameters in content shortcode
 - Allows the plugin to run on development sites
 
 = 1.1.0 =
