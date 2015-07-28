@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.1.1
+Version: 1.1.2
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -485,8 +485,6 @@ class GeoIp {
 			if( ! $is_match ) {
 				$keep = false;
 			}
-
-			echo "<h1>RSH DUMP</h1><pre>"; var_dump( $label ); var_dump( $test_values ); var_dump($negate); var_dump( $match_value); var_dump($is_match); var_dump($keep ); echo "</pre>";
 		}
 
 		if( ! $keep )
