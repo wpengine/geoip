@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -217,6 +217,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 
 = 1.1.2 =
 - Fixes logic for nested parameter selectors in content shortcode
+- Now supports nested shortcodes. You can use shortcodes inside the [geoip-content] shortcode
 
 = 1.1.1 =
 - Fixes logic for negated parameters in content shortcode

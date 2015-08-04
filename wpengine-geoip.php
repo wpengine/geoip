@@ -487,8 +487,12 @@ class GeoIp {
 			}
 		}
 
-		if( ! $keep )
+		if( ! $keep ) {
 			return '';
+		}
+
+		// Process any shortcodes in the content
+		$content = do_shortcode( $content );
 
 		return apply_filters( 'geoip_content', $content, $atts );
 	}
