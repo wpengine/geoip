@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.1.2
+Version: 1.1.3
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -414,19 +414,16 @@ class GeoIp {
 	 */
 	function do_shortcode_content( $atts, $content = null ) {
 
-		$keep = true;
+		$keep = FALSE;
 
-		$test_parameters = array();
-
-		// Process and organzie the test parameters
-		foreach( $atts as $label => $value ) {
+		foreach( $atts as $geos_label => $value ) {
 
 			// Intialize our negation parameters
 			$negate = 0;
 			$inline_negate = 0;
 
 			// Check to see if the attribute has "not" in it
-			$negate = preg_match( '/not?[-_]?(.*)/', $label, $matches );
+			$negate = preg_match( '/not?[-_]?(.*)/', $geos_label, $matches );
 
 			// WordPress doesn't like a dash in shortcode parameter labels
 			// Just in case, check to see if the value has "not-" in it
@@ -435,88 +432,53 @@ class GeoIp {
 			}
 
 			// Label after the negation match
-			$label = $negate ? $matches[1] : $label;
+			$geos_label = $negate ? $matches[1] : $geos_label;
 
 			// Value after the negation match
 			$value = $inline_negate ? $matches[2] : $value;
 
 			// Replace common synonyms with our values
-			$label = $this->match_label_synonyms( $label );
+			$geos_label = $this->match_label_synonyms( $geos_label );
 
-			// Abort if the label doesn't match
-			if( !isset( $this->geos[ $label ] ) ) {
+			// Abort if the geos_label doesn't match
+			if( !isset( $this->geos[ $geos_label ] ) ) {
 				continue;
 			}
 
-			// Find out if the value is comma delimited
+			// sanitize the match value
+			$match_value = strtolower( $this->geos[ $geos_label ] );
+
+			// find out if the value is comma delimited
 			$test_values = (array) explode( ',',  $value );
 
-			// Add the value to the test parameters
-			$test_parameters[ $label ] = array(
-				'test_values' => $test_values,
-				'negate' => $negate,
-				);
-		}
-
-		// Sort the test parameters by region type – largest to smallest
-		uksort( $test_parameters, array( $this, 'compare_location_type' ) );
-
-		$test_parameters = apply_filters( 'geoip_test_parameters', $test_parameters, $atts );
-
-		// Process through parameters, testing to see if we have a match
-		foreach( $test_parameters as $label => $parameter ) {
-
-			$test_values = $parameter['test_values'];
-
-			$negate = $parameter['negate'];
-
-			// Sanitize the match value
-			$match_value = strtolower( $this->geos[ $label ] );
-
-			// Sanitize the test values
-			foreach( $test_values as &$test_value ) {
-				$test_value = strtolower( trim( $test_value, " \t\"." ) );
+			// If we're checking for a negative, we need to start with TRUE
+			if( $negate ) {
+				$keep = TRUE;
 			}
 
-			$is_match = in_array( $match_value, $test_values );
+			// Let's run through the test values and see if we get a match
+			foreach( $test_values as $test_value ) {
 
-			$is_match = ! $negate ? $is_match : ! $is_match;
+				// sanitize the test value
+				$test_value = strtolower( trim( $test_value, " \t\"." ) );
 
-			if( ! $is_match ) {
-				$keep = false;
+				if( ! $negate && $match_value == $test_value ) {
+					$keep = TRUE;
+				}
+
+				if( $negate && $match_value == $test_value ) {
+					$keep = FALSE;
+				}
 			}
 		}
 
 		if( ! $keep )
 			return '';
 
+		// Process any shortcodes in the content
+		$content = do_shortcode( $content );
+
 		return apply_filters( 'geoip_content', $content, $atts );
-	}
-
-	/**
-	 * Compare the location types
-	 *
-	 * Used for sorting location types from largest area to smallest area
-	 *
-	 * @since 1.1.2
-	 */
-	public function compare_location_type( $a, $b ) {
-		$location_types = array(
-			'continent'    => 1,
-			'countrycode'  => 2,
-			'countrycode3' => 2,
-			'countryname'  => 2,
-			'region'       => 3,
-			'areacode'     => 4,
-			'city'         => 5,
-			'postalcode'   => 6,
-			);
-
-		if( isset( $location_types[ $a ] ) && isset( $location_types[ $b ] ) ) {
-			return $location_types[ $a ] - $location_types[ $b ];
-		} else {
-			return 0;
-		}
 	}
 
 	/**
