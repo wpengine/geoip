@@ -38,7 +38,7 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 == Installation ==
 
-1. Upload `geoip` to the `/wp-content/plugins/` directory
+1. Upload `wpengine-geoip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 Please view the 'Other Notes' tab to see all of the available GeoIP shortcodes
@@ -51,11 +51,17 @@ You can use any of the following location variable shortcodes to return the vari
 
 2) Country: `[geoip-country]`
 
-3) Region (State): `[geoip-region]`
+3) Region: `[geoip-region]`
+
+* In the US region will return States
+* In Canada region will return Providences
+* Outside the US/CA this will return a Region number. Please note region numbers are not unique between countries
 
 4) City: `[geoip-city]`
 
 5) Postal Code: `[geoip-postalcode]`
+
+* This variable is only available in the US due to limitations with the location data GeoIP uses
 
 6) Latitude: `[geoip-latitude]`
 
@@ -110,11 +116,11 @@ There is a single limitation in the logic that lets you filter content for multi
 You can progressively limit the area that content is shown in. But once your content is hidden from an area, a subset of that area can't be added back in.
 
 For example,
-If I limit my image to Europe, then hide my image from Great Britain, I can't go back and show it to London.
+If I limit my content to Europe, then limit my content from Great Britain, I can't go back and show it to London.
 
-== Creative Work Arounds and Hacks ==
+= Creative Work Arounds =
 
-=== Limit content to some regions of a country (or some cities of a state) ===
+== Limit content to some regions of a country (or some cities of a state) ==
 
 You want to show an offer for free shipping to every state in the US *but* Alaska and Hawaii. You may be inclined to write something like
 
@@ -132,7 +138,7 @@ Instead, show it to all other 48 states
 [geoip_content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip_content]
 ```
 
-=== Duplicate location names ===
+== Duplicate location names ==
 
 You want to show discount airfare on a flight to Paris, France. The content should show to all of the US and France, but not Paris itself. 
 
@@ -149,7 +155,7 @@ The problem here is that Paris, Texas will be hidden. The solution? Just have tw
 ```
 [geoip_content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content][geoip_content country="US"]Fly to Paris for only $199![/geoip_content]
 ```
-=== Adding an area into an ommited region ===
+== Adding an area into an omitted region ==
 
 You want to show an ad written in Spanish to all of South America except for Brazil. Brasilia, however, has enough Spanish speakers that you want to include Brasilia.
 
@@ -218,6 +224,8 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 = 1.1.2 =
 - Fixes logic for nested parameter selectors in content shortcode
 - Now supports nested shortcodes. You can use shortcodes inside the [geoip-content] shortcode
+- Updated Documentation
+- Bumps version number for WP 4.3 compatibility
 
 = 1.1.1 =
 - Fixes logic for negated parameters in content shortcode
@@ -264,5 +272,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-This version adds the following features: fixed a small issue with the content shortcode filters, allows the plugin to run on development sites. This update is recommended for all GeoIP users.
+= 1.1.2 =
+- Fixes logic for nested parameter selectors in content shortcode
+- Now supports nested shortcodes. You can use shortcodes inside the [geoip-content] shortcode
+- Updated Documentation
