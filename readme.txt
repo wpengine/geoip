@@ -54,7 +54,7 @@ You can use any of the following location variable shortcodes to return the vari
 3) Region: `[geoip-region]`
 
 * In the US region will return States
-* In Canada region will return Providences
+* In Canada region will return Provinces
 * Outside the US/CA this will return a Region number. Please note region numbers are not unique between countries
 
 4) City: `[geoip-city]`
