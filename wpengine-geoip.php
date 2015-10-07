@@ -602,17 +602,18 @@ class GeoIp {
         $start_lat = deg2rad( $this->latitude() );
         $start_lng = deg2rad( $this->longitude() );
 
-        if( $metric ) {
-        	$radius = 6373; // Radius of the Earth in kilometers
-        } else {
-        	$radius = 3961; // Radius of the Earth in miles
-        }
-
         // Test for null values passed into the function or a 0,0 coordinate for the user
         // If either exist, abort. (0,0 is the result when coordinates fail)
-        if( is_null( $lat ) || is_null( $lng ) || ( empty( $start_lat ) && empty( $start_lng ) ) ) {
+        if ( is_null( $lat ) || is_null( $lng ) || ( empty( $start_lat ) && empty( $start_lng ) ) ) {
         	return false;
         }
+
+        // Choose the right radius for the results: radius of the Earth in kilometers and miles
+        $radius = $metric ? 6373 : 3961;
+
+        // Sanitize the user submitted variables
+        $lat = floatval( $lat );
+        $lng = floatval( $lng );
 
         $dlng = $lng - $start_lng;
         $dlat = $lat - $start_lat;
