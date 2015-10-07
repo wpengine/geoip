@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,7 +134,7 @@ Instead, show it to all other 48 states
 
 === Duplicate location names ===
 
-You want to show discount airfare on a flight to Paris, France. The content should show to all of the US and France, but not Paris itself. 
+You want to show discount airfare on a flight to Paris, France. The content should show to all of the US and France, but not Paris itself.
 
 **BAD**
 
@@ -164,6 +164,20 @@ You want to show an ad written in Spanish to all of South America except for Bra
 ```
 [geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]
 [geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]
+```
+
+== Calculate distance between points ==
+
+You have a utility function that will calculate the distance from your provided lat/lng coordinate to the visitor's location in either miles or kilometers. This can be useful for determining approximate distances, as results may be cached at the state or country level, depending on your configuration.
+
+Example use:
+```
+$latitude  = 30.268246;
+$longitude = -97.745992;
+$geo = WPEngine\GeoIp::instance();
+if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
+	$miles_to_wp_engine = $geo->distance_to( $latitude, $longitude );
+}
 ```
 
 == Testing Parameters ==
@@ -214,6 +228,9 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 2. An example post using GeoIP shortcodes
 
 == Changelog ==
+
+= 1.2.0 =
+- Adds a utility function for calculating distances
 
 = 1.1.2 =
 - Fixes logic for nested parameter selectors in content shortcode
