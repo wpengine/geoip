@@ -599,31 +599,31 @@ class GeoIp {
 	 * @since 1.2
 	 */
 	public function distance_to( $lat, $lng, $metric = false ) {
-        $start_lat = deg2rad( $this->latitude() );
-        $start_lng = deg2rad( $this->longitude() );
+		$start_lat = deg2rad( $this->latitude() );
+		$start_lng = deg2rad( $this->longitude() );
 
-        // Test for null values passed into the function or a 0,0 coordinate for the user
-        // If either exist, abort. (0,0 is the result when coordinates fail)
-        if ( is_null( $lat ) || is_null( $lng ) || ( empty( $start_lat ) && empty( $start_lng ) ) ) {
-        	return false;
-        }
+		// Test for null values passed into the function or a 0,0 coordinate for the user
+		// If either exist, abort. (0,0 is the result when coordinates fail)
+		if ( is_null( $lat ) || is_null( $lng ) || ( empty( $start_lat ) && empty( $start_lng ) ) ) {
+			return false;
+		}
 
-        // Choose the right radius for the results: radius of the Earth in kilometers and miles
-        $radius = $metric ? 6373 : 3961;
+		// Choose the right radius for the results: radius of the Earth in kilometers and miles
+		$radius = $metric ? 6373 : 3961;
 
-        // Sanitize the user submitted variables
-        $lat = floatval( $lat );
-        $lng = floatval( $lng );
+		// Sanitize the user submitted variables
+		$lat = floatval( $lat );
+		$lng = floatval( $lng );
 
-        $dlng = $lng - $start_lng;
-        $dlat = $lat - $start_lat;
+		$dlng = $lng - $start_lng;
+		$dlat = $lat - $start_lat;
 
-        // Calculate the distance
-        $a = ( sin( $dlat / 2 ) * sin( $dlat / 2 ) ) + ( cos( $lat ) * cos( $start_lat ) * sin( $dlng / 2 ) * sin( $dlng / 2 ) );
-        $c = 2 * atan2( sqrt( $a ), sqrt( 1 - $a ) );
-        $d = $radius * $c;
+		// Calculate the distance
+		$a = ( sin( $dlat / 2 ) * sin( $dlat / 2 ) ) + ( cos( $lat ) * cos( $start_lat ) * sin( $dlng / 2 ) * sin( $dlng / 2 ) );
+		$c = 2 * atan2( sqrt( $a ), sqrt( 1 - $a ) );
+		$d = $radius * $c;
 
-        return $d;
+		return $d;
 	}
 }
 
