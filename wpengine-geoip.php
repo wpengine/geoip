@@ -586,12 +586,12 @@ class GeoIp {
 	 * Uses the Haversine Formula, accurate for short distance but not over poles or the equator
 	 *
 	 * Note: Test against a return value of false to make sure you got a calculated distance. Example:
-	 	$geo = WPEngine\GeoIp::instance();
-        if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
-			// Do something
-        }
-     *
-     * @link http://andrew.hedges.name/experiments/haversine/
+	 * $geo = WPEngine\GeoIp::instance();
+	 * if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
+	 *	 // Do something
+	 * }
+	 *
+	 * @link http://andrew.hedges.name/experiments/haversine/
 	 * @param float Latitude of the destination in degrees
 	 * @param float Longitude of the destination in degrees
 	 * @param bool  Whether to calculate the distance in kilometers or miles
