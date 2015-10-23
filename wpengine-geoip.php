@@ -578,6 +578,53 @@ class GeoIp {
 
 		return $label;
 	}
+
+	/**
+	 * Utility function: Calculate distance to point
+	 *
+	 * Provided a lat/lng, calculate the distance from visitor's location
+	 * Uses the Haversine Formula, accurate for short distance but not over poles or the equator
+	 *
+	 * Note: Test against a return value of false to make sure you got a calculated distance. Example:
+	 * $geo = WPEngine\GeoIp::instance();
+	 * if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
+	 *	 // Do something
+	 * }
+	 *
+	 * @link http://andrew.hedges.name/experiments/haversine/
+	 * @param float Latitude of the destination in degrees
+	 * @param float Longitude of the destination in degrees
+	 * @param bool  Whether to calculate the distance in kilometers or miles
+	 * @return float distance in miles
+	 * @since 1.2
+	 */
+	public function distance_to( $lat, $lng, $metric = false ) {
+		$start_lat = deg2rad( $this->latitude() );
+		$start_lng = deg2rad( $this->longitude() );
+
+		// Test for null values passed into the function or a 0,0 coordinate for the user
+		// If either exist, abort. (0,0 is the result when coordinates fail)
+		if ( is_null( $lat ) || is_null( $lng ) || ( empty( $start_lat ) && empty( $start_lng ) ) ) {
+			return false;
+		}
+
+		// Choose the right radius for the results: radius of the Earth in kilometers and miles
+		$radius = $metric ? 6373 : 3961;
+
+		// Sanitize the user submitted variables
+		$lat = floatval( $lat );
+		$lng = floatval( $lng );
+
+		$dlng = $lng - $start_lng;
+		$dlat = $lat - $start_lat;
+
+		// Calculate the distance
+		$a = ( sin( $dlat / 2 ) * sin( $dlat / 2 ) ) + ( cos( $lat ) * cos( $start_lat ) * sin( $dlng / 2 ) * sin( $dlng / 2 ) );
+		$c = 2 * atan2( sqrt( $a ), sqrt( 1 - $a ) );
+		$d = $radius * $c;
+
+		return $d;
+	}
 }
 
 // Register the GeoIP instance
