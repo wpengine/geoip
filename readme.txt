@@ -39,8 +39,14 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 == Installation ==
 
+**Installation from WordPress Admin**
+_Note: If you have WordPress 2.7 or above you can simply go to 'Plugins' > 'Add New' in the WordPress admin and search for "Indeed Apply Shortcode" and install it from there._
+
+
+**Manual Installation** 
 1. Upload `wpengine-geoip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+
 
 Please view the 'Other Notes' tab to see all of the available GeoIP shortcodes
 
@@ -100,15 +106,21 @@ Below are all the supported negative geography options, this allows to you HIDE 
 
 = Examples of the Content Shortcode =
 This will display “Content just for US visitors” strictly for visitors viewing from the United States. 
-`[geoip-content country="US"] Content just for US visitors [/geoip-content]`
+`[geoip-content country="US"]
+Content just for US visitors
+[/geoip-content]`
 
 
 This will display “Content just for everyone in Texas and California” strictly for visitors from Texas and California.
-`[geoip-content region="TX, CA."] Content just for everyone in Texas and California [/geoip-content]`
+`[geoip-content region="TX, CA."] 
+Content just for everyone in Texas and California
+[/geoip-content]`
 
 
 You can mix and match geography and negative geography options to create verbose logic in a single shortcode:
-`[geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]`
+`[geoip-content country="US" not-city="Austin"]
+Content for US visitors but not for visitors in Austin
+[/geoip-content]`
 
 = Limitations =
 
@@ -119,73 +131,90 @@ You can progressively limit the area that content is shown in. But once your con
 For example,
 If I limit my content to Europe, then limit my content from Great Britain, I can't go back and show it to London.
 
-= Creative Work Arounds =
+== Creative Work Arounds == 
 
-== Limit content to some regions of a country (or some cities of a state) ==
+= Limit content to some regions of a country (or some cities of a state) =
 
 You want to show an offer for free shipping to every state in the US *but* Alaska and Hawaii. You may be inclined to write something like
 
 **BAD**
 
-```
-[geoip_content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip_content]
-```
+`
+[geoip_content country="US" not_state="AK, HI"]
+Lorem ipsum dolor sit amet
+[/geoip_content]
+`
 
 Instead, show it to all other 48 states
 
 **GOOD**
 
-```
-[geoip_content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip_content]
-```
+`
+[geoip_content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]
+Free shipping on all orders over $50!
+[/geoip_content]
+`
 
-== Duplicate location names ==
+= Duplicate location names =
 
 You want to show discount airfare on a flight to Paris, France. The content should show to all of the US and France, but not Paris itself.
 
 **BAD**
 
-```
-[geoip_content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content]
-```
+`
+[geoip_content country="US, FR" not_city="Paris"]
+Fly to Paris for only $199!
+[/geoip_content]
+`
 
 The problem here is that Paris, Texas will be hidden. The solution? Just have two geoip_content shortcodes.
 
 **GOOD**
 
-```
-[geoip_content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content][geoip_content country="US"]Fly to Paris for only $199![/geoip_content]
-```
-== Adding an area into an omitted region ==
+`
+[geoip_content country="FR" not_city="Paris"]
+Fly to Paris for only $199!
+[/geoip_content]
+[geoip_content country="US"]
+Fly to Paris for only $199!
+[/geoip_content]
+`
+= Adding an area into an omitted region =
 
 You want to show an ad written in Spanish to all of South America except for Brazil. Brasilia, however, has enough Spanish speakers that you want to include Brasilia.
 
 **BAD**
 
-```
-[geoip_content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip_content]
-```
+`
+[geoip_content continent="SA" not_country="BR" city="Brasilia"]
+Lorem ipsum dolor sit amet
+[/geoip_content]
+`
 
 **GOOD**
 
-```
-[geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]
-[geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]
-```
+`
+[geoip_content continent="SA" not_country="BR"]
+Venta de la Navidad en los adaptadores USB
+[/geoip_content]
+[geoip_content city="Brasilia"]
+Venta de la Navidad en los adaptadores USB[
+/geoip_content]
+`
 
-== Calculate distance between points ==
+= Calculate distance between points =
 
 You have a utility function that will calculate the distance from your provided lat/lng coordinate to the visitor's location in either miles or kilometers. This can be useful for determining approximate distances, as results may be cached at the state or country level, depending on your configuration.
 
 Example use:
-```
+`
 $latitude  = 30.268246;
 $longitude = -97.745992;
 $geo = WPEngine\GeoIp::instance();
 if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
 	$miles_to_wp_engine = $geo->distance_to( $latitude, $longitude );
 }
-```
+`
 
 == Testing Parameters ==
 You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoIP shortcodes or API calls:
@@ -207,25 +236,25 @@ Please note: full page redirects and TLD redirects still need to be implemented 
 
 == Frequently Asked Questions ==
 
-1) Will this work outside of the WP Engine hosting account?
+**1) Will this work outside of the WP Engine hosting account?**
 
 No, this will only work within the WP Engine environment. This will not work for sites hosted on other web hosts.
 
-2) Are there any other restrictions to using this plugin?
+**2) Are there any other restrictions to using this plugin?**
 
 Yes. Even though the GeoIP variables on the server are available to Business, Premium and Enterprise customers, you will still need to reach out to the [Support Team](https://my.wpengine.com/support#general-issue) to fully enable GeoIP for your site.
 
 For Personal and Professional customers who are interested in GeoIP, please contact the [Support Team](https://my.wpengine.com/support#general-issue) as well.
 
-3) What variables do I have access to?
+**3) What variables do I have access to?**
 
 Continent, country, state, city, zip, latitude, longitude.
 
-4) How do I sign up for a WP Engine Account?:
+**4) How do I sign up for a WP Engine Account?**
 
 That’s easy! [Signup here](http://wpengine.com/plans/?utm_source=wpengine-geoip).
 
-5) I installed the plugin and used a shortcode or API call and it isn’t working.
+**5) I installed the plugin and used a shortcode or API call and it isn’t working.**
 
 Please contact the WP Engine [Support Team](https://my.wpengine.com/support#general-issue).
 
