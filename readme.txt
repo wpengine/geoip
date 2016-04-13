@@ -240,6 +240,9 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 - Adds a utility function for calculating distances
 - Bumps version number for WP 4.5 compatibility
 
+= 1.1.3 =
+- Bumps version number for WP 4.4.2 compatibility
+
 = 1.1.2 =
 - Fixes logic for nested parameter selectors in content shortcode
 - Now supports nested shortcodes. You can use shortcodes inside the [geoip-content] shortcode
