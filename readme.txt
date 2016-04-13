@@ -2,8 +2,9 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.5
-Stable tag: 1.1.4
+Tested up to: 4.3.1
+Stable tag: 1.2.0
+
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,7 +55,7 @@ You can use any of the following location variable shortcodes to return the vari
 3) Region: `[geoip-region]`
 
 * In the US region will return States
-* In Canada region will return Providences
+* In Canada region will return Provinces
 * Outside the US/CA this will return a Region number. Please note region numbers are not unique between countries
 
 4) City: `[geoip-city]`
@@ -172,6 +173,20 @@ You want to show an ad written in Spanish to all of South America except for Bra
 [geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]
 ```
 
+== Calculate distance between points ==
+
+You have a utility function that will calculate the distance from your provided lat/lng coordinate to the visitor's location in either miles or kilometers. This can be useful for determining approximate distances, as results may be cached at the state or country level, depending on your configuration.
+
+Example use:
+```
+$latitude  = 30.268246;
+$longitude = -97.745992;
+$geo = WPEngine\GeoIp::instance();
+if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
+	$miles_to_wp_engine = $geo->distance_to( $latitude, $longitude );
+}
+```
+
 == Testing Parameters ==
 You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoIP shortcodes or API calls:
 
@@ -220,11 +235,10 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support#gene
 2. An example post using GeoIP shortcodes
 
 == Changelog ==
-= 1.1.4 =
-- Bumps version number for WP 4.5 compatibility
 
-= 1.1.3 =
-- Bumps version number for WP 4.4.2 compatibility
+= 1.2.0 =
+- Adds a utility function for calculating distances
+- Bumps version number for WP 4.5 compatibility
 
 = 1.1.2 =
 - Fixes logic for nested parameter selectors in content shortcode
