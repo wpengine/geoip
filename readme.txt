@@ -66,7 +66,7 @@ You can use any of the following location variable shortcodes to return the vari
 
 6) Latitude: `[geoip-latitude]`
 
-7) Longitutde: `[geoip-longitude]`
+7) Longitude: `[geoip-longitude]`
 
 8) Location: `[geoip-location]`
 
