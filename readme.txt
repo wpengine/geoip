@@ -2,7 +2,7 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.5
+Tested up to: 4.8
 Stable tag: 1.2.1
 
 License: GPLv2 or later
@@ -100,14 +100,17 @@ Below are all the supported negative geography options, this allows to you HIDE 
 
 = Examples of the Content Shortcode =
 This will display “Content just for US visitors” strictly for visitors viewing from the United States.
+
 `[geoip-content country="US"] Content just for US visitors [/geoip-content]`
 
 
 This will display “Content just for everyone in Texas and California” strictly for visitors from Texas and California.
+
 `[geoip-content region="TX, CA."] Content just for everyone in Texas and California [/geoip-content]`
 
 
 You can mix and match geography and negative geography options to create verbose logic in a single shortcode:
+
 `[geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]`
 
 = Limitations =
@@ -148,6 +151,7 @@ The problem here is that Paris, Texas will be hidden. The solution? Just have tw
 **GOOD**
 
 `[geoip_content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content][geoip_content country="US"]Fly to Paris for only $199![/geoip_content]`
+
 == Adding an area into an omitted region ==
 
 You want to show an ad written in Spanish to all of South America except for Brazil. Brasilia, however, has enough Spanish speakers that you want to include Brasilia.
@@ -158,14 +162,16 @@ You want to show an ad written in Spanish to all of South America except for Bra
 
 **GOOD**
 
-`[geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]
-[geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]`
+`[geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]`
+
+`[geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]`
 
 == Calculate distance between points ==
 
 You have a utility function that will calculate the distance from your provided lat/lng coordinate to the visitor's location in either miles or kilometers. This can be useful for determining approximate distances, as results may be cached at the state or country level, depending on your configuration.
 
 Example use:
+
 `$latitude  = 30.268246;
 $longitude = -97.745992;
 $geo = WPEngine\GeoIp::instance();
