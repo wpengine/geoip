@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.2.0
+Version: 1.2.1
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -41,7 +41,13 @@ class GeoIp {
 	public $countries;
 
 	// WP-Admin errors notices
-	private $admin_notices = array();
+	private $admin_notices;
+
+	// Text Domain
+	const TEXT_DOMAIN           = 'wpengine-geoip';
+
+	// Version Number
+	const VERSION               = '1.2.1';
 
 	// Shortcodes
 	const SHORTCODE_CONTINENT	= 'geoip-continent';
@@ -54,9 +60,6 @@ class GeoIp {
 	const SHORTCODE_LOCATION    = 'geoip-location';
 	const SHORTCODE_CONTENT 	= 'geoip-content';
 
-	// Text Domain
-	const TEXT_DOMAIN           = 'wpengine-geoip';
-
 	/**
 	 * Initialize hooks and setup environment variables
 	 *
@@ -68,10 +71,15 @@ class GeoIp {
 		add_action( 'init', array( self::instance(), 'setup' ) );
 		add_action( 'init', array( self::instance(), 'action_init_register_shortcodes' ) );
 
+		// Enqueue our javascript
+		add_action( 'admin_enqueue_scripts', array( self::instance(), 'enqueue_admin_js' ) );
+
 		// Check for dependencies
 		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
 		add_action( 'admin_notices', array( self::instance(), 'action_admin_notices' ) );
 
+		// Process AJAX requests
+		add_action( 'wp_ajax_geoip_dismiss_notice', array( self::instance(), 'ajax_action_dismiss_notice' ) );
 	}
 
 	/**
@@ -104,6 +112,23 @@ class GeoIp {
 		$this->geos = $this->get_test_parameters( $this->geos );
 
 		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
+
+		// Prepopulate the admin notices array
+		$this->admin_notices = array(
+			'info'    => array(),
+			'error'   => array(),
+			'success' => array(),
+			'warning' => array(),
+		);
+	}
+
+	/**
+	 * Enqueue the admin Javascript file
+	 *
+	 * @since 1.2.1
+	 */
+	public function enqueue_admin_js() {
+		wp_enqueue_script( self::TEXT_DOMAIN . '-admin-js', plugins_url( 'js/admin.js', __FILE__ ), null, self::VERSION, true  );
 	}
 
 	/**
@@ -530,30 +555,40 @@ class GeoIp {
 	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-
-		if( ! $this->geos['active'] ) {
-			$this->admin_notices[] = __( 'WP Engine GeoIP requires a <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a> for full functionality. Only testing queries will work on this site.', self::TEXT_DOMAIN );
+		if ( ! $this->geos['active'] && ! get_user_meta( get_current_user_id(), self::TEXT_DOMAIN . '-notice-dismissed-dependency', true ) ) {
+			$notice = __( 'WP Engine GeoIP requires a <a href="%s">WP Engine account</a> with GeoIP enabled for full functionality. Only testing queries will work on this site.', self::TEXT_DOMAIN );
+			$this->admin_notices['warning']['dependency'] = sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN );
 		}
-		unset( $is_wpe );
 	}
 
 	/**
-	 * Displays notice in the admin area if the dependent environment variables are not present
+	 * Displays any of our registered notices
 	 *
 	 * @since  0.5.0
 	 */
 	public function action_admin_notices() {
-		if( 0 < count( $this->admin_notices ) ) {
-
-			// Display the notices
-			echo '<div class="error notice is-dismissible">';
-
-			foreach( $this->admin_notices as $notice ) {
-				echo "<p>$notice</p>";
+		foreach ( $this->admin_notices as $type => $notices ) {
+			foreach ( $notices as $key => $notice ) {
+				echo "<div class=\"notice notice-{$type} wpengine-geoip is-dismissible\" data-key=\"{$key}\"><p>$notice</p></div>";
 			}
-
-			echo '</div>';
 		}
+	}
+
+	/**
+	 * Process an AJAX request to dismiss any notices
+	 * Adds a user meta field marking when the notice was dismissed
+	 *
+	 * @param $_POST Contains the key for the notice that we're dismissing
+	 * @since 1.2.1
+	 */
+	public function ajax_action_dismiss_notice() {
+		if ( empty( $_POST['key'] ) ) {
+			return;
+		}
+
+		$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . $_POST['key'];
+
+		add_user_meta( get_current_user_id(), $meta_key, time(), true );
 	}
 
 	/**
