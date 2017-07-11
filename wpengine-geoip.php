@@ -205,7 +205,7 @@ class GeoIp {
 	 * We want people to be able to test the plugin, so we'll include some url parameters that will spoof a location
 	 *
 	 * @since 1.1.0
-	 * @param  array $geos Array of values for the user's location
+	 * @param  array $geos Array of values for the user's location.
 	 * @return array       Modified version of the GeoIP location array based on url parameters
 	 */
 	public function get_test_parameters( $geos ) {
@@ -513,7 +513,8 @@ class GeoIp {
 			// WordPress doesn't like a dash in shortcode parameter labels.
 			// Just in case, check to see if the value has "not-" in it.
 			if ( ! $negate ) {
-				$inline_negate = $negate = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
+				$negate = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
+				$inline_negate = $negate;
 			}
 
 			// Label after the negation match.
@@ -677,7 +678,7 @@ class GeoIp {
 	 * As a favor to users, let's match some common synonyms
 	 *
 	 * @since 1.1.0
-	 * @param  string $label The address label that needs a synonym
+	 * @param  string $label The address label that needs a synonym.
 	 * @return string label
 	 */
 	private function match_label_synonyms( $label ) {
