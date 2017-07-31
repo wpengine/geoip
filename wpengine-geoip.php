@@ -633,7 +633,7 @@ class GeoIp {
 	public function action_admin_notices() {
 		foreach ( $this->admin_notices as $type => $notices ) {
 			foreach ( $notices as $key => $notice ) {
-				echo wp_kses( "<div class=\"notice notice-{$type} wpengine-geoip is-dismissible\" data-key=\"{$key}\"><p>$notice</p></div>" );
+				echo wp_kses_post( "<div class=\"notice notice-{$type} wpengine-geoip is-dismissible\" data-key=\"{$key}\"><p>$notice</p></div>" );
 			}
 		}
 	}
