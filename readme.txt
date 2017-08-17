@@ -2,7 +2,7 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 4.8.1
+Tested up to: 4.8
 Stable tag: 1.2.2
 
 License: GPLv2 or later
