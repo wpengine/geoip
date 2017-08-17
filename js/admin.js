@@ -8,7 +8,7 @@ document.getElementById( 'wpbody' ).addEventListener( 'click', function ( event 
     var parent = event.path[ 1 ] || null;
 
     // If the parent div doesn't have our wpengine-geoip class, then abort
-    if ( !parent || !parent.classList.includes( 'wpengine-geoip' ) ) {
+    if ( !parent || -1 === jQuery.inArray( 'wpengine-geoip', parent.classList ) ) {
         return;
     }
 

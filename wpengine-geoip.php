@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoIP
- * Version: 1.2.1
+ * Version: 1.2.2
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -633,7 +633,13 @@ class GeoIp {
 	public function action_admin_notices() {
 		foreach ( $this->admin_notices as $type => $notices ) {
 			foreach ( $notices as $key => $notice ) {
-				echo wp_kses( "<div class=\"notice notice-{$type} wpengine-geoip is-dismissible\" data-key=\"{$key}\"><p>$notice</p></div>" );
+				?>
+				<div class="notice notice-<?php echo esc_attr( $type ); ?> wpengine-geoip is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
+					<p>
+						<?php echo esc_html( $notice ); ?>
+					</p>
+				</div>
+				<?php
 			}
 		}
 	}
