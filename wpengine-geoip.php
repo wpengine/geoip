@@ -634,9 +634,9 @@ class GeoIp {
 		foreach ( $this->admin_notices as $type => $notices ) {
 			foreach ( $notices as $key => $notice ) {
 				?>
-				<div class="notice notice-<?php echo sanitize_text_field( $type ); ?> wpengine-geoip is-dismissible" data-key="<?php echo sanitize_text_field( $key ); ?>">
+				<div class="notice notice-<?php echo esc_attr( $type ); ?> wpengine-geoip is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 					<p>
-						<?php echo sanitize_text_field( $notice ); ?>
+						<?php echo esc_html( $notice ); ?>
 					</p>
 				</div>
 				<?php
