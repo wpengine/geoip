@@ -130,13 +130,13 @@ You want to show an offer for free shipping to every state in the US *but* Alask
 
 **BAD**
 
-`[geoip_content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip_content]`
+`[geoip-content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip-content]`
 
 Instead, show it to all other 48 states
 
 **GOOD**
 
-`[geoip_content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip_content]`
+`[geoip-content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip-content]`
 
 == Duplicate location names ==
 
@@ -144,13 +144,13 @@ You want to show discount airfare on a flight to Paris, France. The content shou
 
 **BAD**
 
-`[geoip_content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content]`
+`[geoip-content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content]`
 
-The problem here is that Paris, Texas will be hidden. The solution? Just have two geoip_content shortcodes.
+The problem here is that Paris, Texas will be hidden. The solution? Just have two geoip-content shortcodes.
 
 **GOOD**
 
-`[geoip_content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip_content][geoip_content country="US"]Fly to Paris for only $199![/geoip_content]`
+`[geoip-content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content][geoip-content country="US"]Fly to Paris for only $199![/geoip-content]`
 
 == Adding an area into an omitted region ==
 
@@ -158,13 +158,13 @@ You want to show an ad written in Spanish to all of South America except for Bra
 
 **BAD**
 
-`[geoip_content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip_content]`
+`[geoip-content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip-content]`
 
 **GOOD**
 
-`[geoip_content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip_content]`
+`[geoip-content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip-content]`
 
-`[geoip_content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip_content]`
+`[geoip-content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip-content]`
 
 == Calculate distance between points ==
 
