@@ -149,6 +149,8 @@ class GeoIp {
 
 		$this->geos = $this->get_test_parameters( $this->geos );
 
+		$this->geos = wp_unslash( $this->geos );
+
 		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
 
 		// Prepopulate the admin notices array.
