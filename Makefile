@@ -32,10 +32,9 @@ docker_test:
 deps:
 	$(safe_user) composer install
 	$(safe_user) vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
-	$(safe_user) vendor/bin/phpcs --config-set default_standard WordPress-VIP
 
 lint:
-	vendor/bin/phpcs --ignore=/vendor/*,/bin/*,/js/* --warning-severity=8 .
+	vendor/bin/phpcs --standard=WordPress-Extra,WordPress-Docs --ignore=/vendor/*,/bin/* --warning-severity=8 .
 	flake8 --max-line-length=120 bin/ tests/
 
 smoke:
