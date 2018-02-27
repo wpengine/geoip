@@ -643,8 +643,11 @@ class GeoIp {
 									'a' => array(
 										'href' => array(),
 									),
+									'span',
+									'strong',
+									'em',
 								)
-							)
+							);
 						?>
 					</p>
 				</div>
