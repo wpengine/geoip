@@ -85,7 +85,7 @@ class GeoIp {
 	const VERSION               = '1.2.1';
 
 	// Shortcodes.
-	const SHORTCODE_CONTINENT	= 'geoip-continent';
+	const SHORTCODE_CONTINENT   = 'geoip-continent';
 	const SHORTCODE_COUNTRY     = 'geoip-country';
 	const SHORTCODE_REGION      = 'geoip-region';
 	const SHORTCODE_CITY        = 'geoip-city';
@@ -93,7 +93,7 @@ class GeoIp {
 	const SHORTCODE_LATITUDE    = 'geoip-latitude';
 	const SHORTCODE_LONGITUDE   = 'geoip-longitude';
 	const SHORTCODE_LOCATION    = 'geoip-location';
-	const SHORTCODE_CONTENT 	= 'geoip-content';
+	const SHORTCODE_CONTENT     = 'geoip-content';
 
 	/**
 	 * Initialize hooks and setup environment variables
@@ -194,7 +194,7 @@ class GeoIp {
 			'postalcode'   => getenv( 'HTTP_GEOIP_POSTAL_CODE' ),
 		);
 
-		$geos['active'] = ( isset( $geos['countrycode'] ) && false !== $geos['countrycode'] )  ? true : false;
+		$geos['active'] = ( isset( $geos['countrycode'] ) && false !== $geos['countrycode'] ) ? true : false;
 
 		$geos['continent'] = $this->continent( $geos['countrycode'] );
 
@@ -532,13 +532,13 @@ class GeoIp {
 			}
 
 			// Find out if the value is comma delimited.
-			$test_values = (array) explode( ',',  $value );
+			$test_values = (array) explode( ',', $value );
 
 			// Add the value to the test parameters.
 			$test_parameters[ $label ] = array(
 				'test_values' => $test_values,
 				'negate' => $negate,
-				);
+			);
 		}// End foreach().
 
 		// Sort the test parameters by region type – largest to smallest.
@@ -600,7 +600,7 @@ class GeoIp {
 			'areacode'     => 4,
 			'city'         => 5,
 			'postalcode'   => 6,
-			);
+		);
 
 		if ( isset( $location_types[ $a ] ) && isset( $location_types[ $b ] ) ) {
 			return $location_types[ $a ] - $location_types[ $b ];
@@ -713,7 +713,7 @@ class GeoIp {
 	 * Note: Test against a return value of false to make sure you got a calculated distance. Example:
 	 * $geo = WPEngine\GeoIp::instance();
 	 * if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
-	 *	 // Do something
+	 *   // Do something
 	 * }
 	 *
 	 * @link http://andrew.hedges.name/experiments/haversine/
