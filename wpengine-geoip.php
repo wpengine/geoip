@@ -636,7 +636,17 @@ class GeoIp {
 				?>
 				<div class="notice notice-<?php echo esc_attr( $type ); ?> wpengine-geoip is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 					<p>
-						<?php echo esc_html( $notice ); ?>
+						<?php
+
+                            echo wp_kses(
+                                $notice,
+                                array(
+                                    'a' => array(
+                                        'href' => array(),
+                                    ),
+                                )
+                            )
+                        ?>
 					</p>
 				</div>
 				<?php
