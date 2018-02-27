@@ -1,0 +1,15 @@
+<phpunit colors="true" bootstrap="tests/integration-bootstrap.php">
+    <testsuites>
+        <testsuite name="wpengine-geoip-integration-tests">
+            <directory>tests/integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist
+                addUncoveredFilesFromWhitelist="true"
+                processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

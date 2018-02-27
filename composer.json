@@ -1,0 +1,11 @@
+{
+    "name": "wpengine/geoip",
+    "description": "Create a personalized user experience based on location.",
+    "type": "project",
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^0.14.1",
+        "squizlabs/php_codesniffer": "^3.2"
+    },
+    "license": "GPL2",
+    "require": {}
+}

@@ -1,0 +1,19 @@
+<phpunit colors="true">
+    <php>
+        <const name="ABSPATH" value="/var/www/html/"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="wpengine-geoip-unit-tests">
+            <directory>tests/unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist
+                addUncoveredFilesFromWhitelist="true"
+                processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+</phpunit>
