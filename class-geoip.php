@@ -172,6 +172,7 @@ class GeoIp {
 		}
 
 		wp_enqueue_script( self::TEXT_DOMAIN . '-admin-js', plugins_url( 'js/admin.js', __FILE__ ), null, self::VERSION, true );
+		wp_localize_script( self::TEXT_DOMAIN . '-admin-js', 'nonce', wp_create_nonce( self::TEXT_DOMAIN ) );
 	}
 
 	/**
@@ -651,13 +652,14 @@ class GeoIp {
 	 * @since 1.2.1
 	 */
 	public function ajax_action_dismiss_notice() {
-		if ( empty( $_POST['key'] ) ) {
-			return;
+		if (
+			isset( $_POST['key'], $_POST['nonce'] )
+            && check_ajax_referer( self::TEXT_DOMAIN, 'nonce', false )
+		) {
+			$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
+
+			add_user_meta( get_current_user_id(), $meta_key, time(), true );
 		}
-
-		$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
-
-		add_user_meta( get_current_user_id(), $meta_key, time(), true );
 	}
 
 	/**
