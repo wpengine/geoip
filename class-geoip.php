@@ -654,7 +654,7 @@ class GeoIp {
 	public function ajax_action_dismiss_notice() {
 		if (
 			isset( $_POST['key'], $_POST['nonce'] )
-            && check_ajax_referer( self::TEXT_DOMAIN, 'nonce', false )
+			&& check_ajax_referer( self::TEXT_DOMAIN, 'nonce', false )
 		) {
 			$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
 
