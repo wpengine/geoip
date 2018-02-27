@@ -125,7 +125,7 @@ class GeoIp {
 	public static function instance() {
 		// Create a new object if it doesn't exist.
 		if ( is_null( self::$instance ) ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -374,7 +374,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter continent code
 	 */
-	function do_shortcode_continent( $atts ) {
+	public function do_shortcode_continent( $atts ) {
 		$continent = '[' . self::SHORTCODE_CONTINENT . ']';
 
 		$country = $this->geos['countrycode'];
@@ -392,7 +392,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter country code
 	 */
-	function do_shortcode_country( $atts ) {
+	public function do_shortcode_country( $atts ) {
 		if ( isset( $this->geos['countrycode'] ) ) {
 			return $this->country();
 		}
@@ -406,7 +406,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter region code
 	 */
-	function do_shortcode_region( $atts ) {
+	public function do_shortcode_region( $atts ) {
 		if ( isset( $this->geos['region'] ) ) {
 			return $this->region();
 		}
@@ -420,7 +420,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string City name
 	 */
-	function do_shortcode_city( $atts ) {
+	public function do_shortcode_city( $atts ) {
 		if ( isset( $this->geos['city'] ) ) {
 			return $this->city();
 		}
@@ -434,7 +434,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string postal code
 	 */
-	function do_shortcode_postal_code( $atts ) {
+	public function do_shortcode_postal_code( $atts ) {
 		if ( isset( $this->geos['postalcode'] ) ) {
 			return $this->postal_code();
 		}
@@ -448,7 +448,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string latitude
 	 */
-	function do_shortcode_latitude( $atts ) {
+	public function do_shortcode_latitude( $atts ) {
 		if ( isset( $this->geos['latitude'] ) ) {
 			return $this->latitude();
 		}
@@ -462,7 +462,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string longitude
 	 */
-	function do_shortcode_longitude( $atts ) {
+	public function do_shortcode_longitude( $atts ) {
 		if ( isset( $this->geos['longitude'] ) ) {
 			return $this->longitude();
 		}
@@ -476,7 +476,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string $html
 	 */
-	function do_shortcode_location( $atts ) {
+	public function do_shortcode_location( $atts ) {
 
 		$city = $this->city();
 		if ( isset( $city ) && ! empty( $city ) ) {
@@ -494,7 +494,7 @@ class GeoIp {
 	 * @param  string $content HTML content that comes between the shortcode tags.
 	 * @return string HTML
 	 */
-	function do_shortcode_content( $atts, $content = null ) {
+	public function do_shortcode_content( $atts, $content = null ) {
 
 		$keep = true;
 
