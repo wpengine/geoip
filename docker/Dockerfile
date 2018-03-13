@@ -47,5 +47,15 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 RUN mkdir /var/www/.composer/ && chown www-data:www-data /var/www/.composer/
 
+# Install testing dependencies via Composer
+RUN sudo -u www-data composer global require \
+    phpunit/phpunit \
+    wp-coding-standards/wpcs \
+    squizlabs/php_codesniffer
+RUN sudo -u www-data composer global config bin-dir --absolute
+
+# Configure PHP CS
+RUN sudo -u www-data /var/www/.composer/vendor/bin/phpcs --config-set installed_paths /var/www/.composer/vendor/wp-coding-standards/wpcs
+
 # Install stop-emails mu plugin
 COPY bin/stop-emails.php /var/www/html/wp-content/mu-plugins/
