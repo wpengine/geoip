@@ -39,7 +39,9 @@ RUN cat /install-wp-tests.sh | bash /dev/stdin wordpress root password mysql lat
 
 # Install wp-cli
 RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod 755 /usr/local/bin/wp
+    && chmod 755 /usr/local/bin/wp \
+    && mkdir /var/www/.wp-cli/ \
+    && chown www-data:www-data /var/www/.wp-cli/
 
 # Install composer.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer

@@ -1,11 +1,11 @@
 SHELL := /bin/bash
 
 plugin_name := wpengine-geoip
-plugin_dir := /var/www/html/wp-content/plugins/$(plugin_name)/
-cd_plugin_dir := cd $(plugin_dir)
+cd_plugin_dir := cd /var/www/html/wp-content/plugins/$(plugin_name)/
 docker_exec := docker-compose exec wordpress /bin/bash -c
-cli_root := wp --allow-root
 safe_user := sudo -u www-data
+cli_safe := $(safe_user) wp
+cli_skip := --skip-themes --skip-plugins
 
 all: docker_start docker_deps docker_install_wp docker_test
 
@@ -50,21 +50,22 @@ integration:
 install_wp: setup_core setup_config setup_db
 
 setup_core:
-	$(cli_root) core download --force \
+	$(cli_safe) core download --force \
 		--path="/var/www/html/"
 
 setup_config:
-	$(cli_root) config create --force \
+	$(cli_safe) config create --force \
 		--dbname="wordpress" \
 		--dbuser="root" \
 		--dbpass="password" \
 		--dbhost="mysql"
 
 setup_db:
-	$(cli_root) db reset --yes
-	$(cli_root) core install --skip-email \
+	$(cli_safe) db reset --yes
+	$(cli_safe) core install --skip-email \
 		--url="http://localhost:8080" \
 		--title="Test" \
 		--admin_user="test" \
 		--admin_password="test" \
 		--admin_email="test@test.com"
+	$(cli_safe) plugin activate $(plugin_name) --quiet
