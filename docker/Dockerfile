@@ -34,7 +34,7 @@ RUN pip3 install pytest flake8 pylint ddt
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Install WordPress core files and WP Unit Test API
-COPY bin/install-wp-tests.sh /
+COPY docker/bin/install-wp-tests.sh /
 RUN cat /install-wp-tests.sh | bash /dev/stdin wordpress root password mysql latest true
 
 # Install wp-cli
@@ -52,10 +52,9 @@ RUN sudo -u www-data composer global require \
     phpunit/phpunit \
     wp-coding-standards/wpcs \
     squizlabs/php_codesniffer
-RUN sudo -u www-data composer global config bin-dir --absolute
 
 # Configure PHP CS
 RUN sudo -u www-data /var/www/.composer/vendor/bin/phpcs --config-set installed_paths /var/www/.composer/vendor/wp-coding-standards/wpcs
 
 # Install stop-emails mu plugin
-COPY bin/stop-emails.php /var/www/html/wp-content/mu-plugins/
+COPY docker/bin/stop-emails.php /var/www/html/wp-content/mu-plugins/
