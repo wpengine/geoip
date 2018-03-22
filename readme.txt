@@ -3,7 +3,7 @@ Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,10 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 2. An example post using GeoTarget shortcodes
 
 == Changelog ==
+
+= 1.2.4 =
+- Updating branding to GeoTarget
+- Readme update
 
 = 1.2.3 =
 - Bumps version number for WP 4.9 compatibility
