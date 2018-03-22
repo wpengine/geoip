@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoTarget
- * Version: 1.2.3
+ * Version: 1.2.4
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
