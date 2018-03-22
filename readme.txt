@@ -1,9 +1,9 @@
-=== WP Engine GeoIP ===
+=== WP Engine GeoTarget ===
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484
 Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Create a personalized user experience based on location.
 
 == Description ==
 
-WP Engine GeoIP integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
+WP Engine GeoTarget integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
 
 
 = Geo-Marketing =
@@ -42,7 +42,7 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 1. Upload `wpengine-geoip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
-Please view the 'Other Notes' tab to see all of the available GeoIP shortcodes
+Please view the 'Other Notes' tab to see all of the available GeoTarget shortcodes
 
 
 == Location Variable Shortcodes ==
@@ -62,7 +62,7 @@ You can use any of the following location variable shortcodes to return the vari
 
 5) Postal Code: `[geoip-postalcode]`
 
-* This variable is only available in the US due to limitations with the location data GeoIP uses
+* This variable is only available in the US due to limitations with the location data GeoTarget uses
 
 6) Latitude: `[geoip-latitude]`
 
@@ -180,7 +180,7 @@ if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
 }`
 
 == Testing Parameters ==
-You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoIP shortcodes or API calls:
+You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoTarget shortcodes or API calls:
 
 Spoof visitor from the state of Texas:
 
@@ -209,9 +209,9 @@ No, this will only work within the WP Engine environment. This will not work for
 
 2) Are there any other restrictions to using this plugin?
 
-Yes. Even though the GeoIP variables on the server are available to Business, Premium and Enterprise customers, you will still need to reach out to the [Support Team](https://my.wpengine.com/support#general-issue) to fully enable GeoIP for your site.
+Yes. On Startup, Growth, and Scale plans the GeoTarget feature is available as an add-on. For Business and Premium plans or once you have added the GeoTarget add-on you will need to reach out to the [Support Team](https://my.wpengine.com/support) to fully enable GeoTarget for your site.
 
-For Personal and Professional customers who are interested in GeoIP, please contact the [Support Team](https://my.wpengine.com/support#general-issue) as well.
+You can read our full GeoTarget activation guide [here](https://wpengine.com/support/geoip-personalizing-content-based-geography/).
 
 3) What variables do I have access to?
 
@@ -223,14 +223,18 @@ That’s easy! [Signup here](http://wpengine.com/plans/?utm_source=wpengine-geoi
 
 5) I installed the plugin and used a shortcode or API call and it isn’t working.
 
-Please contact the WP Engine [Support Team](https://my.wpengine.com/support#general-issue).
+Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 
 == Screenshots ==
 
-1. Authoring a new post with GeoIP shortcodes
-2. An example post using GeoIP shortcodes
+1. Authoring a new post with GeoTarget shortcodes
+2. An example post using GeoTarget shortcodes
 
 == Changelog ==
+
+= 1.2.4 =
+- Updating branding to GeoTarget
+- Readme update
 
 = 1.2.3 =
 - Bumps version number for WP 4.9 compatibility
