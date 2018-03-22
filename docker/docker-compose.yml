@@ -11,7 +11,9 @@ services:
     links:
     - db:mysql
     volumes:
-      - ../:/var/www/html/wp-content/plugins/wpengine-geoip
+      - ../src/:/var/www/html/wp-content/plugins/wpengine-geoip
+      - ../Makefile:/var/www/.geoip/Makefile
+      - ../tests/:/var/www/.geoip/tests
     environment:
       WORDPRESS_DB_PASSWORD: password
   db:

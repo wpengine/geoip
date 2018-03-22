@@ -1,11 +1,7 @@
-<phpunit colors="true">
-    <php>
-        <const name="ABSPATH" value="/var/www/html/"/>
-    </php>
-
+<phpunit colors="true" bootstrap="bootstrap.php">
     <testsuites>
         <testsuite name="wpengine-geoip-unit-tests">
-            <directory>tests/unit</directory>
+            <directory suffix="-test.php">unit</directory>
         </testsuite>
     </testsuites>
 
@@ -13,7 +9,7 @@
         <whitelist
                 addUncoveredFilesFromWhitelist="true"
                 processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">/var/www/html/wp-content/plugins/wpengine-geoip/</directory>
         </whitelist>
     </filter>
 </phpunit>

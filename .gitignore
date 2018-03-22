@@ -14,3 +14,4 @@ wp-config.php
 /vendor/
 .idea
 __pycache__
+.pytest_cache/

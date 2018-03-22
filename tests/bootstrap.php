@@ -25,7 +25,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * loading your plugin, since it won't be installed.
  */
 function _manually_load_plugin() {
-	require dirname( __FILE__ ) . '/../class-geoip.php';
+	require '/var/www/html/wp-content/plugins/wpengine-geoip/class-geoip.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
