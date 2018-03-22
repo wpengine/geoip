@@ -1,0 +1,15 @@
+<phpunit colors="true" bootstrap="bootstrap.php">
+    <testsuites>
+        <testsuite name="wpengine-geoip-unit-tests">
+            <directory suffix="-test.php">unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist
+                addUncoveredFilesFromWhitelist="true"
+                processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/var/www/html/wp-content/plugins/wpengine-geoip/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

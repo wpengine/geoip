@@ -1,0 +1,24 @@
+version: '2'
+services:
+  wordpress:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: wpengine-geoip
+    restart: always
+    depends_on:
+      - db
+    links:
+    - db:mysql
+    volumes:
+      - ../src/:/var/www/html/wp-content/plugins/wpengine-geoip
+      - ../Makefile:/var/www/.geoip/Makefile
+      - ../tests/:/var/www/.geoip/tests
+    environment:
+      WORDPRESS_DB_PASSWORD: password
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=wordpress

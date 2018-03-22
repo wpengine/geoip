@@ -85,7 +85,7 @@ class GeoIp {
 	const VERSION               = '1.2.1';
 
 	// Shortcodes.
-	const SHORTCODE_CONTINENT	= 'geoip-continent';
+	const SHORTCODE_CONTINENT   = 'geoip-continent';
 	const SHORTCODE_COUNTRY     = 'geoip-country';
 	const SHORTCODE_REGION      = 'geoip-region';
 	const SHORTCODE_CITY        = 'geoip-city';
@@ -93,7 +93,7 @@ class GeoIp {
 	const SHORTCODE_LATITUDE    = 'geoip-latitude';
 	const SHORTCODE_LONGITUDE   = 'geoip-longitude';
 	const SHORTCODE_LOCATION    = 'geoip-location';
-	const SHORTCODE_CONTENT 	= 'geoip-content';
+	const SHORTCODE_CONTENT     = 'geoip-content';
 
 	/**
 	 * Initialize hooks and setup environment variables
@@ -125,7 +125,7 @@ class GeoIp {
 	public static function instance() {
 		// Create a new object if it doesn't exist.
 		if ( is_null( self::$instance ) ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -172,6 +172,7 @@ class GeoIp {
 		}
 
 		wp_enqueue_script( self::TEXT_DOMAIN . '-admin-js', plugins_url( 'js/admin.js', __FILE__ ), null, self::VERSION, true );
+		wp_localize_script( self::TEXT_DOMAIN . '-admin-js', 'nonce', wp_create_nonce( self::TEXT_DOMAIN ) );
 	}
 
 	/**
@@ -194,7 +195,7 @@ class GeoIp {
 			'postalcode'   => getenv( 'HTTP_GEOIP_POSTAL_CODE' ),
 		);
 
-		$geos['active'] = ( isset( $geos['countrycode'] ) && false !== $geos['countrycode'] )  ? true : false;
+		$geos['active'] = ( isset( $geos['countrycode'] ) && false !== $geos['countrycode'] ) ? true : false;
 
 		$geos['continent'] = $this->continent( $geos['countrycode'] );
 
@@ -374,7 +375,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter continent code
 	 */
-	function do_shortcode_continent( $atts ) {
+	public function do_shortcode_continent( $atts ) {
 		$continent = '[' . self::SHORTCODE_CONTINENT . ']';
 
 		$country = $this->geos['countrycode'];
@@ -392,7 +393,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter country code
 	 */
-	function do_shortcode_country( $atts ) {
+	public function do_shortcode_country( $atts ) {
 		if ( isset( $this->geos['countrycode'] ) ) {
 			return $this->country();
 		}
@@ -406,7 +407,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string Two-letter region code
 	 */
-	function do_shortcode_region( $atts ) {
+	public function do_shortcode_region( $atts ) {
 		if ( isset( $this->geos['region'] ) ) {
 			return $this->region();
 		}
@@ -420,7 +421,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string City name
 	 */
-	function do_shortcode_city( $atts ) {
+	public function do_shortcode_city( $atts ) {
 		if ( isset( $this->geos['city'] ) ) {
 			return $this->city();
 		}
@@ -434,7 +435,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string postal code
 	 */
-	function do_shortcode_postal_code( $atts ) {
+	public function do_shortcode_postal_code( $atts ) {
 		if ( isset( $this->geos['postalcode'] ) ) {
 			return $this->postal_code();
 		}
@@ -448,7 +449,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string latitude
 	 */
-	function do_shortcode_latitude( $atts ) {
+	public function do_shortcode_latitude( $atts ) {
 		if ( isset( $this->geos['latitude'] ) ) {
 			return $this->latitude();
 		}
@@ -462,7 +463,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string longitude
 	 */
-	function do_shortcode_longitude( $atts ) {
+	public function do_shortcode_longitude( $atts ) {
 		if ( isset( $this->geos['longitude'] ) ) {
 			return $this->longitude();
 		}
@@ -476,7 +477,7 @@ class GeoIp {
 	 * @param  array $atts Shortcode attributes.
 	 * @return string $html
 	 */
-	function do_shortcode_location( $atts ) {
+	public function do_shortcode_location( $atts ) {
 
 		$city = $this->city();
 		if ( isset( $city ) && ! empty( $city ) ) {
@@ -494,7 +495,7 @@ class GeoIp {
 	 * @param  string $content HTML content that comes between the shortcode tags.
 	 * @return string HTML
 	 */
-	function do_shortcode_content( $atts, $content = null ) {
+	public function do_shortcode_content( $atts, $content = null ) {
 
 		$keep = true;
 
@@ -532,13 +533,13 @@ class GeoIp {
 			}
 
 			// Find out if the value is comma delimited.
-			$test_values = (array) explode( ',',  $value );
+			$test_values = (array) explode( ',', $value );
 
 			// Add the value to the test parameters.
 			$test_parameters[ $label ] = array(
 				'test_values' => $test_values,
 				'negate' => $negate,
-				);
+			);
 		}// End foreach().
 
 		// Sort the test parameters by region type – largest to smallest.
@@ -600,7 +601,7 @@ class GeoIp {
 			'areacode'     => 4,
 			'city'         => 5,
 			'postalcode'   => 6,
-			);
+		);
 
 		if ( isset( $location_types[ $a ] ) && isset( $location_types[ $b ] ) ) {
 			return $location_types[ $a ] - $location_types[ $b ];
@@ -651,13 +652,14 @@ class GeoIp {
 	 * @since 1.2.1
 	 */
 	public function ajax_action_dismiss_notice() {
-		if ( empty( $_POST['key'] ) ) {
-			return;
+		if (
+			isset( $_POST['key'], $_POST['nonce'] )
+			&& check_ajax_referer( self::TEXT_DOMAIN, 'nonce', false )
+		) {
+			$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
+
+			add_user_meta( get_current_user_id(), $meta_key, time(), true );
 		}
-
-		$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
-
-		add_user_meta( get_current_user_id(), $meta_key, time(), true );
 	}
 
 	/**
@@ -713,7 +715,7 @@ class GeoIp {
 	 * Note: Test against a return value of false to make sure you got a calculated distance. Example:
 	 * $geo = WPEngine\GeoIp::instance();
 	 * if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
-	 *	 // Do something
+	 *   // Do something
 	 * }
 	 *
 	 * @link http://andrew.hedges.name/experiments/haversine/
