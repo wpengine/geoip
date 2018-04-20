@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoTarget
- * Version: 1.2.4
+ * Version: 1.2.5
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -638,7 +638,19 @@ class GeoIp {
 				?>
 				<div class="notice notice-<?php echo esc_attr( $type ); ?> wpengine-geoip is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 					<p>
-						<?php echo esc_html( $notice ); ?>
+						<?php
+							echo wp_kses(
+								$notice,
+								array(
+									'a' => array(
+										'href' => array(),
+									),
+									'span',
+									'strong',
+									'em',
+								)
+							);
+						?>
 					</p>
 				</div>
 				<?php
