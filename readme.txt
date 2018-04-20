@@ -101,17 +101,22 @@ Below are all the supported negative geography options, this allows to you HIDE 
 = Examples of the Content Shortcode =
 This will display “Content just for US visitors” strictly for visitors viewing from the United States.
 
-`[geoip-content country="US"] Content just for US visitors [/geoip-content]`
-
+`
+[geoip-content country="US"] Content just for US visitors [/geoip-content]
+`
 
 This will display “Content just for everyone in Texas and California” strictly for visitors from Texas and California.
 
-`[geoip-content region="TX, CA."] Content just for everyone in Texas and California [/geoip-content]`
+`
+[geoip-content region="TX, CA."] Content just for everyone in Texas and California [/geoip-content]
+`
 
 
 You can mix and match geography and negative geography options to create verbose logic in a single shortcode:
 
-`[geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]`
+`
+[geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]
+`
 
 = Limitations =
 
@@ -130,13 +135,17 @@ You want to show an offer for free shipping to every state in the US *but* Alask
 
 **BAD**
 
-`[geoip-content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip-content]`
+`
+[geoip-content country="US" not_state="AK, HI"]Lorem ipsum dolor sit amet[/geoip-content]
+`
 
 Instead, show it to all other 48 states
 
 **GOOD**
 
-`[geoip-content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip-content]`
+`
+[geoip-content state="AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"]Free shipping on all orders over $50![/geoip-content]
+`
 
 == Duplicate location names ==
 
@@ -144,13 +153,17 @@ You want to show discount airfare on a flight to Paris, France. The content shou
 
 **BAD**
 
-`[geoip-content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content]`
+`
+[geoip-content country="US, FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content]
+`
 
 The problem here is that Paris, Texas will be hidden. The solution? Just have two geoip-content shortcodes.
 
 **GOOD**
 
-`[geoip-content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content][geoip-content country="US"]Fly to Paris for only $199![/geoip-content]`
+`
+[geoip-content country="FR" not_city="Paris"]Fly to Paris for only $199![/geoip-content][geoip-content country="US"]Fly to Paris for only $199![/geoip-content]
+`
 
 == Adding an area into an omitted region ==
 
@@ -158,13 +171,19 @@ You want to show an ad written in Spanish to all of South America except for Bra
 
 **BAD**
 
-`[geoip-content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip-content]`
+`
+[geoip-content continent="SA" not_country="BR" city="Brasilia"]Lorem ipsum dolor sit amet[/geoip-content]
+`
 
 **GOOD**
 
-`[geoip-content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip-content]`
+`
+[geoip-content continent="SA" not_country="BR"]Venta de la Navidad en los adaptadores USB[/geoip-content]
+`
 
-`[geoip-content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip-content]`
+`
+[geoip-content city="Brasilia"]Venta de la Navidad en los adaptadores USB[/geoip-content]
+`
 
 == Calculate distance between points ==
 
@@ -172,31 +191,41 @@ You have a utility function that will calculate the distance from your provided 
 
 Example use:
 
-`$latitude  = 30.268246;
+`
+$latitude  = 30.268246;
 $longitude = -97.745992;
 $geo = WPEngine\GeoIp::instance();
 if ( false !== $geo->distance_to( $latitude, $longitude ) ) {
 	$miles_to_wp_engine = $geo->distance_to( $latitude, $longitude );
-}`
+}
+`
 
 == Testing Parameters ==
 You can use the following URL parameters to test how your localized content will appear to visitors from various geographic locations. You can add any of the parameters below to any URL of a page using the GeoTarget shortcodes or API calls:
 
 Spoof visitor from the state of Texas:
 
-`yourdomain.com/?geoip&region=TX`
+`
+yourdomain.com/?geoip&region=TX
+`
 
 Spoof visitor from the United States:
 
-`yourdomain.com/?geoip&country=US`
+`
+yourdomain.com/?geoip&country=US
+`
 
 Spoof visitor from Austin, Texas
 
-`yourdomain.com/?geoip&city=Austin`
+`
+yourdomain.com/?geoip&city=Austin
+`
 
 Spoof visitor from the U.S. zip code 78701:
 
-`yourdomain.com/?geoip&zip=78701`
+`
+yourdomain.com/?geoip&zip=78701
+`
 
 
 Please note: full page redirects and TLD redirects still need to be implemented with the necessary API calls.
