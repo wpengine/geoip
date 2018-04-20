@@ -263,6 +263,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 
 = 1.2.5 =
 - Fix for anchor tag escaping in admin notice
+- Fix issue with code blocks in readme
 
 = 1.2.4 =
 - Updating branding to GeoTarget
