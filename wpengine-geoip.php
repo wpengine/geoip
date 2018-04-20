@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Engine GeoIP
- * Version: 1.2.3
+ * Plugin Name: WP Engine GeoTarget
+ * Version: 1.2.4
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Base class for the GeoIP plugin
+ * Base class for the GeoTarget plugin, GeoTarget was formerly called GeoIP
  */
 class GeoIp {
 
@@ -149,6 +149,8 @@ class GeoIp {
 
 		$this->geos = $this->get_test_parameters( $this->geos );
 
+		$this->geos = wp_unslash( $this->geos );
+
 		$this->geos = apply_filters( 'geoip_location_values', $this->geos );
 
 		// Prepopulate the admin notices array.
@@ -178,7 +180,7 @@ class GeoIp {
 	 * Here we extract the data from headers set by nginx -- lets only send them if they are part of the cache key
 	 *
 	 * @since 0.1.0
-	 * @return array All of the GeoIP related environment variables available on the current server instance
+	 * @return array All of the GeoTarget related environment variables available on the current server instance
 	 */
 	public function get_actuals() {
 
@@ -206,7 +208,7 @@ class GeoIp {
 	 *
 	 * @since 1.1.0
 	 * @param  array $geos Array of values for the user's location.
-	 * @return array       Modified version of the GeoIP location array based on url parameters
+	 * @return array       Modified version of the GeoTarget location array based on url parameters
 	 */
 	public function get_test_parameters( $geos ) {
 
@@ -620,7 +622,7 @@ class GeoIp {
 
 		if ( $this->helper_should_notice_show( $notice_key ) ) {
 			/* translators: Tells users that the plugin won't automatically work if they're not in the right setup */
-			$notice = __( 'WP Engine GeoIP requires a <a href="%s">WP Engine account</a> with GeoIP enabled for full functionality. Only testing queries will work on this site.', 'wpengine-geoip' );
+			$notice = __( 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.', 'wpengine-geoip' );
 			$this->admin_notices['warning'][ $notice_key ] = sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN );
 		}
 	}
@@ -687,8 +689,8 @@ class GeoIp {
 		$is_active = $this->geos['active'];
 		$is_dismissed = get_user_meta( get_current_user_id(), self::TEXT_DOMAIN . '-notice-dismissed-' . $notice, true );
 
-		// false = GeoIP is active, or if we've dismissed the notice before.
-		// true = GeoIP is not active and we haven't dismissed the notice before.
+		// false = GeoTarget is active, or if we've dismissed the notice before.
+		// true = GeoTarget is not active and we haven't dismissed the notice before.
 		return ! ( $is_active || $is_dismissed );
 	}
 
@@ -764,5 +766,5 @@ class GeoIp {
 	}
 }
 
-// Register the GeoIP instance.
+// Register the GeoTarget plugin instance.
 GeoIp::init();
