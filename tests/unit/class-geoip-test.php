@@ -40,14 +40,16 @@ class GeoIp_Test extends \WP_UnitTestCase {
 		$geo->action_admin_init_check_plugin_dependencies();
 		$geo->action_admin_notices();
 
-		$output = join('', array(
+		$expected_output = array(
 			'<div class="notice notice-warning wpengine-geoip is-dismissible" data-key="dependency">',
 			'<p>',
 			'WP Engine GeoIP requires a <a href="http://wpengine.com/plans/?utm_source=wpengine-geoip">WP Engine account</a> with GeoIP enabled for full functionality. Only testing queries will work on this site.',
 			'</p>',
 			'</div>',
-		));
+		);
 
-		$this->expectOutputString( $output );
+		foreach ($expected_output as $line) {
+			$this->assertContains( $line, $this->getActualOutput() );
+		}
 	}
 }
