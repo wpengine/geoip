@@ -50,11 +50,9 @@ RUN mkdir /var/www/.composer/ && chown www-data:www-data /var/www/.composer/
 # Install testing dependencies via Composer
 RUN sudo -u www-data composer global require \
     phpunit/phpunit \
+    squizlabs/php_codesniffer \
     wp-coding-standards/wpcs \
-    squizlabs/php_codesniffer
-
-# Configure PHP CS
-RUN sudo -u www-data /var/www/.composer/vendor/bin/phpcs --config-set installed_paths /var/www/.composer/vendor/wp-coding-standards/wpcs
+    wimg/php-compatibility
 
 # Install stop-emails mu plugin
 COPY docker/bin/stop-emails.php /var/www/html/wp-content/mu-plugins/

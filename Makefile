@@ -35,7 +35,7 @@ docker_test:
 	$(docker_compose) $(docker_exec) "$(cd_make_dir); make test"
 
 lint:
-	/var/www/.composer/vendor/bin/phpcs --standard=WordPress-Extra,WordPress-Docs --warning-severity=8 tests $(plugin_dir)
+	/var/www/.composer/vendor/bin/phpcs --standard=./tests/phpcs.xml --warning-severity=8 $(plugin_dir)
 	flake8 --max-line-length=120 tests/
 
 smoke:
