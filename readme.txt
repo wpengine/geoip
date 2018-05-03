@@ -1,6 +1,6 @@
 === WP Engine GeoTarget ===
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484, nateinaction
-Tags: wpe, wpengine, geoip, localization, geolocation
+Tags: wpe, wpengine, geotarget, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.9
 Stable tag: 1.2.5
