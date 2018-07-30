@@ -14,7 +14,6 @@ Create a personalized user experience based on location.
 
 WP Engine GeoTarget integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
 
-
 = Geo-Marketing =
 
 * Create marketing campaigns targeted only at certain locations.
@@ -35,7 +34,7 @@ WP Engine GeoTarget integrates with the variables on your WP Engine site to disp
 
 = * Please Note * =
 
-This plugin will only function on your [WP Engine](http://wpengine.com/plans/?utm_source=wpengine-geoip) Business, Premium or Enterprise level account. This will not function outside of the WP Engine environment.
+Customers on Premium and Enterprise plans can use this plugin at no additional cost. If you are on another plan type and would like to use GeoTarget on one of your sites, you can add it to your plan [here](http://wpengine.com/plans/?utm_source=wpengine-geoip). This will not function outside of the WP Engine environment.
 
 == Installation ==
 
@@ -77,7 +76,10 @@ A visitor from Austin, Texas would see the following:
 
 == Localized Content ==
 
-9) Content: `[geoip-content country="US"]Your US specific content goes here[/geoip-content]`
+`
+[geoip-content country="US"]Your US specific content goes here[/geoip-content]
+`
+
 The content shortcode allows you to hide or show specific content based on visitor geographies:
 
 Below are all the supported geography options, this allows to you SHOW content for only specific locations:
