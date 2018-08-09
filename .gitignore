@@ -1,13 +1,11 @@
-.htaccess
-wp-content/uploads/
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-sitemap.xml
-*.log
-wp-content/cache/
-wp-content/backups/
-sitemap.xml.gz
-wp-config.php
+# project
+/artifacts/
+/vendor/
+
+# tests
+__pycache__
+.pytest_cache/
+
+# ide
+.idea
+.vscode
