@@ -213,7 +213,7 @@ class GeoIp {
 	 */
 	public function get_test_parameters( $geos ) {
 
-		$params = $_GET;
+		$params = $_GET; // WPCS: CSRF ok.
 
 		if ( ! isset( $params['geoip'] ) ) {
 			return $geos;
