@@ -1,4 +1,4 @@
-# Holding at php 7.0 because WP test suite is incompatible with 7.2.
+# Tests pass with 7.2.
 FROM wordpress:php7.2
 
 # Install server dependencies.
