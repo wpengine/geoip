@@ -1,5 +1,5 @@
 # Holding at php 7.0 because WP test suite is incompatible with 7.2.
-FROM wordpress:php7.0
+FROM wordpress:php7.2
 
 # Install server dependencies.
 RUN apt-get update && apt-get install -qq -y --fix-missing --no-install-recommends \
