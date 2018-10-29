@@ -7,7 +7,7 @@ services:
 
 cache:
   directories:
-    - ${HOME}/vendor
+    - ${HOME}/composer/vendor
 
 script:
   - make
