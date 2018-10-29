@@ -1,6 +1,6 @@
 # project
-/artifacts/
-/vendor/
+/build/
+/composer/vendor/
 
 # tests
 __pycache__

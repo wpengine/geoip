@@ -4,6 +4,7 @@
  *
  * @package wpengine-geoip
  */
+
 namespace WPEngine;
 
 /**
@@ -16,8 +17,8 @@ class GeoIp_Test extends \WP_UnitTestCase {
 	 *
 	 * @var string
 	 */
-    private $class_name = 'WPEngine\GeoIp';
-    
+	private $class_name = 'WPEngine\GeoIp';
+
 	/**
 	 * Test if class can be instantiated
 	 */
@@ -25,8 +26,8 @@ class GeoIp_Test extends \WP_UnitTestCase {
 		$this->assertTrue( class_exists( $this->class_name ) );
 		$geo = GeoIp::instance();
 		$this->assertEquals( $this->class_name, get_class( $geo ) );
-    }
-    
+	}
+
 	/**
 	 * Test display of admin notice
 	 */
@@ -45,7 +46,7 @@ class GeoIp_Test extends \WP_UnitTestCase {
 		);
 		$actual_output = $this->getActualOutput();
 		ob_end_clean();
-		foreach ($expected_output as $line) {
+		foreach ( $expected_output as $line ) {
 			$this->assertContains( $line, $actual_output );
 		}
 	}

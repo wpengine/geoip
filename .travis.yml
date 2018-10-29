@@ -1,0 +1,13 @@
+sudo: 'required'
+notifications:
+  email: false
+
+services:
+  - 'docker'
+
+cache:
+  directories:
+    - ${HOME}/vendor
+
+script:
+  - make

@@ -1,0 +1,11 @@
+{
+    "name": "wpengine/geoip",
+    "description": "WordPress Plugin: WP Engine GeoIP",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "johnkary/phpunit-speedtrap": "^2.0"
+    }
+}
