@@ -1,10 +1,6 @@
 # project
 /build/
-/composer/vendor/
-
-# tests
-__pycache__
-.pytest_cache/
+/vendor/
 
 # ide
 .idea

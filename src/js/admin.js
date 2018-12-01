@@ -24,7 +24,7 @@ document.getElementById( 'wpbody' ).addEventListener(
 		var key = parent.attributes[ 'data-key' ].value || null;
 
 		// Send our POST request to admin-ajax.
-		var http = new XMLHttpRequest();
+		var http   = new XMLHttpRequest();
 		var params = "action=geoip_dismiss_notice&key=" + key + "&nonce=" + window.nonce;
 		http.open( "POST", ajaxurl, true );
 		http.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );

@@ -5,29 +5,32 @@ PLUGIN_NAME := wpengine-geoip
 
 # Shortcuts
 DOCKER_RUN := @docker run --rm -v `pwd`:/workspace
-PHPCS_DOCKER_IMAGE := wpengine/phpcs --standard=./test/phpcs.xml --warning-severity=8
-WORDPRESS_INTEGRATION_DOCKER_IMAGE := nateinaction/wordpress-integration
-COMPOSER_DOCKER_IMAGE := composer
-COMPOSER_DIR := -d "/workspace/composer/"
+WP_TEST_IMAGE := nateinaction/wordpress-integration:php7.2
+COMPOSER_IMAGE := -v `pwd`:/app composer
+VENDOR_BIN_DIR := /workspace/vendor/bin
 BUILD_DIR := ./build
 
 # Commands
-all: lint composer_install test
+all: composer_install lint test
 
-lint:
-	$(DOCKER_RUN) $(PHPCS_DOCKER_IMAGE) .
-
-phpcbf:
-	$(DOCKER_RUN) --entrypoint "/composer/vendor/bin/phpcbf" $(PHPCS_DOCKER_IMAGE) .
+shell:
+	$(DOCKER_RUN) -it --entrypoint "/bin/bash" $(WP_TEST_IMAGE)
 
 composer_install:
-	$(DOCKER_RUN) $(COMPOSER_DOCKER_IMAGE) install $(COMPOSER_DIR)
+	$(DOCKER_RUN) $(COMPOSER_IMAGE) install
+
+lint:
+	$(DOCKER_RUN) --entrypoint "$(VENDOR_BIN_DIR)/phpcs" $(WP_TEST_IMAGE) .
+
+phpcbf:
+	$(DOCKER_RUN) --entrypoint "$(VENDOR_BIN_DIR)/phpcbf" $(WP_TEST_IMAGE) .
 
 composer_update:
-	$(DOCKER_RUN) $(COMPOSER_DOCKER_IMAGE) update $(COMPOSER_DIR)
+	$(DOCKER_RUN) $(COMPOSER_IMAGE) update
 
 test:
-	$(DOCKER_RUN) -it $(WORDPRESS_INTEGRATION_DOCKER_IMAGE) "./composer/vendor/bin/phpunit" -c "./test/phpunit.xml" --testsuite="integration"
+	$(DOCKER_RUN) $(WP_TEST_IMAGE) $(VENDOR_BIN_DIR)/phpunit test/integration
+
 
 get_version:
 	@awk '/Version:/{printf $$NF}' ./src/class-geoip.php

@@ -75,14 +75,14 @@ class GeoIp {
 	 *
 	 * @var string
 	 */
-	const TEXT_DOMAIN           = 'wpengine-geoip';
+	const TEXT_DOMAIN = 'wpengine-geoip';
 
 	/**
 	 * Version Number.
 	 *
 	 * @var string
 	 */
-	const VERSION               = '1.2.1';
+	const VERSION = '1.2.1';
 
 	// Shortcodes.
 	const SHORTCODE_CONTINENT   = 'geoip-continent';
@@ -141,7 +141,7 @@ class GeoIp {
 		$this->geoip_path = plugin_dir_path( __FILE__ );
 
 		// Get our array of countries and continents.
-		require_once( $this->geoip_path . '/inc/country-list.php' );
+		require_once $this->geoip_path . '/inc/country-list.php';
 
 		$this->countries = apply_filters( 'geoip_country_list', geoip_country_list() );
 
@@ -221,7 +221,7 @@ class GeoIp {
 
 		foreach ( $params as $key => $value ) {
 
-			$key = esc_attr( $key );
+			$key   = esc_attr( $key );
 			$value = esc_attr( $value );
 
 			$key = $this->match_label_synonyms( $key );
@@ -507,7 +507,7 @@ class GeoIp {
 		foreach ( $atts as $label => $value ) {
 
 			// Intialize our negation parameters.
-			$negate = 0;
+			$negate        = 0;
 			$inline_negate = 0;
 
 			// Check to see if the attribute has "not" in it.
@@ -516,7 +516,7 @@ class GeoIp {
 			// WordPress doesn't like a dash in shortcode parameter labels.
 			// Just in case, check to see if the value has "not-" in it.
 			if ( ! $negate ) {
-				$negate = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
+				$negate        = preg_match( '/not?\-([^=]+)\=\"?([^"]+)\"?/', $value, $matches );
 				$inline_negate = $negate;
 			}
 
@@ -540,9 +540,9 @@ class GeoIp {
 			// Add the value to the test parameters.
 			$test_parameters[ $label ] = array(
 				'test_values' => $test_values,
-				'negate' => $negate,
+				'negate'      => $negate,
 			);
-		}// End foreach().
+		}
 
 		// Sort the test parameters by region type – largest to smallest.
 		uksort( $test_parameters, array( $this, 'compare_location_type' ) );
@@ -623,7 +623,7 @@ class GeoIp {
 
 		if ( $this->helper_should_notice_show( $notice_key ) ) {
 			/* translators: Tells users that the plugin won't automatically work if they're not in the right setup */
-			$notice = __( 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.', 'wpengine-geoip' );
+			$notice                                        = __( 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.', 'wpengine-geoip' );
 			$this->admin_notices['warning'][ $notice_key ] = sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN );
 		}
 	}
@@ -670,7 +670,7 @@ class GeoIp {
 			isset( $_POST['key'], $_POST['nonce'] )
 			&& check_ajax_referer( self::TEXT_DOMAIN, 'nonce', false )
 		) {
-			$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . esc_attr( wp_unslash( $_POST['key'] ) );
+			$meta_key = self::TEXT_DOMAIN . '-notice-dismissed-' . sanitize_key( wp_unslash( $_POST['key'] ) );
 			add_user_meta( get_current_user_id(), $meta_key, time(), true );
 		}
 	}
@@ -687,7 +687,7 @@ class GeoIp {
 			return false;
 		}
 
-		$is_active = $this->geos['active'];
+		$is_active    = $this->geos['active'];
 		$is_dismissed = get_user_meta( get_current_user_id(), self::TEXT_DOMAIN . '-notice-dismissed-' . $notice, true );
 
 		// false = GeoTarget is active, or if we've dismissed the notice before.

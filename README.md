@@ -230,4 +230,4 @@ yourdomain.com/?geoip&zip=78701
 
 ## Contributing
 
-To create a test environment just run `make` from the repository root.
+Running `make` from the repository root will download dependencies, lint, and test the plugin. `make build` will package the plugin as a zip and place it in the `/build` directory.
