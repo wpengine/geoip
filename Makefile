@@ -6,7 +6,7 @@ PLUGIN_NAME := wpengine-geoip
 # Shortcuts
 DOCKER_RUN := @docker run --rm -v `pwd`:/workspace
 WP_TEST_IMAGE := nateinaction/wordpress-integration:php7.2
-COMPOSER_IMAGE := -v `pwd`:/app composer
+COMPOSER_IMAGE := -v `pwd`:/app -v ~/.composer/cache:/tmp/cache composer
 VENDOR_BIN_DIR := /workspace/vendor/bin
 BUILD_DIR := ./build
 

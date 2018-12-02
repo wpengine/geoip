@@ -7,7 +7,14 @@ services:
 
 cache:
   directories:
-    - ${HOME}/composer/vendor
+    - ${HOME}/.composer/cache
+
+before_script:
+  - make composer_install
 
 script:
-  - make
+  - make lint
+  - make test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
