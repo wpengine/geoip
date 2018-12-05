@@ -1,5 +1,5 @@
 # WP Engine GeoTarget
-[![Build Status](https://travis-ci.org/wpengine/geoip.svg?branch=master)](https://travis-ci.org/wpengine/geoip) [![codecov](https://codecov.io/gh/wpengine/geoip/branch/master/graph/badge.svg)](https://codecov.io/gh/wpengine/geoip)
+[![Build Status](https://travis-ci.org/wpengine/geoip.svg?branch=master)](https://travis-ci.org/wpengine/geoip)
 
 WP Engine GeoTarget integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
 
