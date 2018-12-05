@@ -1,4 +1,5 @@
 # WP Engine GeoTarget
+[![Build Status](https://travis-ci.org/wpengine/geoip.svg?branch=master)](https://travis-ci.org/wpengine/geoip)
 
 WP Engine GeoTarget integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
 
@@ -230,4 +231,4 @@ yourdomain.com/?geoip&zip=78701
 
 ## Contributing
 
-To create a test environment just run `make` from the repository root.
+Running `make` from the repository root will download dependencies, lint, and test the plugin. `make build` will package the plugin as a zip and place it in the `/build` directory.

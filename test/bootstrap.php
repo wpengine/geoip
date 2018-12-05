@@ -1,11 +1,11 @@
 <?php
 /**
- * Create test bootstrap
+ * Test bootstrap
  *
  * @package wpengine-geoip
  */
 
-$_tests_dir = '/tmp/wordpress-tests-lib';
+$_tests_dir = '/wordpress/tests/phpunit/includes';
 
 /**
  * The WordPress tests functions.
@@ -13,7 +13,7 @@ $_tests_dir = '/tmp/wordpress-tests-lib';
  * We are loading this so that we can add our tests filter
  * to load the plugin, using tests_add_filter().
  */
-require_once $_tests_dir . '/includes/functions.php';
+require_once $_tests_dir . '/functions.php';
 
 /**
  * Manually load the plugin main file.
@@ -25,7 +25,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * loading your plugin, since it won't be installed.
  */
 function _manually_load_plugin() {
-	require '/var/www/html/wp-content/plugins/wpengine-geoip/class-geoip.php';
+	require __DIR__ . '/../src/class-geoip.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
@@ -35,4 +35,4 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
  * We've got our action set up, so we can load this now,
  * and viola, the tests begin.
  */
-require $_tests_dir . '/includes/bootstrap.php';
+require $_tests_dir . '/bootstrap.php';

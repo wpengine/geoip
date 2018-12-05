@@ -12,979 +12,979 @@ function geoip_country_list() {
 
 	$countries = array(
 		'AF' => array(
-			'country' => 'Afghanistan',
+			'country'   => 'Afghanistan',
 			'continent' => 'AS',
 		),
 		'AX' => array(
-			'country' => 'Åland Islands',
+			'country'   => 'Åland Islands',
 			'continent' => 'EU',
 		),
 		'AL' => array(
-			'country' => 'Albania',
+			'country'   => 'Albania',
 			'continent' => 'EU',
 		),
 		'DZ' => array(
-			'country' => 'Algeria',
+			'country'   => 'Algeria',
 			'continent' => 'AF',
 		),
 		'AS' => array(
-			'country' => 'American Samoa',
+			'country'   => 'American Samoa',
 			'continent' => 'OC',
 		),
 		'AD' => array(
-			'country' => 'Andorra',
+			'country'   => 'Andorra',
 			'continent' => 'EU',
 		),
 		'AO' => array(
-			'country' => 'Angola',
+			'country'   => 'Angola',
 			'continent' => 'AF',
 		),
 		'AI' => array(
-			'country' => 'Anguilla',
+			'country'   => 'Anguilla',
 			'continent' => 'NA',
 		),
 		'AQ' => array(
-			'country' => 'AN',
+			'country'   => 'AN',
 			'continent' => 'AN',
 		),
 		'AG' => array(
-			'country' => 'Antigua and Barbuda',
+			'country'   => 'Antigua and Barbuda',
 			'continent' => 'NA',
 		),
 		'AR' => array(
-			'country' => 'Argentina',
+			'country'   => 'Argentina',
 			'continent' => 'SA',
 		),
 		'AM' => array(
-			'country' => 'Armenia',
+			'country'   => 'Armenia',
 			'continent' => 'AS',
 		),
 		'AW' => array(
-			'country' => 'Aruba',
+			'country'   => 'Aruba',
 			'continent' => 'NA',
 		),
 		'AU' => array(
-			'country' => 'Australia',
+			'country'   => 'Australia',
 			'continent' => 'OC',
 		),
 		'AT' => array(
-			'country' => 'Austria',
+			'country'   => 'Austria',
 			'continent' => 'EU',
 		),
 		'AZ' => array(
-			'country' => 'Azerbaijan',
+			'country'   => 'Azerbaijan',
 			'continent' => 'AS',
 		),
 		'BS' => array(
-			'country' => 'Bahamas',
+			'country'   => 'Bahamas',
 			'continent' => 'NA',
 		),
 		'BH' => array(
-			'country' => 'Bahrain',
+			'country'   => 'Bahrain',
 			'continent' => 'AS',
 		),
 		'BD' => array(
-			'country' => 'Bangladesh',
+			'country'   => 'Bangladesh',
 			'continent' => 'AS',
 		),
 		'BB' => array(
-			'country' => 'Barbados',
+			'country'   => 'Barbados',
 			'continent' => 'NA',
 		),
 		'BY' => array(
-			'country' => 'Belarus',
+			'country'   => 'Belarus',
 			'continent' => 'EU',
 		),
 		'BE' => array(
-			'country' => 'Belgium',
+			'country'   => 'Belgium',
 			'continent' => 'EU',
 		),
 		'BZ' => array(
-			'country' => 'Belize',
+			'country'   => 'Belize',
 			'continent' => 'NA',
 		),
 		'BJ' => array(
-			'country' => 'Benin',
+			'country'   => 'Benin',
 			'continent' => 'AF',
 		),
 		'BM' => array(
-			'country' => 'Bermuda',
+			'country'   => 'Bermuda',
 			'continent' => 'NA',
 		),
 		'BT' => array(
-			'country' => 'Bhutan',
+			'country'   => 'Bhutan',
 			'continent' => 'AS',
 		),
 		'BO' => array(
-			'country' => 'Bolivia',
+			'country'   => 'Bolivia',
 			'continent' => 'SA',
 		),
 		'BA' => array(
-			'country' => 'Bosnia and Herzegovina',
+			'country'   => 'Bosnia and Herzegovina',
 			'continent' => 'EU',
 		),
 		'BW' => array(
-			'country' => 'Botswana',
+			'country'   => 'Botswana',
 			'continent' => 'AF',
 		),
 		'BV' => array(
-			'country' => 'Bouvet Island',
+			'country'   => 'Bouvet Island',
 			'continent' => 'AN',
 		),
 		'BR' => array(
-			'country' => 'Brazil',
+			'country'   => 'Brazil',
 			'continent' => 'SA',
 		),
 		'IO' => array(
-			'country' => 'British Indian Ocean Territory',
+			'country'   => 'British Indian Ocean Territory',
 			'continent' => 'AS',
 		),
 		'BN' => array(
-			'country' => 'Brunei Darussalam',
+			'country'   => 'Brunei Darussalam',
 			'continent' => 'AS',
 		),
 		'BG' => array(
-			'country' => 'Bulgaria',
+			'country'   => 'Bulgaria',
 			'continent' => 'EU',
 		),
 		'BF' => array(
-			'country' => 'Burkina Faso',
+			'country'   => 'Burkina Faso',
 			'continent' => 'AF',
 		),
 		'BI' => array(
-			'country' => 'Burundi',
+			'country'   => 'Burundi',
 			'continent' => 'AF',
 		),
 		'KH' => array(
-			'country' => 'Cambodia',
+			'country'   => 'Cambodia',
 			'continent' => 'AS',
 		),
 		'CM' => array(
-			'country' => 'Cameroon',
+			'country'   => 'Cameroon',
 			'continent' => 'AF',
 		),
 		'CA' => array(
-			'country' => 'Canada',
+			'country'   => 'Canada',
 			'continent' => 'NA',
 		),
 		'CV' => array(
-			'country' => 'Cape Verde',
+			'country'   => 'Cape Verde',
 			'continent' => 'AF',
 		),
 		'KY' => array(
-			'country' => 'Cayman Islands',
+			'country'   => 'Cayman Islands',
 			'continent' => 'NA',
 		),
 		'CF' => array(
-			'country' => 'Central African Republic',
+			'country'   => 'Central African Republic',
 			'continent' => 'AF',
 		),
 		'TD' => array(
-			'country' => 'Chad',
+			'country'   => 'Chad',
 			'continent' => 'AF',
 		),
 		'CL' => array(
-			'country' => 'Chile',
+			'country'   => 'Chile',
 			'continent' => 'SA',
 		),
 		'CN' => array(
-			'country' => 'China',
+			'country'   => 'China',
 			'continent' => 'AS',
 		),
 		'CX' => array(
-			'country' => 'Christmas Island',
+			'country'   => 'Christmas Island',
 			'continent' => 'AS',
 		),
 		'CC' => array(
-			'country' => 'Cocos (Keeling) Islands',
+			'country'   => 'Cocos (Keeling) Islands',
 			'continent' => 'AS',
 		),
 		'CO' => array(
-			'country' => 'Colombia',
+			'country'   => 'Colombia',
 			'continent' => 'SA',
 		),
 		'KM' => array(
-			'country' => 'Comoros',
+			'country'   => 'Comoros',
 			'continent' => 'AF',
 		),
 		'CG' => array(
-			'country' => 'Congo',
+			'country'   => 'Congo',
 			'continent' => 'AF',
 		),
 		'CD' => array(
-			'country' => 'The Democratic Republic of The Congo',
+			'country'   => 'The Democratic Republic of The Congo',
 			'continent' => 'AF',
 		),
 		'CK' => array(
-			'country' => 'Cook Islands',
+			'country'   => 'Cook Islands',
 			'continent' => 'OC',
 		),
 		'CR' => array(
-			'country' => 'Costa Rica',
+			'country'   => 'Costa Rica',
 			'continent' => 'NA',
 		),
 		'CI' => array(
-			'country' => 'Cote D\'ivoire',
+			'country'   => 'Cote D\'ivoire',
 			'continent' => 'AF',
 		),
 		'HR' => array(
-			'country' => 'Croatia',
+			'country'   => 'Croatia',
 			'continent' => 'EU',
 		),
 		'CU' => array(
-			'country' => 'Cuba',
+			'country'   => 'Cuba',
 			'continent' => 'NA',
 		),
 		'CY' => array(
-			'country' => 'Cyprus',
+			'country'   => 'Cyprus',
 			'continent' => 'AS',
 		),
 		'CZ' => array(
-			'country' => 'Czech Republic',
+			'country'   => 'Czech Republic',
 			'continent' => 'EU',
 		),
 		'DK' => array(
-			'country' => 'Denmark',
+			'country'   => 'Denmark',
 			'continent' => 'EU',
 		),
 		'DJ' => array(
-			'country' => 'Djibouti',
+			'country'   => 'Djibouti',
 			'continent' => 'AF',
 		),
 		'DM' => array(
-			'country' => 'Dominica',
+			'country'   => 'Dominica',
 			'continent' => 'NA',
 		),
 		'DO' => array(
-			'country' => 'Dominican Republic',
+			'country'   => 'Dominican Republic',
 			'continent' => 'NA',
 		),
 		'EC' => array(
-			'country' => 'Ecuador',
+			'country'   => 'Ecuador',
 			'continent' => 'SA',
 		),
 		'EG' => array(
-			'country' => 'Egypt',
+			'country'   => 'Egypt',
 			'continent' => 'AF',
 		),
 		'SV' => array(
-			'country' => 'El Salvador',
+			'country'   => 'El Salvador',
 			'continent' => 'NA',
 		),
 		'GQ' => array(
-			'country' => 'Equatorial Guinea',
+			'country'   => 'Equatorial Guinea',
 			'continent' => 'AF',
 		),
 		'ER' => array(
-			'country' => 'Eritrea',
+			'country'   => 'Eritrea',
 			'continent' => 'AF',
 		),
 		'EE' => array(
-			'country' => 'Estonia',
+			'country'   => 'Estonia',
 			'continent' => 'EU',
 		),
 		'ET' => array(
-			'country' => 'Ethiopia',
+			'country'   => 'Ethiopia',
 			'continent' => 'AF',
 		),
 		'FK' => array(
-			'country' => 'Falkland Islands (Malvinas)',
+			'country'   => 'Falkland Islands (Malvinas)',
 			'continent' => 'SA',
 		),
 		'FO' => array(
-			'country' => 'Faroe Islands',
+			'country'   => 'Faroe Islands',
 			'continent' => 'EU',
 		),
 		'FJ' => array(
-			'country' => 'Fiji',
+			'country'   => 'Fiji',
 			'continent' => 'OC',
 		),
 		'FI' => array(
-			'country' => 'Finland',
+			'country'   => 'Finland',
 			'continent' => 'EU',
 		),
 		'FR' => array(
-			'country' => 'France',
+			'country'   => 'France',
 			'continent' => 'EU',
 		),
 		'GF' => array(
-			'country' => 'French Guiana',
+			'country'   => 'French Guiana',
 			'continent' => 'SA',
 		),
 		'PF' => array(
-			'country' => 'French Polynesia',
+			'country'   => 'French Polynesia',
 			'continent' => 'OC',
 		),
 		'TF' => array(
-			'country' => 'French Southern Territories',
+			'country'   => 'French Southern Territories',
 			'continent' => 'AN',
 		),
 		'GA' => array(
-			'country' => 'Gabon',
+			'country'   => 'Gabon',
 			'continent' => 'AF',
 		),
 		'GM' => array(
-			'country' => 'Gambia',
+			'country'   => 'Gambia',
 			'continent' => 'AF',
 		),
 		'GE' => array(
-			'country' => 'Georgia',
+			'country'   => 'Georgia',
 			'continent' => 'AS',
 		),
 		'DE' => array(
-			'country' => 'Germany',
+			'country'   => 'Germany',
 			'continent' => 'EU',
 		),
 		'GH' => array(
-			'country' => 'Ghana',
+			'country'   => 'Ghana',
 			'continent' => 'AF',
 		),
 		'GI' => array(
-			'country' => 'Gibraltar',
+			'country'   => 'Gibraltar',
 			'continent' => 'EU',
 		),
 		'GR' => array(
-			'country' => 'Greece',
+			'country'   => 'Greece',
 			'continent' => 'EU',
 		),
 		'GL' => array(
-			'country' => 'Greenland',
+			'country'   => 'Greenland',
 			'continent' => 'NA',
 		),
 		'GD' => array(
-			'country' => 'Grenada',
+			'country'   => 'Grenada',
 			'continent' => 'NA',
 		),
 		'GP' => array(
-			'country' => 'Guadeloupe',
+			'country'   => 'Guadeloupe',
 			'continent' => 'NA',
 		),
 		'GU' => array(
-			'country' => 'Guam',
+			'country'   => 'Guam',
 			'continent' => 'OC',
 		),
 		'GT' => array(
-			'country' => 'Guatemala',
+			'country'   => 'Guatemala',
 			'continent' => 'NA',
 		),
 		'GG' => array(
-			'country' => 'Guernsey',
+			'country'   => 'Guernsey',
 			'continent' => 'EU',
 		),
 		'GN' => array(
-			'country' => 'Guinea',
+			'country'   => 'Guinea',
 			'continent' => 'AF',
 		),
 		'GW' => array(
-			'country' => 'Guinea-bissau',
+			'country'   => 'Guinea-bissau',
 			'continent' => 'AF',
 		),
 		'GY' => array(
-			'country' => 'Guyana',
+			'country'   => 'Guyana',
 			'continent' => 'SA',
 		),
 		'HT' => array(
-			'country' => 'Haiti',
+			'country'   => 'Haiti',
 			'continent' => 'NA',
 		),
 		'HM' => array(
-			'country' => 'Heard Island and Mcdonald Islands',
+			'country'   => 'Heard Island and Mcdonald Islands',
 			'continent' => 'AN',
 		),
 		'VA' => array(
-			'country' => 'Holy See (Vatican City State)',
+			'country'   => 'Holy See (Vatican City State)',
 			'continent' => 'EU',
 		),
 		'HN' => array(
-			'country' => 'Honduras',
+			'country'   => 'Honduras',
 			'continent' => 'NA',
 		),
 		'HK' => array(
-			'country' => 'Hong Kong',
+			'country'   => 'Hong Kong',
 			'continent' => 'AS',
 		),
 		'HU' => array(
-			'country' => 'Hungary',
+			'country'   => 'Hungary',
 			'continent' => 'EU',
 		),
 		'IS' => array(
-			'country' => 'Iceland',
+			'country'   => 'Iceland',
 			'continent' => 'EU',
 		),
 		'IN' => array(
-			'country' => 'India',
+			'country'   => 'India',
 			'continent' => 'AS',
 		),
 		'ID' => array(
-			'country' => 'Indonesia',
+			'country'   => 'Indonesia',
 			'continent' => 'AS',
 		),
 		'IR' => array(
-			'country' => 'Iran',
+			'country'   => 'Iran',
 			'continent' => 'AS',
 		),
 		'IQ' => array(
-			'country' => 'Iraq',
+			'country'   => 'Iraq',
 			'continent' => 'AS',
 		),
 		'IE' => array(
-			'country' => 'Ireland',
+			'country'   => 'Ireland',
 			'continent' => 'EU',
 		),
 		'IM' => array(
-			'country' => 'Isle of Man',
+			'country'   => 'Isle of Man',
 			'continent' => 'EU',
 		),
 		'IL' => array(
-			'country' => 'Israel',
+			'country'   => 'Israel',
 			'continent' => 'AS',
 		),
 		'IT' => array(
-			'country' => 'Italy',
+			'country'   => 'Italy',
 			'continent' => 'EU',
 		),
 		'JM' => array(
-			'country' => 'Jamaica',
+			'country'   => 'Jamaica',
 			'continent' => 'NA',
 		),
 		'JP' => array(
-			'country' => 'Japan',
+			'country'   => 'Japan',
 			'continent' => 'AS',
 		),
 		'JE' => array(
-			'country' => 'Jersey',
+			'country'   => 'Jersey',
 			'continent' => 'EU',
 		),
 		'JO' => array(
-			'country' => 'Jordan',
+			'country'   => 'Jordan',
 			'continent' => 'AS',
 		),
 		'KZ' => array(
-			'country' => 'Kazakhstan',
+			'country'   => 'Kazakhstan',
 			'continent' => 'AS',
 		),
 		'KE' => array(
-			'country' => 'Kenya',
+			'country'   => 'Kenya',
 			'continent' => 'AF',
 		),
 		'KI' => array(
-			'country' => 'Kiribati',
+			'country'   => 'Kiribati',
 			'continent' => 'OC',
 		),
 		'KP' => array(
-			'country' => 'Democratic People\'s Republic of Korea',
+			'country'   => 'Democratic People\'s Republic of Korea',
 			'continent' => 'AS',
 		),
 		'KR' => array(
-			'country' => 'Republic of Korea',
+			'country'   => 'Republic of Korea',
 			'continent' => 'AS',
 		),
 		'KW' => array(
-			'country' => 'Kuwait',
+			'country'   => 'Kuwait',
 			'continent' => 'AS',
 		),
 		'KG' => array(
-			'country' => 'Kyrgyzstan',
+			'country'   => 'Kyrgyzstan',
 			'continent' => 'AS',
 		),
 		'LA' => array(
-			'country' => 'Lao People\'s Democratic Republic',
+			'country'   => 'Lao People\'s Democratic Republic',
 			'continent' => 'AS',
 		),
 		'LV' => array(
-			'country' => 'Latvia',
+			'country'   => 'Latvia',
 			'continent' => 'EU',
 		),
 		'LB' => array(
-			'country' => 'Lebanon',
+			'country'   => 'Lebanon',
 			'continent' => 'AS',
 		),
 		'LS' => array(
-			'country' => 'Lesotho',
+			'country'   => 'Lesotho',
 			'continent' => 'AF',
 		),
 		'LR' => array(
-			'country' => 'Liberia',
+			'country'   => 'Liberia',
 			'continent' => 'AF',
 		),
 		'LY' => array(
-			'country' => 'Libya',
+			'country'   => 'Libya',
 			'continent' => 'AF',
 		),
 		'LI' => array(
-			'country' => 'Liechtenstein',
+			'country'   => 'Liechtenstein',
 			'continent' => 'EU',
 		),
 		'LT' => array(
-			'country' => 'Lithuania',
+			'country'   => 'Lithuania',
 			'continent' => 'EU',
 		),
 		'LU' => array(
-			'country' => 'Luxembourg',
+			'country'   => 'Luxembourg',
 			'continent' => 'EU',
 		),
 		'MO' => array(
-			'country' => 'Macao',
+			'country'   => 'Macao',
 			'continent' => 'AS',
 		),
 		'MK' => array(
-			'country' => 'Macedonia',
+			'country'   => 'Macedonia',
 			'continent' => 'EU',
 		),
 		'MG' => array(
-			'country' => 'Madagascar',
+			'country'   => 'Madagascar',
 			'continent' => 'AF',
 		),
 		'MW' => array(
-			'country' => 'Malawi',
+			'country'   => 'Malawi',
 			'continent' => 'AF',
 		),
 		'MY' => array(
-			'country' => 'Malaysia',
+			'country'   => 'Malaysia',
 			'continent' => 'AS',
 		),
 		'MV' => array(
-			'country' => 'Maldives',
+			'country'   => 'Maldives',
 			'continent' => 'AS',
 		),
 		'ML' => array(
-			'country' => 'Mali',
+			'country'   => 'Mali',
 			'continent' => 'AF',
 		),
 		'MT' => array(
-			'country' => 'Malta',
+			'country'   => 'Malta',
 			'continent' => 'EU',
 		),
 		'MH' => array(
-			'country' => 'Marshall Islands',
+			'country'   => 'Marshall Islands',
 			'continent' => 'OC',
 		),
 		'MQ' => array(
-			'country' => 'Martinique',
+			'country'   => 'Martinique',
 			'continent' => 'NA',
 		),
 		'MR' => array(
-			'country' => 'Mauritania',
+			'country'   => 'Mauritania',
 			'continent' => 'AF',
 		),
 		'MU' => array(
-			'country' => 'Mauritius',
+			'country'   => 'Mauritius',
 			'continent' => 'AF',
 		),
 		'YT' => array(
-			'country' => 'Mayotte',
+			'country'   => 'Mayotte',
 			'continent' => 'AF',
 		),
 		'MX' => array(
-			'country' => 'Mexico',
+			'country'   => 'Mexico',
 			'continent' => 'NA',
 		),
 		'FM' => array(
-			'country' => 'Micronesia',
+			'country'   => 'Micronesia',
 			'continent' => 'OC',
 		),
 		'MD' => array(
-			'country' => 'Moldova',
+			'country'   => 'Moldova',
 			'continent' => 'EU',
 		),
 		'MC' => array(
-			'country' => 'Monaco',
+			'country'   => 'Monaco',
 			'continent' => 'EU',
 		),
 		'MN' => array(
-			'country' => 'Mongolia',
+			'country'   => 'Mongolia',
 			'continent' => 'AS',
 		),
 		'ME' => array(
-			'country' => 'Montenegro',
+			'country'   => 'Montenegro',
 			'continent' => 'EU',
 		),
 		'MS' => array(
-			'country' => 'Montserrat',
+			'country'   => 'Montserrat',
 			'continent' => 'NA',
 		),
 		'MA' => array(
-			'country' => 'Morocco',
+			'country'   => 'Morocco',
 			'continent' => 'AF',
 		),
 		'MZ' => array(
-			'country' => 'Mozambique',
+			'country'   => 'Mozambique',
 			'continent' => 'AF',
 		),
 		'MM' => array(
-			'country' => 'Myanmar',
+			'country'   => 'Myanmar',
 			'continent' => 'AS',
 		),
 		'NA' => array(
-			'country' => 'Namibia',
+			'country'   => 'Namibia',
 			'continent' => 'AF',
 		),
 		'NR' => array(
-			'country' => 'Nauru',
+			'country'   => 'Nauru',
 			'continent' => 'OC',
 		),
 		'NP' => array(
-			'country' => 'Nepal',
+			'country'   => 'Nepal',
 			'continent' => 'AS',
 		),
 		'NL' => array(
-			'country' => 'Netherlands',
+			'country'   => 'Netherlands',
 			'continent' => 'EU',
 		),
 		'AN' => array(
-			'country' => 'Netherlands Antilles',
+			'country'   => 'Netherlands Antilles',
 			'continent' => 'NA',
 		),
 		'NC' => array(
-			'country' => 'New Caledonia',
+			'country'   => 'New Caledonia',
 			'continent' => 'OC',
 		),
 		'NZ' => array(
-			'country' => 'New Zealand',
+			'country'   => 'New Zealand',
 			'continent' => 'OC',
 		),
 		'NI' => array(
-			'country' => 'Nicaragua',
+			'country'   => 'Nicaragua',
 			'continent' => 'NA',
 		),
 		'NE' => array(
-			'country' => 'Niger',
+			'country'   => 'Niger',
 			'continent' => 'AF',
 		),
 		'NG' => array(
-			'country' => 'Nigeria',
+			'country'   => 'Nigeria',
 			'continent' => 'AF',
 		),
 		'NU' => array(
-			'country' => 'Niue',
+			'country'   => 'Niue',
 			'continent' => 'OC',
 		),
 		'NF' => array(
-			'country' => 'Norfolk Island',
+			'country'   => 'Norfolk Island',
 			'continent' => 'OC',
 		),
 		'MP' => array(
-			'country' => 'Northern Mariana Islands',
+			'country'   => 'Northern Mariana Islands',
 			'continent' => 'OC',
 		),
 		'NO' => array(
-			'country' => 'Norway',
+			'country'   => 'Norway',
 			'continent' => 'EU',
 		),
 		'OM' => array(
-			'country' => 'Oman',
+			'country'   => 'Oman',
 			'continent' => 'AS',
 		),
 		'PK' => array(
-			'country' => 'Pakistan',
+			'country'   => 'Pakistan',
 			'continent' => 'AS',
 		),
 		'PW' => array(
-			'country' => 'Palau',
+			'country'   => 'Palau',
 			'continent' => 'OC',
 		),
 		'PS' => array(
-			'country' => 'Palestinia',
+			'country'   => 'Palestinia',
 			'continent' => 'AS',
 		),
 		'PA' => array(
-			'country' => 'Panama',
+			'country'   => 'Panama',
 			'continent' => 'NA',
 		),
 		'PG' => array(
-			'country' => 'Papua New Guinea',
+			'country'   => 'Papua New Guinea',
 			'continent' => 'OC',
 		),
 		'PY' => array(
-			'country' => 'Paraguay',
+			'country'   => 'Paraguay',
 			'continent' => 'SA',
 		),
 		'PE' => array(
-			'country' => 'Peru',
+			'country'   => 'Peru',
 			'continent' => 'SA',
 		),
 		'PH' => array(
-			'country' => 'Philippines',
+			'country'   => 'Philippines',
 			'continent' => 'AS',
 		),
 		'PN' => array(
-			'country' => 'Pitcairn',
+			'country'   => 'Pitcairn',
 			'continent' => 'OC',
 		),
 		'PL' => array(
-			'country' => 'Poland',
+			'country'   => 'Poland',
 			'continent' => 'EU',
 		),
 		'PT' => array(
-			'country' => 'Portugal',
+			'country'   => 'Portugal',
 			'continent' => 'EU',
 		),
 		'PR' => array(
-			'country' => 'Puerto Rico',
+			'country'   => 'Puerto Rico',
 			'continent' => 'NA',
 		),
 		'QA' => array(
-			'country' => 'Qatar',
+			'country'   => 'Qatar',
 			'continent' => 'AS',
 		),
 		'RE' => array(
-			'country' => 'Reunion',
+			'country'   => 'Reunion',
 			'continent' => 'AF',
 		),
 		'RO' => array(
-			'country' => 'Romania',
+			'country'   => 'Romania',
 			'continent' => 'EU',
 		),
 		'RU' => array(
-			'country' => 'Russian Federation',
+			'country'   => 'Russian Federation',
 			'continent' => 'EU',
 		),
 		'RW' => array(
-			'country' => 'Rwanda',
+			'country'   => 'Rwanda',
 			'continent' => 'AF',
 		),
 		'SH' => array(
-			'country' => 'Saint Helena',
+			'country'   => 'Saint Helena',
 			'continent' => 'AF',
 		),
 		'KN' => array(
-			'country' => 'Saint Kitts and Nevis',
+			'country'   => 'Saint Kitts and Nevis',
 			'continent' => 'NA',
 		),
 		'LC' => array(
-			'country' => 'Saint Lucia',
+			'country'   => 'Saint Lucia',
 			'continent' => 'NA',
 		),
 		'PM' => array(
-			'country' => 'Saint Pierre and Miquelon',
+			'country'   => 'Saint Pierre and Miquelon',
 			'continent' => 'NA',
 		),
 		'VC' => array(
-			'country' => 'Saint Vincent and The Grenadines',
+			'country'   => 'Saint Vincent and The Grenadines',
 			'continent' => 'NA',
 		),
 		'WS' => array(
-			'country' => 'Samoa',
+			'country'   => 'Samoa',
 			'continent' => 'OC',
 		),
 		'SM' => array(
-			'country' => 'San Marino',
+			'country'   => 'San Marino',
 			'continent' => 'EU',
 		),
 		'ST' => array(
-			'country' => 'Sao Tome and Principe',
+			'country'   => 'Sao Tome and Principe',
 			'continent' => 'AF',
 		),
 		'SA' => array(
-			'country' => 'Saudi Arabia',
+			'country'   => 'Saudi Arabia',
 			'continent' => 'AS',
 		),
 		'SN' => array(
-			'country' => 'Senegal',
+			'country'   => 'Senegal',
 			'continent' => 'AF',
 		),
 		'RS' => array(
-			'country' => 'Serbia',
+			'country'   => 'Serbia',
 			'continent' => 'EU',
 		),
 		'SC' => array(
-			'country' => 'Seychelles',
+			'country'   => 'Seychelles',
 			'continent' => 'AF',
 		),
 		'SL' => array(
-			'country' => 'Sierra Leone',
+			'country'   => 'Sierra Leone',
 			'continent' => 'AF',
 		),
 		'SG' => array(
-			'country' => 'Singapore',
+			'country'   => 'Singapore',
 			'continent' => 'AS',
 		),
 		'SK' => array(
-			'country' => 'Slovakia',
+			'country'   => 'Slovakia',
 			'continent' => 'EU',
 		),
 		'SI' => array(
-			'country' => 'Slovenia',
+			'country'   => 'Slovenia',
 			'continent' => 'EU',
 		),
 		'SB' => array(
-			'country' => 'Solomon Islands',
+			'country'   => 'Solomon Islands',
 			'continent' => 'OC',
 		),
 		'SO' => array(
-			'country' => 'Somalia',
+			'country'   => 'Somalia',
 			'continent' => 'AF',
 		),
 		'ZA' => array(
-			'country' => 'South Africa',
+			'country'   => 'South Africa',
 			'continent' => 'AF',
 		),
 		'GS' => array(
-			'country' => 'South Georgia and The South Sandwich Islands',
+			'country'   => 'South Georgia and The South Sandwich Islands',
 			'continent' => 'AN',
 		),
 		'ES' => array(
-			'country' => 'Spain',
+			'country'   => 'Spain',
 			'continent' => 'EU',
 		),
 		'LK' => array(
-			'country' => 'Sri Lanka',
+			'country'   => 'Sri Lanka',
 			'continent' => 'AS',
 		),
 		'SD' => array(
-			'country' => 'Sudan',
+			'country'   => 'Sudan',
 			'continent' => 'AF',
 		),
 		'SR' => array(
-			'country' => 'Suriname',
+			'country'   => 'Suriname',
 			'continent' => 'SA',
 		),
 		'SJ' => array(
-			'country' => 'Svalbard and Jan Mayen',
+			'country'   => 'Svalbard and Jan Mayen',
 			'continent' => 'EU',
 		),
 		'SZ' => array(
-			'country' => 'Swaziland',
+			'country'   => 'Swaziland',
 			'continent' => 'AF',
 		),
 		'SE' => array(
-			'country' => 'Sweden',
+			'country'   => 'Sweden',
 			'continent' => 'EU',
 		),
 		'CH' => array(
-			'country' => 'Switzerland',
+			'country'   => 'Switzerland',
 			'continent' => 'EU',
 		),
 		'SY' => array(
-			'country' => 'Syrian Arab Republic',
+			'country'   => 'Syrian Arab Republic',
 			'continent' => 'AS',
 		),
 		'TW' => array(
-			'country' => 'Taiwan, Province of China',
+			'country'   => 'Taiwan, Province of China',
 			'continent' => 'AS',
 		),
 		'TJ' => array(
-			'country' => 'Tajikistan',
+			'country'   => 'Tajikistan',
 			'continent' => 'AS',
 		),
 		'TZ' => array(
-			'country' => 'Tanzania, United Republic of',
+			'country'   => 'Tanzania, United Republic of',
 			'continent' => 'AF',
 		),
 		'TH' => array(
-			'country' => 'Thailand',
+			'country'   => 'Thailand',
 			'continent' => 'AS',
 		),
 		'TL' => array(
-			'country' => 'Timor-leste',
+			'country'   => 'Timor-leste',
 			'continent' => 'AS',
 		),
 		'TG' => array(
-			'country' => 'Togo',
+			'country'   => 'Togo',
 			'continent' => 'AF',
 		),
 		'TK' => array(
-			'country' => 'Tokelau',
+			'country'   => 'Tokelau',
 			'continent' => 'OC',
 		),
 		'TO' => array(
-			'country' => 'Tonga',
+			'country'   => 'Tonga',
 			'continent' => 'OC',
 		),
 		'TT' => array(
-			'country' => 'Trinidad and Tobago',
+			'country'   => 'Trinidad and Tobago',
 			'continent' => 'NA',
 		),
 		'TN' => array(
-			'country' => 'Tunisia',
+			'country'   => 'Tunisia',
 			'continent' => 'AF',
 		),
 		'TR' => array(
-			'country' => 'Turkey',
+			'country'   => 'Turkey',
 			'continent' => 'AS',
 		),
 		'TM' => array(
-			'country' => 'Turkmenistan',
+			'country'   => 'Turkmenistan',
 			'continent' => 'AS',
 		),
 		'TC' => array(
-			'country' => 'Turks and Caicos Islands',
+			'country'   => 'Turks and Caicos Islands',
 			'continent' => 'NA',
 		),
 		'TV' => array(
-			'country' => 'Tuvalu',
+			'country'   => 'Tuvalu',
 			'continent' => 'OC',
 		),
 		'UG' => array(
-			'country' => 'Uganda',
+			'country'   => 'Uganda',
 			'continent' => 'AF',
 		),
 		'UA' => array(
-			'country' => 'Ukraine',
+			'country'   => 'Ukraine',
 			'continent' => 'EU',
 		),
 		'AE' => array(
-			'country' => 'United Arab Emirates',
+			'country'   => 'United Arab Emirates',
 			'continent' => 'AS',
 		),
 		'GB' => array(
-			'country' => 'United Kingdom',
+			'country'   => 'United Kingdom',
 			'continent' => 'EU',
 		),
 		'US' => array(
-			'country' => 'United States',
+			'country'   => 'United States',
 			'continent' => 'NA',
 		),
 		'UM' => array(
-			'country' => 'United States Minor Outlying Islands',
+			'country'   => 'United States Minor Outlying Islands',
 			'continent' => 'OC',
 		),
 		'UY' => array(
-			'country' => 'Uruguay',
+			'country'   => 'Uruguay',
 			'continent' => 'SA',
 		),
 		'UZ' => array(
-			'country' => 'Uzbekistan',
+			'country'   => 'Uzbekistan',
 			'continent' => 'AS',
 		),
 		'VU' => array(
-			'country' => 'Vanuatu',
+			'country'   => 'Vanuatu',
 			'continent' => 'OC',
 		),
 		'VE' => array(
-			'country' => 'Venezuela',
+			'country'   => 'Venezuela',
 			'continent' => 'SA',
 		),
 		'VN' => array(
-			'country' => 'Viet Nam',
+			'country'   => 'Viet Nam',
 			'continent' => 'AS',
 		),
 		'VG' => array(
-			'country' => 'Virgin Islands, British',
+			'country'   => 'Virgin Islands, British',
 			'continent' => 'NA',
 		),
 		'VI' => array(
-			'country' => 'Virgin Islands, U.S.',
+			'country'   => 'Virgin Islands, U.S.',
 			'continent' => 'NA',
 		),
 		'WF' => array(
-			'country' => 'Wallis and Futuna',
+			'country'   => 'Wallis and Futuna',
 			'continent' => 'OC',
 		),
 		'EH' => array(
-			'country' => 'Western Sahara',
+			'country'   => 'Western Sahara',
 			'continent' => 'AF',
 		),
 		'YE' => array(
-			'country' => 'Yemen',
+			'country'   => 'Yemen',
 			'continent' => 'AS',
 		),
 		'ZM' => array(
-			'country' => 'Zambia',
+			'country'   => 'Zambia',
 			'continent' => 'AF',
 		),
 		'ZW' => array(
-			'country' => 'Zimbabwe',
+			'country'   => 'Zimbabwe',
 			'continent' => 'AF',
 		),
 	);
