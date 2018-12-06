@@ -35,21 +35,34 @@ class GeoIp_Test extends \WP_UnitTestCase {
      *
      * @dataProvider data_shortcode_slugs
      */
-    public function test_shortcodes_exist($slug) {
-        $this->assertTrue( shortcode_exists( "geoip-${slug}" ) );
+    public function test_action_init_register_shortcodes($slug) {
+        // Test that the plugin adds shortcodes via constructor side effect
+        $this->assertTrue( shortcode_exists( $slug ) );
+
+        // Remove the shortcodes and readd them using action_init_register_shortcodes
+        remove_shortcode( $slug );
+        $this->assertFalse( shortcode_exists( $slug ) );
+
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        $geoip_mock->action_init_register_shortcodes();
+        $this->assertTrue( shortcode_exists( $slug ) );
     }
 
     public function data_shortcode_slugs() {
         return array(
-            ['continent'],
-            ['country'],
-            ['region'],
-            ['city'],
-            ['postalcode'],
-            ['latitude'],
-            ['longitude'],
-            ['location'],
-            ['content'],
+            [GeoIp::SHORTCODE_CONTINENT],
+            [GeoIp::SHORTCODE_COUNTRY],
+            [GeoIp::SHORTCODE_REGION],
+            [GeoIp::SHORTCODE_CITY],
+            [GeoIp::SHORTCODE_POSTAL_CODE],
+            [GeoIp::SHORTCODE_LATITUDE],
+            [GeoIp::SHORTCODE_LONGITUDE],
+            [GeoIp::SHORTCODE_LOCATION],
+            [GeoIp::SHORTCODE_CONTENT],
         );
     }
 
@@ -146,4 +159,44 @@ class GeoIp_Test extends \WP_UnitTestCase {
 			$this->assertContains( $line, $actual_output );
 		}
 	}
+
+	public function test_geos_array_callers() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        // Test continent with null value
+        $this->assertEmpty($geoip_mock->continent());
+
+        // Test continent with value but while countries is not yet set
+        $this->assertEmpty($geoip_mock->continent('EC'));
+
+        $geoip_mock->countries = array(
+            'EC' => array(
+                'country'   => 'Ecuador',
+                'continent' => 'SA',
+            ),
+        );
+
+        // Test continent
+        $this->assertEquals('SA', $geoip_mock->continent('EC'));
+
+        $geoip_mock->geos = array(
+            'countrycode' => 'abc',
+            'region' => 'easy as',
+            'city' => '123',
+            'postalcode' => 'simple as',
+            'latitude' => 'do-re-me',
+            'longitude' => 'you and me',
+        );
+
+        // Test geos getters
+        $this->assertEquals('abc', $geoip_mock->country());
+        $this->assertEquals('easy as', $geoip_mock->region());
+        $this->assertEquals('123', $geoip_mock->city());
+        $this->assertEquals('simple as', $geoip_mock->postal_code());
+        $this->assertEquals('do-re-me', $geoip_mock->latitude());
+        $this->assertEquals('you and me', $geoip_mock->longitude());
+    }
 }
