@@ -9,6 +9,10 @@ cache:
   directories:
     - ${HOME}/.composer/cache
 
+branches:
+  only:
+  - master
+
 before_script:
   - make composer_install
 
