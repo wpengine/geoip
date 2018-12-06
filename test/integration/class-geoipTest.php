@@ -76,14 +76,13 @@ class GeoIp_Test extends \WP_UnitTestCase {
      * @dataProvider data_test_init
      */
     public function test_init($hook, $method_name) {
-        // remove existing action
+        // Test that the plugin adds the action via constructor side effect
         $geoip = GeoIp::instance();
         $priority = has_action( $hook, array( $geoip, $method_name ) );
-        if ( $priority ) {
-            remove_action( $hook, array( $geoip, $method_name ), $priority );
-        }
+        $this->assertInternalType( 'int', $priority );
 
-        // readd action using init then test
+        // remove and readd action using init then test
+        remove_action( $hook, array( $geoip, $method_name ), $priority );
         $geoip::init();
         $this->assertInternalType( 'int', has_action( $hook, array( $geoip, $method_name ) ) );
     }
@@ -198,5 +197,62 @@ class GeoIp_Test extends \WP_UnitTestCase {
         $this->assertEquals('simple as', $geoip_mock->postal_code());
         $this->assertEquals('do-re-me', $geoip_mock->latitude());
         $this->assertEquals('you and me', $geoip_mock->longitude());
+    }
+
+    public function test_do_shortcode_except_content() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        $geoip_mock->geos = array();
+
+        // Test do_shortcode_region without GeoIP->geos['region'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_REGION . ']', $geoip_mock->do_shortcode_region( null ));
+
+        // Test do_shortcode_city without GeoIP->geos['city'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_CITY . ']', $geoip_mock->do_shortcode_city( null ));
+
+        // Test do_shortcode_postal_code without GeoIP->geos['postalcode'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_POSTAL_CODE . ']', $geoip_mock->do_shortcode_postal_code( null ));
+
+        // Test do_shortcode_latitude without GeoIP->geos['latitude'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_LATITUDE . ']', $geoip_mock->do_shortcode_latitude( null ));
+
+        // Test do_shortcode_longitude without GeoIP->geos['longitude'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_LONGITUDE . ']', $geoip_mock->do_shortcode_longitude( null ));
+
+        // Test do_shortcode_country without GeoIP->geos['countrycode'] set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_COUNTRY . ']', $geoip_mock->do_shortcode_country( null ));
+
+        $geoip_mock->geos = array(
+            'countrycode' => 'EC',
+            'region' => 'easy as',
+            'city' => '123',
+            'postalcode' => 'simple as',
+            'latitude' => 'do-re-me',
+            'longitude' => 'you and me',
+        );
+
+        // Test do_shortcode_continent without GeoIP->countries set
+        $this->assertEquals('[' . GeoIp::SHORTCODE_CONTINENT . ']', $geoip_mock->do_shortcode_continent( null ));
+
+        $geoip_mock->countries = array(
+            'EC' => array(
+                'country'   => 'Ecuador',
+                'continent' => 'SA',
+            ),
+        );
+
+        // Test do_shortcode_continent
+        $this->assertEquals('SA', $geoip_mock->do_shortcode_continent( null ));
+
+        // do_shortcode_...
+        $this->assertEquals('EC', $geoip_mock->do_shortcode_country( null ));
+        $this->assertEquals('easy as', $geoip_mock->do_shortcode_region( null ));
+        $this->assertEquals('123', $geoip_mock->do_shortcode_city( null ));
+        $this->assertEquals('simple as', $geoip_mock->do_shortcode_postal_code( null ));
+        $this->assertEquals('do-re-me', $geoip_mock->do_shortcode_latitude( null ));
+        $this->assertEquals('you and me', $geoip_mock->do_shortcode_longitude( null ));
     }
 }
