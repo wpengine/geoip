@@ -255,4 +255,172 @@ class GeoIp_Test extends \WP_UnitTestCase {
         $this->assertEquals('do-re-me', $geoip_mock->do_shortcode_latitude( null ));
         $this->assertEquals('you and me', $geoip_mock->do_shortcode_longitude( null ));
     }
+
+    public function test_do_shortcode_location() {
+	    $city = 'Raleigh';
+	    $region = 'North Carolina';
+	    $country = 'US';
+
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array('city', 'region', 'country') )
+            ->getMock();
+
+        $geoip_mock->method( 'country' )
+            ->willReturn( $country );
+
+        $geoip_mock->method( 'region' )
+            ->willReturn( $region );
+
+        $geoip_mock->method( 'city' )
+            ->will( $this->onConsecutiveCalls(null, $city) );
+
+        $this->assertEquals("${region} ${country}", $geoip_mock->do_shortcode_location(null));
+        $this->assertEquals("${city}, ${region} ${country}", $geoip_mock->do_shortcode_location(null));
+    }
+
+    public function test_compare_location_type() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        $this->assertEquals(0, $geoip_mock->compare_location_type('planet', 'continent'));
+        $this->assertEquals(2, $geoip_mock->compare_location_type('postalcode', 'areacode'));
+        $this->assertEquals(-2, $geoip_mock->compare_location_type('areacode', 'postalcode'));
+    }
+
+    public function test_get_test_parameters() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array('match_label_synonyms') )
+            ->getMock();
+
+        $geoip_mock->method( 'match_label_synonyms' )
+            ->will($this->returnArgument(0));
+
+        $geoip_mock->geos = array(
+            'overwrite_me' => 'should not exist',
+            '&amp;nother_geo' => 'not TX'
+        );
+
+        // Test without $_GET['geoip'] set
+        $this->assertEquals($geoip_mock->geos, $geoip_mock->get_test_parameters($geoip_mock->geos));
+
+        $_GET = array(
+            'geoip' => true,
+            'overwrite_me' => 'should exist',
+            '&nother_geo' => 'TX&', // test escaping
+            'key_should_not_exist' => 'bad key bad!',
+        );
+
+        $expected = array(
+            'overwrite_me' => 'should exist',
+            '&amp;nother_geo' => 'TX&amp;', // test escaping
+        );
+        $this->assertEquals($expected, $geoip_mock->get_test_parameters($geoip_mock->geos));
+    }
+
+    public function test_match_label_synonyms() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        // Test empty string
+        $this->assertEquals('', $geoip_mock->match_label_synonyms(''));
+
+        // Test non-string
+        $this->assertEquals(null, $geoip_mock->match_label_synonyms(null));
+
+        // Test country, state, zipcode and zip
+        $this->assertEquals('countrycode', $geoip_mock->match_label_synonyms('country'));
+        $this->assertEquals('region', $geoip_mock->match_label_synonyms('state'));
+        $this->assertEquals('postalcode', $geoip_mock->match_label_synonyms('zipcode'));
+        $this->assertEquals('postalcode', $geoip_mock->match_label_synonyms('zip'));
+    }
+
+    /**
+     * @param float $latitude
+     * @param float $longitude
+     * @param bool $is_metric Should calculation be done in metric?
+     * @param float $mock_latitude Response from the latitude method
+     * @param float $mock_longitude Response from the longitude method
+     * @param float $distance Distance between the two points
+     *
+     * @dataProvider data_distance_to
+     */
+    public function test_distance_to($latitude, $longitude, $is_metric, $mock_latitude, $mock_longitude, $distance) {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array('latitude', 'longitude') )
+            ->getMock();
+
+        $geoip_mock->method( 'latitude' )
+            ->willReturn( $mock_latitude );
+
+        $geoip_mock->method( 'longitude' )
+            ->willReturn( $mock_longitude );
+
+        $this->assertEquals($distance, $geoip_mock->distance_to($latitude, $longitude, $is_metric));
+    }
+
+    public function data_distance_to() {
+        return array(
+            array( // Test distance to the same point
+                'latitude' => 0.0,
+                'longitude' => 0.0,
+                'is_metric' => false,
+                'mock_latitude' => 0.0,
+                'mock_longitude' => 0.0,
+                'distance' => 0.0,
+            ),
+            array( // Test non-metric distance
+                'latitude' => 35.7796,
+                'longitude' => -78.6382,
+                'is_metric' => false,
+                'mock_latitude' => 30.2672,
+                'mock_longitude' => -97.7431,
+                'distance' => 8225.556014347605,
+            ),
+            array( // Test metric distance
+                'latitude' => 35.7796,
+                'longitude' => -78.6382,
+                'is_metric' => true,
+                'mock_latitude' => 30.2672,
+                'mock_longitude' => -97.7431,
+                'distance' => 13234.40254466985,
+            ),
+        );
+    }
+
+    public function test_helper_should_notice_show() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        $geoip_mock->geos = array();
+        $notice = 'poke';
+
+        // Test no notice name
+        $this->assertFalse($geoip_mock->helper_should_notice_show( null ));
+
+        // Test dismissal not set and GeoIP not active
+        $geoip_mock->geos['active'] = false;
+        $this->assertTrue($geoip_mock->helper_should_notice_show( $notice ));
+
+        // Test with dismissal not set but GeoIP active
+        $geoip_mock->geos['active'] = true;
+        $this->assertFalse($geoip_mock->helper_should_notice_show( $notice ));
+
+        // Test with dismissal set but GeoIP not active
+        add_user_meta( get_current_user_id(), GeoIP::TEXT_DOMAIN . '-notice-dismissed-' . $notice, true );
+        $geoip_mock->geos['active'] = false;
+        $this->assertTrue($geoip_mock->helper_should_notice_show( $notice ));
+
+        // Test with dismissal set and GeoIP active
+        $geoip_mock->geos['active'] = true;
+        $this->assertFalse($geoip_mock->helper_should_notice_show( $notice ));
+    }
 }
