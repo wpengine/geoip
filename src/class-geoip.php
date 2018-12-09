@@ -68,7 +68,7 @@ class GeoIp {
 	 *
 	 * @var array
 	 */
-	private $admin_notices;
+	public $admin_notices;
 
 	/**
 	 * Text Domain.

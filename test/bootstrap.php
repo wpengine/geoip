@@ -5,6 +5,21 @@
  * @package wpengine-geoip
  */
 
+/**
+ * Set some GeoIP environment vars
+ */
+putenv('HTTP_GEOIP_COUNTRY_CODE=US');
+putenv('HTTP_GEOIP_COUNTRY_NAME=United States');
+putenv('HTTP_GEOIP_LATITUDE=30.40000');
+putenv('HTTP_GEOIP_LONGITUDE=-97.75280');
+putenv('HTTP_GEOIP_REGION=TX');
+putenv('HTTP_GEOIP_CITY=Austin');
+putenv('HTTP_GEOIP_POSTAL_CODE=78759');
+
+
+/**
+ * Set WordPress test environment location
+ */
 $_tests_dir = '/wordpress/tests/phpunit/includes';
 
 /**

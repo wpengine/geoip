@@ -99,6 +99,34 @@ class GeoIp_Test extends \WP_UnitTestCase {
         );
     }
 
+    public function test_setup() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array( 'get_actuals', 'get_test_parameters' ) )
+            ->getMock();
+
+        $geoip_mock->geos = $expected_geos = array(
+            'countrycode' => "learn your abc\'s",
+            'region' => 'easy as',
+            'city' => '123',
+            'postalcode' => 'simple as',
+            'latitude' => 'do-re-me',
+            'longitude' => 'you and me',
+        );
+
+        $expected_geos['countrycode'] = "learn your abc's";
+
+        $geoip_mock->method( 'get_actuals' )
+            ->willReturn( $geoip_mock->geos );
+
+        $geoip_mock->method( 'get_test_parameters' )
+            ->willReturn( $geoip_mock->geos );
+
+        $geoip_mock->setup();
+        $this->assertEquals($expected_geos, $geoip_mock->geos);
+        $this->assertInternalType('array', $geoip_mock->admin_notices);
+    }
+
     /**
      * Test enqueue_admin_js
      */
@@ -140,11 +168,23 @@ class GeoIp_Test extends \WP_UnitTestCase {
 	 * Test display of admin notice
 	 */
 	public function test_action_admin_notices() {
-		ob_start();
-		$geo = new self::$class_name();
-		$geo->setup();
-		$geo->action_admin_init_check_plugin_dependencies();
-		$geo->action_admin_notices();
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( null )
+            ->getMock();
+
+        $notice = 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.';
+        $geoip_mock->admin_notices = array(
+            'warning' => array(
+                'dependency' => sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . GeoIp::TEXT_DOMAIN ),
+            ),
+        );
+
+        ob_start();
+        $geoip_mock->action_admin_notices();
+        $actual_output = $this->getActualOutput();
+        ob_end_clean();
+
 		$expected_output = array(
 			'<div class="notice notice-warning wpengine-geoip is-dismissible" data-key="dependency">',
 			'<p>',
@@ -152,8 +192,7 @@ class GeoIp_Test extends \WP_UnitTestCase {
 			'</p>',
 			'</div>',
 		);
-		$actual_output = $this->getActualOutput();
-		ob_end_clean();
+
 		foreach ( $expected_output as $line ) {
 			$this->assertContains( $line, $actual_output );
 		}
@@ -422,5 +461,60 @@ class GeoIp_Test extends \WP_UnitTestCase {
         // Test with dismissal set and GeoIP active
         $geoip_mock->geos['active'] = true;
         $this->assertFalse($geoip_mock->helper_should_notice_show( $notice ));
+    }
+
+    public function test_action_admin_init_check_plugin_dependencies() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array('helper_should_notice_show') )
+            ->getMock();
+
+        $geoip_mock->method( 'helper_should_notice_show' )
+            ->will( $this->onConsecutiveCalls(false, true) );
+
+        $geoip_mock->admin_notices = $expected = array(
+            'info'    => array(),
+            'error'   => array(),
+            'success' => array(),
+            'warning' => array(),
+        );
+
+        // Test without an admin notice
+        $geoip_mock->action_admin_init_check_plugin_dependencies();
+        $this->assertEquals($expected, $geoip_mock->admin_notices);
+
+        // Test with an admin notice
+        $notice = 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.';
+        $expected['warning'] = array(
+            'dependency' => sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . GeoIp::TEXT_DOMAIN ),
+        );
+        $geoip_mock->action_admin_init_check_plugin_dependencies();
+        $this->assertEquals($expected, $geoip_mock->admin_notices);
+    }
+
+    public function test_get_actuals() {
+        $geoip_mock = $this->getMockBuilder( self::$class_name )
+            ->disableOriginalConstructor()
+            ->setMethods( array('continent') )
+            ->getMock();
+
+        $geoip_mock->method( 'continent' )
+            ->willReturn( 'NA' );
+
+        $expected = array(
+            'countrycode' => 'US',
+            'countrycode3' => false,
+            'countryname' => 'United States',
+            'latitude' => '30.40000',
+            'longitude' => '-97.75280',
+            'areacode' => false,
+            'region' => 'TX',
+            'city' => 'Austin',
+            'postalcode' => '78759',
+            'active' => true,
+            'continent' => 'NA',
+        );
+        $actual = $geoip_mock->get_actuals();
+        $this->assertEquals($expected, $actual);
     }
 }
