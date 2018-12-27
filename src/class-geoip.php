@@ -68,7 +68,7 @@ class GeoIp {
 	 *
 	 * @var array
 	 */
-	private $admin_notices;
+	public $admin_notices;
 
 	/**
 	 * Text Domain.
@@ -483,7 +483,7 @@ class GeoIp {
 
 		$city = $this->city();
 		if ( isset( $city ) && ! empty( $city ) ) {
-			return trim( $this->city() . ', ' . $this->region() . ' ' . $this->country() );
+			return trim( $city . ', ' . $this->region() . ' ' . $this->country() );
 		}
 		// Fallback.
 		return trim( $this->region() . ' ' . $this->country() );
@@ -682,7 +682,7 @@ class GeoIp {
 	 * @param  string $notice Key of the notice we're testing for.
 	 * @return bool           Should we show the notice or not.
 	 */
-	protected function helper_should_notice_show( $notice ) {
+	public function helper_should_notice_show( $notice ) {
 		if ( ! $notice ) {
 			return false;
 		}
@@ -702,7 +702,7 @@ class GeoIp {
 	 * @param  string $label The address label that needs a synonym.
 	 * @return string label
 	 */
-	private function match_label_synonyms( $label ) {
+	public function match_label_synonyms( $label ) {
 
 		if ( 'country' === $label ) {
 			$label = 'countrycode';

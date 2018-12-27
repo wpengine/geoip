@@ -31,7 +31,6 @@ composer_update:
 test:
 	$(DOCKER_RUN) $(WP_TEST_IMAGE) $(VENDOR_BIN_DIR)/phpunit test/integration
 
-
 get_version:
 	@awk '/Version:/{printf $$NF}' ./src/class-geoip.php
 
