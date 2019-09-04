@@ -21,6 +21,7 @@ function replace_previous_plugin_filename() {
 	foreach ( $active_plugins as $key => $active_plugin ) {
 		if ( strstr( $active_plugin, '/wpengine-geoip.php' ) ) {
 			$active_plugins[ $key ] = str_replace( '/wpengine-geoip.php', '/class-geoip.php', $active_plugin );
+			break;
 		}
 	}
 	update_option( 'active_plugins', $active_plugins );

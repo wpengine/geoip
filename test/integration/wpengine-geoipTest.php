@@ -20,4 +20,22 @@ class wpengineGeoipTest extends \WP_UnitTestCase
         $actual = get_option( 'active_plugins', array() );
         $this->assertEquals($expected, $actual);
     }
+
+    public function test_activate_when_multiple_active_plugins() {
+        $active_plugins = array(
+            '/foo.php',
+            '/wpengine-geoip.php',
+            '/bar.php'
+        );
+        update_option( 'active_plugins', $active_plugins );
+
+        replace_previous_plugin_filename();
+        $expected = array(
+            '/foo.php',
+            '/class-geoip.php',
+            '/bar.php'
+        );
+        $actual = get_option( 'active_plugins', array() );
+        $this->assertEquals($expected, $actual);
+    }
 }
