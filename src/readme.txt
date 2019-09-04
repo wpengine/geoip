@@ -2,8 +2,8 @@
 Contributors: wpengine, markkelnar, stevenkword, stephenlin, ryanshoover, taylor4484, nateinaction
 Tags: wpe, wpengine, geotarget, geoip, localization, geolocation
 Requires at least: 3.0.1
-Tested up to: 5.0
-Stable tag: 1.2.6
+Tested up to: 5.2
+Stable tag: 1.2.7
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -262,6 +262,10 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 2. An example post using GeoTarget shortcodes
 
 == Changelog ==
+
+= 1.2.7 =
+- Optimize plugin name rename loop
+- Bump for WP 5.2 compatibility
 
 = 1.2.6 =
 - Bump for WP 5.0 compatibility
