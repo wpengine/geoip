@@ -52,7 +52,7 @@ svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
-BUILD_SRC="$WORKDIR/build/$SLUG"
+BUILD_SRC="$WORKDIR/src"
 # Copy from current branch to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
 rsync -rc "$BUILD_SRC/" trunk/ --delete
