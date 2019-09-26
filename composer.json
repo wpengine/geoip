@@ -5,11 +5,10 @@
     "license": "GPL-2.0-or-later",
     "require": {},
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.3",
-        "phpcompatibility/php-compatibility": "^8.2",
-        "phpunit/phpunit": "^6.5",
-        "johnkary/phpunit-speedtrap": "^2.0",
-        "wp-coding-standards/wpcs": "^1.2",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4"
+        "squizlabs/php_codesniffer": "^3.4",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpunit/phpunit": "^7.5",
+        "wp-coding-standards/wpcs": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5"
     }
 }

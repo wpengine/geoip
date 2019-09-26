@@ -1,19 +1,4 @@
 <phpunit colors="true" bootstrap="test/bootstrap.php" convertNoticesToExceptions="true">
-    <listeners>
-        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
-            <arguments>
-                <array>
-                    <element key="slowThreshold">
-                        <integer>250</integer>
-                    </element>
-                    <element key="reportLength">
-                        <integer>5</integer>
-                    </element>
-                </array>
-            </arguments>
-        </listener>
-    </listeners>
-
     <logging>
         <log type="coverage-html" target="build/logs/code_coverage"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>

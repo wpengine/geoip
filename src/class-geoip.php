@@ -212,8 +212,8 @@ class GeoIp {
 	 * @return array       Modified version of the GeoTarget location array based on url parameters
 	 */
 	public function get_test_parameters( $geos ) {
-
-		$params = $_GET; // WPCS: CSRF ok.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$params = $_GET;
 
 		if ( ! isset( $params['geoip'] ) ) {
 			return $geos;
