@@ -76,6 +76,11 @@ svn cp "trunk" "tags/$VERSION"
 
 svn status
 
-# echo "➤ Committing files..."
-# svn commit -m "Update to version $VERSION from TravisCI" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
-#echo "✓ Plugin deployed!"
+if [[ -z "$DEPLOY" ]]; then
+	echo "Set DEPLOY to deploy to SVN"
+	exit 1
+fi
+
+echo "➤ Committing files..."
+svn commit -m "Update to version $VERSION from TravisCI" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+echo "✓ Plugin deployed!"
