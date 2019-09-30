@@ -1,4 +1,4 @@
-.PHONY: test build
+.PHONY: test build deploy
 
 # User editable vars
 PLUGIN_NAME := wpengine-geoip
@@ -7,6 +7,8 @@ PLUGIN_NAME := wpengine-geoip
 DOCKER_RUN := @docker run --rm -v `pwd`:/workspace
 WP_TEST_IMAGE := worldpeaceio/wordpress-integration:5.2-php7.2
 COMPOSER_IMAGE := -v `pwd`:/app -v ~/.composer/cache:/tmp/cache:delegated composer
+DEPLOY_IMAGE := wp-deploy
+DEPLOY_ENV_VARS = -e SVN_USER -e SVN_PASSWORD -e SLUG="$(PLUGIN_NAME)" -e VERSION="$(shell make get_version)"
 VENDOR_BIN_DIR := /workspace/vendor/bin
 BUILD_DIR := ./build
 
@@ -40,3 +42,7 @@ build:
 	mkdir -p $(BUILD_DIR)/$(PLUGIN_NAME)
 	rsync -r src/ $(BUILD_DIR)/$(PLUGIN_NAME)
 	cd $(BUILD_DIR)/ && zip -r $(PLUGIN_NAME)-$(shell make get_version).zip $(PLUGIN_NAME)
+
+deploy:
+	docker build -t $(DEPLOY_IMAGE) deploy
+	$(DOCKER_RUN) $(DEPLOY_ENV_VARS) $(DEPLOY_IMAGE)
