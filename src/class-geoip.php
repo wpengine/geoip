@@ -510,7 +510,7 @@ class GeoIp {
 			$negate        = 0;
 			$inline_negate = 0;
 
-			// Check to see if the attribute has "not" in it.
+			// Check to see if the attribute has "not-" or "not_" in it.
 			$negate = preg_match( '/not?[-_]?(.*)/', $label, $matches );
 
 			// WordPress doesn't like a dash in shortcode parameter labels.
