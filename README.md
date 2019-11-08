@@ -104,7 +104,7 @@ This will display “Content just for everyone in Texas and California” strict
 
 You can mix and match geography and negative geography options to create verbose logic in a single shortcode:
 
-> [geoip-content country="US" not-city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]
+> [geoip-content country="US" not_city="Austin"]Content for US visitors but not for visitors in Austin[/geoip-content]
 
 #### Limitation
 
