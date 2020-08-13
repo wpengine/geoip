@@ -245,7 +245,7 @@ class GeoIp {
 
 		$continent = '';
 
-		if ( empty( $country ) ) {
+		if ( empty( $country ) && ! empty( $this->geos['countrycode'] ) ) {
 			$country = $this->geos['countrycode'];
 		}
 
