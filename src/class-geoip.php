@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoTarget
- * Version: 1.2.7
+ * Version: 1.2.8
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -245,7 +245,7 @@ class GeoIp {
 
 		$continent = '';
 
-		if ( empty( $country ) ) {
+		if ( empty( $country ) && ! empty( $this->geos['countrycode'] ) ) {
 			$country = $this->geos['countrycode'];
 		}
 
