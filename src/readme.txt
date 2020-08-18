@@ -264,7 +264,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 == Changelog ==
 
 = 1.2.8 =
-- Fix for development sites that call the `get_continent` method
+- Fix for development sites that call the `continent` method
 - Bump for WP 5.5 compatibility
 
 = 1.2.7 =
