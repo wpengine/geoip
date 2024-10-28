@@ -2,7 +2,9 @@
 
 namespace WPEngine;
 
-class wpengineGeoipTest extends \WP_UnitTestCase
+require_once 'src/wpengine-geoip.php';
+
+class wpengine_geoipTest extends \WP_UnitTestCase
 {
     /**
      * Verify that wpengine-geoip correctly replaces the old plugin filename

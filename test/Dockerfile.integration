@@ -6,9 +6,17 @@ ARG PHP_MAJOR_VERSION
 RUN set -ex; \
     apt-get update && apt-get install -qq -y --fix-missing --no-install-recommends \
         mariadb-client \
-        mariadb-server; \
+        mariadb-server \
+        curl; \
     apt-get clean; \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /srv/provision/;
+
+# Install node and npm for dev assets
+RUN curl -fsSL https://deb.nodesource.com/setup_23.x | bash - && \
+    apt-get install -y nodejs \
+    build-essential && \
+    node --version && \ 
+    npm --version
 
 # Install and enable xdebug
 RUN set -ex; \
@@ -22,6 +30,10 @@ RUN set -ex; \
     mkdir /wordpress; \
     tar -xf /wordpress.tar.gz -C /wordpress --strip-components=1; \
     rm /wordpress.tar.gz;
+
+RUN cd /wordpress; \
+    npm i; \
+    npm run build:dev;
 
 # Env vars
 ENV WORDPRESS_DB_NAME wordpress
