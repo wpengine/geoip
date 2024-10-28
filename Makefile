@@ -5,7 +5,7 @@ PLUGIN_NAME := wpengine-geoip
 
 # Shortcuts
 DOCKER_RUN := docker run --rm -v `pwd`:/workspace
-WP_TEST_IMAGE := worldpeaceio/wordpress-integration:5.2-php7.2
+WP_TEST_IMAGE := test-image
 COMPOSER_IMAGE := -v `pwd`:/app -v ~/.composer/cache:/tmp/cache:delegated composer
 DEPLOY_IMAGE := wp-deploy
 DEPLOY_ENV_VARS = -e SVN_USERNAME -e SVN_PASSWORD -e SLUG="$(PLUGIN_NAME)" -e VERSION="$(shell make get_version)" -e DEPLOY
@@ -13,13 +13,19 @@ VENDOR_BIN_DIR := /workspace/vendor/bin
 BUILD_DIR := ./build
 
 # Commands
-all: composer_install lint test
+all: composer_install build-test lint test
 
 shell:
 	$(DOCKER_RUN) -it --entrypoint "/bin/bash" $(WP_TEST_IMAGE)
 
 composer_install:
 	$(DOCKER_RUN) $(COMPOSER_IMAGE) install
+
+build-test:
+	docker build \
+	--file ./test/Dockerfile.integration \
+	--tag $(WP_TEST_IMAGE) \
+	.
 
 lint:
 	$(DOCKER_RUN) --entrypoint "$(VENDOR_BIN_DIR)/phpcs" $(WP_TEST_IMAGE) src
