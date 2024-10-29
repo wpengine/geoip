@@ -4,8 +4,9 @@
  * Version: 1.2.9
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
- * Author URI: http://wpengine.com
- * Plugin URI: https://wordpress.org/plugins/wpengine-geoip/
+ * Author URI: https://wpengine.com
+ * Plugin URI: https://wpengine.com
+ * Update URI: false
  * Text Domain: wpengine-geoip
  * Domain Path: /languages
  *
@@ -108,6 +109,9 @@ class GeoIp {
 
 		// Enqueue our javascript.
 		add_action( 'admin_enqueue_scripts', array( self::instance(), 'enqueue_admin_js' ) );
+
+		// Check for updates.
+		add_action( 'admin_init', array( self::instance(), 'check_for_upgrades' ) );
 
 		// Check for dependencies.
 		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late.
@@ -626,6 +630,19 @@ class GeoIp {
 			$notice                                        = __( 'WP Engine GeoTarget requires a <a href="%s">WP Engine account</a> with GeoTarget enabled for full functionality. Only testing queries will work on this site.', 'wpengine-geoip' );
 			$this->admin_notices['warning'][ $notice_key ] = sprintf( $notice, 'http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN );
 		}
+	}
+
+	/**
+	 * Initialize the checking for plugin updates.
+	 */
+	public function check_for_upgrades() {
+		$properties = array(
+			'plugin_slug'     => 'wpengine-geoip',
+			'plugin_basename' => plugin_basename( __FILE__ ), 
+		);
+
+		require_once __DIR__ . '/class-PluginUpdater.php';
+		new \WPEngine\Updates\PluginUpdater( $properties );
 	}
 
 	/**
