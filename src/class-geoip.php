@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Engine GeoTarget
- * Version: 1.2.8
+ * Version: 1.2.9
  * Description: Create a personalized user experienced based on location.
  * Author: WP Engine
  * Author URI: http://wpengine.com
@@ -174,7 +174,7 @@ class GeoIp {
 		}
 
 		wp_enqueue_script( self::TEXT_DOMAIN . '-admin-js', plugins_url( 'js/admin.js', __FILE__ ), null, self::VERSION, true );
-		wp_localize_script( self::TEXT_DOMAIN . '-admin-js', 'nonce', wp_create_nonce( self::TEXT_DOMAIN ) );
+		wp_localize_script( self::TEXT_DOMAIN . '-admin-js', 'nonce', array( wp_create_nonce( self::TEXT_DOMAIN ) ) );
 	}
 
 	/**
