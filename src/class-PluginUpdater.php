@@ -4,7 +4,7 @@
  * @package wpengine-geoip
  */
 
-namespace WPEngine\Updates;
+namespace WPEngine\GeoIP\Updates;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

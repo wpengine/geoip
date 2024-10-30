@@ -264,9 +264,10 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 == Changelog ==
 
 = 1.2.9 =
-- Local development Fixes
-- Fix for `wp_localize_script` being called without expected parameter type
-- Bump for WP 6.6 compatibility
+- Updates are now served from WP Engine servers.
+- Local development fixes.
+- Fix for `wp_localize_script` being called without expected parameter type.
+- Bump for WP 6.6 compatibility.
 
 = 1.2.8 =
 - Fix for development sites that call the `continent` method

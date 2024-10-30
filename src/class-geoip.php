@@ -642,7 +642,7 @@ class GeoIp {
 		);
 
 		require_once __DIR__ . '/class-PluginUpdater.php';
-		new \WPEngine\Updates\PluginUpdater( $properties );
+		new \WPEngine\GeoIP\Updates\PluginUpdater( $properties );
 	}
 
 	/**
