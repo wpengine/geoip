@@ -641,7 +641,7 @@ class GeoIp {
 			'plugin_basename' => plugin_basename( __FILE__ ),
 		);
 
-		require_once __DIR__ . '/class-PluginUpdater.php';
+		require_once __DIR__ . '/class-pluginupdater.php';
 		new \WPEngine\GeoIP\Updates\PluginUpdater( $properties );
 	}
 
