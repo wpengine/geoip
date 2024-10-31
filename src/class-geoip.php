@@ -638,7 +638,7 @@ class GeoIp {
 	public function check_for_upgrades() {
 		$properties = array(
 			'plugin_slug'     => 'wpengine-geoip',
-			'plugin_basename' => plugin_basename( __FILE__ ), 
+			'plugin_basename' => plugin_basename( __FILE__ ),
 		);
 
 		require_once __DIR__ . '/class-PluginUpdater.php';

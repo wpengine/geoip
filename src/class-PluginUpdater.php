@@ -1,6 +1,7 @@
 <?php
 /**
  * The PluginUpdater class which can be used to pull plugin updates from a new location.
+ *
  * @package wpengine-geoip
  */
 
@@ -19,18 +20,21 @@ use stdClass;
 class PluginUpdater {
 	/**
 	 * The URL where the api is located.
+	 *
 	 * @var string
 	 */
 	private $api_url;
 
 	/**
 	 * The amount of time to wait before checking for new updates.
+	 *
 	 * @var int
 	 */
 	private $cache_time;
 
 	/**
 	 * These properties are passed in when instantiating to identify the plugin and it's update location.
+	 *
 	 * @var array
 	 */
 	private $properties;
