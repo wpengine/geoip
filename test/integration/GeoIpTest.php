@@ -10,7 +10,7 @@ namespace WPEngine;
 /**
  * Unit tests for GeoIP class
  */
-class GeoIp_Test extends \WP_UnitTestCase {
+class GeoIpTest extends \WP_UnitTestCase {
 
 	/**
 	 * Name of class under test
@@ -79,12 +79,12 @@ class GeoIp_Test extends \WP_UnitTestCase {
         // Test that the plugin adds the action via constructor side effect
         $geoip = GeoIp::instance();
         $priority = has_action( $hook, array( $geoip, $method_name ) );
-        $this->assertInternalType( 'int', $priority );
+        $this->assertIsInt( $priority );
 
         // remove and readd action using init then test
         remove_action( $hook, array( $geoip, $method_name ), $priority );
         $geoip::init();
-        $this->assertInternalType( 'int', has_action( $hook, array( $geoip, $method_name ) ) );
+        $this->assertIsInt( has_action( $hook, array( $geoip, $method_name ) ) );
     }
 
     public function data_test_init()
@@ -124,7 +124,7 @@ class GeoIp_Test extends \WP_UnitTestCase {
 
         $geoip_mock->setup();
         $this->assertEquals($expected_geos, $geoip_mock->geos);
-        $this->assertInternalType('array', $geoip_mock->admin_notices);
+        $this->assertIsArray( $geoip_mock->admin_notices );
     }
 
     /**
@@ -161,7 +161,7 @@ class GeoIp_Test extends \WP_UnitTestCase {
         if (isset($wp_dependency->extra['data'])) {
             $nonce_var_string = $wp_dependency->extra['data'];
         }
-        $this->assertContains('nonce', $nonce_var_string);
+        $this->assertStringContainsString('nonce', $nonce_var_string);
     }
 
 	/**
@@ -194,7 +194,7 @@ class GeoIp_Test extends \WP_UnitTestCase {
 		);
 
 		foreach ( $expected_output as $line ) {
-			$this->assertContains( $line, $actual_output );
+			$this->assertStringContainsString( $line, $actual_output );
 		}
 	}
 
@@ -314,8 +314,8 @@ class GeoIp_Test extends \WP_UnitTestCase {
         $geoip_mock->method( 'city' )
             ->will( $this->onConsecutiveCalls(null, $city) );
 
-        $this->assertEquals("${region} ${country}", $geoip_mock->do_shortcode_location(null));
-        $this->assertEquals("${city}, ${region} ${country}", $geoip_mock->do_shortcode_location(null));
+        $this->assertEquals("{$region} {$country}", $geoip_mock->do_shortcode_location(null));
+        $this->assertEquals("{$city}, {$region} {$country}", $geoip_mock->do_shortcode_location(null));
     }
 
     public function test_compare_location_type() {

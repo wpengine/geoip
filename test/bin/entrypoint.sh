@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+WORDPRESS_DB_PASS=${WORDPRESS_DB_PASS}
+WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+
+# Start and configure mysql
+service mariadb start
+mariadb -e "CREATE DATABASE ${WORDPRESS_DB_NAME};" -uroot
+mariadb -e "GRANT ALL PRIVILEGES ON *.* TO '${WORDPRESS_DB_USER}'@'${WORDPRESS_DB_HOST}' IDENTIFIED BY '${WORDPRESS_DB_PASS}';"
+
+# Run docker command
+eval "${@}"

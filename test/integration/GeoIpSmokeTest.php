@@ -8,9 +8,9 @@
 namespace WPEngine;
 
 /**
- * Unit tests for GeoIP class
+ * Smoke tests for GeoIP class
  */
-class GeoIp_SmokeTest extends \WP_UnitTestCase {
+class GeoIpSmokeTest extends \WP_UnitTestCase {
     public function test_shortcode_continent() {
         $this->assertEquals('NA', do_shortcode('[geoip-continent]'));
     }
