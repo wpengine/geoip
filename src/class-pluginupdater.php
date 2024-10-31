@@ -49,6 +49,7 @@ class PluginUpdater {
 			empty( $properties['plugin_slug'] ) ||
 			empty( $properties['plugin_basename'] )
 		) {
+			// phpcs:ignore
 			error_log( 'WPE Secure Plugin Updater received a malformed request.' );
 			return;
 		}
