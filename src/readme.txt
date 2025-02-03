@@ -264,7 +264,7 @@ Please contact the WP Engine [Support Team](https://my.wpengine.com/support).
 == Changelog ==
 
 = 1.2.9 =
-- Updates are now served from WP Engine servers.
+- Updates are now served from WP Engine servers when installed directly. This does not apply to WordPress.org installs.
 - Local development fixes.
 - Fix for `wp_localize_script` being called without expected parameter type.
 - Bump for WP 6.6 compatibility.
