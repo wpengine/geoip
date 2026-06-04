@@ -7,7 +7,7 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.4",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpunit/phpunit": "^9.6.21",
+        "phpunit/phpunit": "9.6.34",
         "wp-coding-standards/wpcs": "^2.1",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "yoast/phpunit-polyfills": "^3.0"
